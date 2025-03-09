@@ -16,24 +16,23 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '8.0.x'
-
-      - name: Restore Dependencies
-        run: dotnet restore
+      - name: Setup MSBuild
+        run: |
+          choco install visualstudio2019buildtools --version 16.11.4 --package-parameters "--add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --add Microsoft.VisualStudio.Component.Windows10SDK.18362" -y
+          echo "MSBuild Installed"
 
       - name: Build Solution
-        run: dotnet build --configuration Release --no-restore
+        run: |
+          MSBuild D:\a\TODO-APP\TODO-APP\TODO.csproj /p:Configuration=Release /p:Platform="x64" /p:OutputPath=./bin/Release
 
       - name: Run Unit Tests
-        run: dotnet test --configuration Release --no-build --verbosity normal
+        run: |
+          dotnet test --configuration Release --no-build --verbosity normal
 
       - name: Publish Application
         run: |
-          dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -o ./publish
-          
+          MSBuild D:\a\TODO-APP\TODO-APP\TODO.csproj /p:Configuration=Release /p:Platform="x64" /p:PublishDir=./publish
+
       - name: Create Git Tag
         run: |
           git tag -a v$(date +'%Y%m%d%H%M%S') -m "Automated release"
@@ -45,4 +44,3 @@ jobs:
           files: ./publish/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
