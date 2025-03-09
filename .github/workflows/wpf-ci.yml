@@ -16,10 +16,8 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Setup MSBuild
-        run: |
-          choco install visualstudio2019buildtools --version 16.11.4 --package-parameters "--add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --add Microsoft.VisualStudio.Component.Windows10SDK.18362" -y
-          echo "MSBuild Installed"
+      - name: Set up MSBuild
+        uses: microsoft/setup-msbuild@v1.0.2
 
       - name: Build Solution
         run: |
