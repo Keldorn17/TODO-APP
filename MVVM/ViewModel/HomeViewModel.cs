@@ -24,7 +24,7 @@ namespace TODO.MVVM.ViewModel
             AddTodoItem(2, "title2", "description2");
         }
 
-        public void AddTodoItem(int id, string title, string description, bool isCompleted = false)
+        public void AddTodoItem(long id, string title, string description, bool isCompleted = false)
         {
             TodoItems.Add(new TodoItem { Id = id, Title = title, Description = description, IsCompleted = isCompleted });
         }
