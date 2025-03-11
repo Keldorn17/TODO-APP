@@ -24,5 +24,10 @@ namespace TODO
         {
             InitializeComponent();
         }
+
+        private void Btn_Exit(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Shutdown();
+        }
     }
 }
