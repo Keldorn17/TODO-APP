@@ -14,6 +14,7 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}" Width="200"/>
+                    <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}" Width="200"/>
                     <GridViewColumn Header="Completed">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
