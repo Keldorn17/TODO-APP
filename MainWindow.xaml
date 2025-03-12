@@ -5,16 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TODO"
         xmlns:viewModel="clr-namespace:TODO.MVVM.ViewModel"
+        xmlns:utils="clr-namespace:TODO.Utlis"
         mc:Ignorable="d"
         Height="600" Width="920"
         WindowStyle="None"
-        ResizeMode="NoResize"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        ResizeMode="CanResize"
         Background="Transparent"
         AllowsTransparency="True">
 
     <Window.DataContext>
         <viewModel:MainViewModel/>
     </Window.DataContext>
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome GlassFrameThickness="0"
+                      CornerRadius="0"
+                      CaptionHeight="0"/>
+    </WindowChrome.WindowChrome>
     
     <Border Background="#272537"
             CornerRadius="10">
@@ -58,35 +66,55 @@
 
             </StackPanel>
 
-            <TextBox Width="250"
-                     Height="40"
-                     VerticalAlignment="Center"
-                     HorizontalAlignment="Left"
-                     Margin="5"
-                     Grid.Column="1"
-                     Style="{StaticResource TextboxTheme}"/>
-            
-            <Button Width="40" 
-                    Height="40" 
-                    HorizontalAlignment="Right" 
-                    VerticalAlignment="Center" 
-                    Margin="10"
-                    Background="Transparent" 
-                    BorderThickness="0"
-                    Grid.Column="1">
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Border Width="40" Height="40" CornerRadius="20"
-                            BorderBrush="White" BorderThickness="2">
-                            <Ellipse>
-                                <Ellipse.Fill>
-                                    <ImageBrush ImageSource="/Images/download.jpg"/>
-                                </Ellipse.Fill>
-                            </Ellipse>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
+            <Grid Grid.Row="0" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="90"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <TextBox Width="250"
+                         Height="40"
+                         VerticalAlignment="Center"
+                         HorizontalAlignment="Left"
+                         Margin="5"
+                         Grid.Column="0"
+                         Grid.RowSpan="2"
+                         Style="{StaticResource TextboxTheme}"/>
+
+                <Button Grid.Column="1" Style="{StaticResource CircularImageButton}"
+                        utils:ButtonUtils.ImageSource="/Images/download.jpg"
+                        Grid.RowSpan="2"/>
+
+                <StackPanel Grid.Column="2" Grid.Row="0"
+                            Orientation="Horizontal">
+                    <Button x:Name="btnMinimize"
+                            Content="_" 
+                            Width="30" Height="30"
+                            BorderBrush="Transparent"
+                            Background="Transparent"
+                            Foreground="White"
+                            Click="Btn_Minimize"/>
+                    <Button x:Name="btnMaximize"
+                            Content="▢" 
+                            Width="30" Height="30"
+                            BorderBrush="Transparent"
+                            Background="Transparent"
+                            Foreground="White"
+                            Click="Btn_Maximize"/>
+                    <Button x:Name="btnClose"
+                            Content="X" 
+                            Width="30" Height="30"
+                            BorderBrush="Transparent"
+                            Background="Transparent"
+                            Foreground="White"
+                            Click="Btn_Exit"/>
+                </StackPanel>
+            </Grid>
 
             <ContentControl Grid.Row="1"
                             Grid.Column="1"
