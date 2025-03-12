@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TODO"
         xmlns:viewModel="clr-namespace:TODO.MVVM.ViewModel"
-        xmlns:utils="clr-namespace:TODO.Utlis"
+        xmlns:utils="clr-namespace:TODO.Utils"
         mc:Ignorable="d"
         Height="600" Width="920"
         WindowStyle="None"
@@ -70,11 +70,11 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="60"/>
-                    <ColumnDefinition Width="90"/>
+                    <ColumnDefinition Width="100"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
                 <TextBox Width="250"
@@ -91,28 +91,26 @@
                         Grid.RowSpan="2"/>
 
                 <StackPanel Grid.Column="2" Grid.Row="0"
-                            Orientation="Horizontal">
-                    <Button x:Name="btnMinimize"
-                            Content="_" 
-                            Width="30" Height="30"
-                            BorderBrush="Transparent"
-                            Background="Transparent"
-                            Foreground="White"
-                            Click="Btn_Minimize"/>
-                    <Button x:Name="btnMaximize"
-                            Content="▢" 
-                            Width="30" Height="30"
-                            BorderBrush="Transparent"
-                            Background="Transparent"
-                            Foreground="White"
-                            Click="Btn_Maximize"/>
-                    <Button x:Name="btnClose"
-                            Content="X" 
-                            Width="30" Height="30"
-                            BorderBrush="Transparent"
-                            Background="Transparent"
-                            Foreground="White"
-                            Click="Btn_Exit"/>
+                            Orientation="Horizontal"
+                            Margin="5 5 0 5">
+                    
+                    <utils:HoverButton 
+                        x:Name="btnMinimize"
+                        Content="_" 
+                        Style="{StaticResource ActionButton}"
+                        Click="Btn_Minimize"/>
+                    <utils:HoverButton
+                        x:Name="btnMaximize"
+                        Content="▢" 
+                        Style="{StaticResource ActionButton}"
+                        Click="Btn_Maximize"/>
+                    <utils:HoverButton
+                        x:Name="btnClose"
+                        Content="X"
+                        Style="{StaticResource ActionButton}"
+                        hoverColor="#d63650"
+                        Click="Btn_Exit"/>
+                    
                 </StackPanel>
             </Grid>
 

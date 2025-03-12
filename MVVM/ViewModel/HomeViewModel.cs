@@ -20,13 +20,40 @@ namespace TODO.MVVM.ViewModel
         public HomeViewModel()
         {
             TodoItems = new ObservableCollection<TodoItem>();
-            AddTodoItem(1, "title1", "description1");
-            AddTodoItem(2, "title2", "description2");
+            AddTodoItem(1, "Alma", "1kg almát kell venni.");
+            AddTodoItem(2, "Budipapír", "Elfogyott.");
+            AddTodoItem(3, "Hell Coffee", "Kell.");
         }
 
-        public void AddTodoItem(long id, string title, string description, bool isCompleted = false)
+        public void AddTodoItem(
+            long id,
+            string title,
+            string description,
+            bool isCompleted = false,
+            string owner = null,
+            string deadline = null,
+            string priority = null,
+            string category = null,
+            string createdAt = null,
+            string updatedAt = null,
+            string parent = null,
+            bool shared = false)
         {
-            TodoItems.Add(new TodoItem { Id = id, Title = title, Description = description, IsCompleted = isCompleted });
+            TodoItems.Add(new TodoItem
+            {
+                Id = id,
+                Title = title,
+                Description = description,
+                IsCompleted = isCompleted,
+                Owner = owner,
+                Deadline = deadline,
+                Priority = priority,
+                Category = category,
+                CreatedAt = createdAt,
+                UpdatedAt = updatedAt,
+                Parent = parent,
+                Shared = shared
+            });
         }
     }
 }
