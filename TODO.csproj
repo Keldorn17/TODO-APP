@@ -63,7 +63,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Helper\ButtonHelper.cs" />
+    <Compile Include="Utils\ButtonUtils.cs" />
     <Compile Include="Core\ObservableObject.cs" />
     <Compile Include="Core\RelayCommand.cs" />
     <Compile Include="MainWindow.xaml.cs">
@@ -124,9 +124,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\download.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\WhiteExit.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

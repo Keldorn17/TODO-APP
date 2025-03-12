@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows;
 
-namespace TODO.Helper
+namespace TODO.Utlis
 {
-    public static class ButtonHelper
+    public static class ButtonUtils
     {
         public static readonly DependencyProperty ImageSourceProperty =
-            DependencyProperty.RegisterAttached("ImageSource", typeof(ImageSource), typeof(ButtonHelper), new PropertyMetadata(null));
+            DependencyProperty.RegisterAttached("ImageSource", typeof(ImageSource), typeof(ButtonUtils), new PropertyMetadata(null));
 
         public static void SetImageSource(UIElement element, ImageSource value)
         {

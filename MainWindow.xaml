@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TODO"
         xmlns:viewModel="clr-namespace:TODO.MVVM.ViewModel"
-        xmlns:helper="clr-namespace:TODO.Helper"
+        xmlns:utils="clr-namespace:TODO.Utlis"
         mc:Ignorable="d"
         Height="600" Width="920"
         WindowStyle="None"
@@ -87,15 +87,9 @@
                          Style="{StaticResource TextboxTheme}"/>
 
                 <Button Grid.Column="1" Style="{StaticResource CircularImageButton}"
-                        helper:ButtonHelper.ImageSource="/Images/download.jpg"
+                        utils:ButtonUtils.ImageSource="/Images/download.jpg"
                         Grid.RowSpan="2"/>
 
-                <!--
-                <Button Grid.Column="2" Style="{StaticResource CircularImageButton}" 
-                        helper:ButtonHelper.ImageSource="/Images/WhiteExit.png"
-                        BorderThickness="0"
-                        Click="Btn_Exit"/>
-                -->
                 <StackPanel Grid.Column="2" Grid.Row="0"
                             Orientation="Horizontal">
                     <Button x:Name="btnMinimize"
