@@ -8,23 +8,14 @@
              d:DesignHeight="450" d:DesignWidth="800"
              Background="Transparent">
 
-    <!-- Layout container (Grid) to hold the ListView -->
-    <Grid Background="Transparent">
-        <ListView ItemsSource="{Binding TodoItems}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}" Width="200"/>
-                    <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}" Width="200"/>
-                    <GridViewColumn Header="Completed">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <CheckBox IsChecked="{Binding IsCompleted}" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
+    <Grid>
+        <ItemsControl ItemsSource="{Binding TodoItems}" ItemTemplate="{StaticResource TodoCardTemplate}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
     </Grid>
 
 </UserControl>
