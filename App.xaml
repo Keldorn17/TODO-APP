@@ -12,6 +12,8 @@
                 <ResourceDictionary Source="/Theme/TextboxTheme.xaml"/>
                 <ResourceDictionary Source="/Theme/CircularButton.xaml"/>
                 <ResourceDictionary Source="/Theme/ActionButton.xaml"/>
+                <ResourceDictionary Source="/Theme/TodoCard.xaml"/>
+                <ResourceDictionary Source="/Theme/ModernCheckBox.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">

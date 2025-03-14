@@ -8,6 +8,7 @@
         xmlns:utils="clr-namespace:TODO.Utils"
         mc:Ignorable="d"
         Height="600" Width="920"
+        MinHeight="600" MinWidth="920"
         WindowStyle="None"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
         ResizeMode="CanResize"
