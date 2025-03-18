@@ -23,47 +23,63 @@ namespace TODO.MVVM.ViewModel
             TodoItems = new ObservableCollection<TodoItem>();
             try
             {
-                AddTodoItem(1, "What is Lorem Ipsum?", "Lorem Ipsum is simply dummy text of the printing and typesetting industry.", new Priority { Level = 1 });
-                AddTodoItem(2, "Why do we use it?", "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.", new Priority { Level = 0 }, true);
-                AddTodoItem(3, "Where does it come from?", "The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.", new Priority { Level = 2 });
-                AddTodoItem(4, "Where can I get some?", "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.", new Priority { Level = 3 }, true);
-                AddTodoItem(5, "What is Lorem Ipsum?", "Lorem Ipsum is simply dummy text of the printing and typesetting industry.", new Priority { Level = 4 });
-            }
-            catch (System.ArgumentOutOfRangeException e)
-            {
-                System.Console.WriteLine(e.Message);
-            }
-        }
+                TodoItems.Add(new TodoItemBuilder()
+                    .SetId(1)
+                    .SetTitle("What is Lorem Ipsum?")
+                    .SetDescription("Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
+                    .SetPriority(1)
+                    .SetDeadline("2026-10-02T14:45:30.123456789+05:30")
+                    .Build());
 
-        public void AddTodoItem(
-            long id,
-            string title,
-            string description,
-            Priority priority,
-            bool isCompleted = false,
-            string owner = null,
-            string deadline = null,
-            string category = null,
-            string createdAt = null,
-            string updatedAt = null,
-            string parent = null,
-            bool shared = false)
-        {
-            TodoItems.Add(new TodoItem
+                TodoItems.Add(new TodoItemBuilder()
+                    .SetId(2)
+                    .SetTitle("Why do we use it?")
+                    .SetDescription("It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.")
+                    .SetIsCompleted(true)
+                    .Build());
+
+                TodoItems.Add(new TodoItemBuilder()
+                    .SetId(3)
+                    .SetTitle("Where does it come from?")
+                    .SetDescription("The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.")
+                    .SetPriority(2)
+                    .Build());
+
+                TodoItems.Add(new TodoItemBuilder()
+                    .SetId(4)
+                    .SetTitle("Where can I get some?")
+                    .SetDescription("There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.")
+                    .SetPriority(3)
+                    .SetIsCompleted(true)
+                    .Build());
+
+                TodoItems.Add(new TodoItemBuilder()
+                    .SetId(5)
+                    .SetTitle("What is Lorem Ipsum?")
+                    .SetDescription("Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
+                    .SetPriority(4)
+                    .Build());
+            }
+            catch (InvalidOperationException e)
             {
-                Id = id,
-                Title = title,
-                Description = description,
-                IsCompleted = isCompleted,
-                Owner = owner,
-                Deadline = deadline,
-                Priority = priority,
-                Category = category,
-                CreatedAt = createdAt,
-                UpdatedAt = updatedAt,
-                Parent = parent,
-                Shared = shared
-            });
+                Console.WriteLine($"Validation error: {e.Message}");
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                Console.WriteLine($"Invalid input: {e.Message}");
+            }
+            catch (ArgumentNullException e)
+            {
+                Console.WriteLine($"Invalid input: {e.Message}");
+            }
+            catch (FormatException e)
+            {
+                Console.WriteLine($"Invalid format: {e.Message}");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"An unexpected error occurred: {e.Message}");
+            }
         }
     }
 }

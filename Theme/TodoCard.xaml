@@ -9,7 +9,7 @@
     <local:PriorityToColorConverter x:Key="PriorityToColorConverter" />
 
     <DataTemplate x:Key="TodoCardTemplate">
-        <Border Background="#353340" CornerRadius="10" Padding="10" Margin="5" Width="220" Height="170">
+        <Border Background="#353340" CornerRadius="10" Padding="10" Margin="5" Width="210" Height="170">
             <Border.Effect>
                 <DropShadowEffect ShadowDepth="5" Color="#22202f" Opacity="0.5" />
             </Border.Effect>
@@ -22,7 +22,7 @@
                 <StackPanel VerticalAlignment="Top">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <CheckBox IsChecked="{Binding IsCompleted}" Style="{StaticResource ModernCheckBoxStyle}" Margin="5 0" />
-                        <TextBlock Text="{Binding Title}" FontWeight="Bold" FontSize="15" Foreground="LightGray" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" Width="155"/>
+                        <TextBlock Text="{Binding Title}" FontWeight="Bold" FontSize="15" Foreground="LightGray" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" Width="145"/>
                     </StackPanel>
 
                     <!-- Description -->

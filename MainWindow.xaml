@@ -54,7 +54,7 @@
                              Style="{StaticResource MenuButtonTheme}"
                              IsChecked="True"
                              Command="{Binding HomeViewCommand}"/>
-                <RadioButton Content="Menu 2"
+                <RadioButton Content="Shared"
                              Height="50"
                              Foreground="White"
                              FontSize="14"
@@ -97,12 +97,12 @@
                     
                     <utils:HoverButton 
                         x:Name="btnMinimize"
-                        Content="_" 
+                        Content="—" 
                         Style="{StaticResource ActionButton}"
                         Click="Btn_Minimize"/>
                     <utils:HoverButton
                         x:Name="btnMaximize"
-                        Content="▢" 
+                        Content="❐" 
                         Style="{StaticResource ActionButton}"
                         Click="Btn_Maximize"/>
                     <utils:HoverButton
