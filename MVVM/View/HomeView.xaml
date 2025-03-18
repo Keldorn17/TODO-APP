@@ -9,13 +9,15 @@
              Background="Transparent">
 
     <Grid>
-        <ItemsControl ItemsSource="{Binding TodoItems}" ItemTemplate="{StaticResource TodoCardTemplate}">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Horizontal" />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-        </ItemsControl>
+        <ScrollViewer CanContentScroll="True">
+            <ItemsControl ItemsSource="{Binding TodoItems}" ItemTemplate="{StaticResource TodoCardTemplate}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                 </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
 
 </UserControl>
