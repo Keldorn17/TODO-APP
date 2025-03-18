@@ -27,7 +27,7 @@ namespace TODO.MVVM.ViewModel
                     .SetId(1)
                     .SetTitle("What is Lorem Ipsum?")
                     .SetDescription("Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
-                    .SetPriority(1)
+                    .SetPriority(new Priority { Level = 1 })
                     .SetDeadline("2026-10-02T14:45:30.123456789+05:30")
                     .Build());
 
@@ -42,14 +42,14 @@ namespace TODO.MVVM.ViewModel
                     .SetId(3)
                     .SetTitle("Where does it come from?")
                     .SetDescription("The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.")
-                    .SetPriority(2)
+                    .SetPriority(new Priority { Level = 2 })
                     .Build());
 
                 TodoItems.Add(new TodoItemBuilder()
                     .SetId(4)
                     .SetTitle("Where can I get some?")
                     .SetDescription("There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.")
-                    .SetPriority(3)
+                    .SetPriority(new Priority { Level = 3 })
                     .SetIsCompleted(true)
                     .Build());
 
@@ -57,7 +57,7 @@ namespace TODO.MVVM.ViewModel
                     .SetId(5)
                     .SetTitle("What is Lorem Ipsum?")
                     .SetDescription("Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
-                    .SetPriority(4)
+                    .SetPriority(new Priority { Level = 4 })
                     .Build());
             }
             catch (InvalidOperationException e)

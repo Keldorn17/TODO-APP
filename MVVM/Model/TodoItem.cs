@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TODO.Utils;
 
 namespace TODO.MVVM.Model
 {
@@ -23,38 +24,6 @@ namespace TODO.MVVM.Model
         public Priority Priority { get; set; }
         public bool IsCompleted { get; set; }
         public bool Shared { get; set; }
-    }
-
-    /// <summary>
-    /// Represents the priority level of a to-do item.
-    /// </summary>
-    public class Priority
-    {
-        private int level;
-        public int Level {
-            get => level;
-            set 
-            {
-                if (value >= 0 && value <= 4)
-                {
-                    level = value;
-                }
-                else
-                {
-                    throw new ArgumentOutOfRangeException("Priority level must be between 0 and 4");
-                }
-            } 
-        }
-        public string Description { get; set; }
-        public string Name { get; set; }
-    }
-
-    /// <summary>
-    /// Represents the category of a to-do item.
-    /// </summary>
-    public class Category 
-    { 
-        public string Name { get; set; }
     }
 
     /// <summary>
@@ -90,25 +59,25 @@ namespace TODO.MVVM.Model
 
         public TodoItemBuilder SetDeadline(string deadline)
         {
-            todoItem.Deadline = DateTimeConverter(deadline);
+            todoItem.Deadline = DateTimeUtils.DateTimeConverter(deadline);
             return this;
         }
 
-        public TodoItemBuilder SetCategory(string name)
+        public TodoItemBuilder SetCategory(Category category)
         {
-            todoItem.Category = new Category { Name = name }; 
+            todoItem.Category = category; 
             return this;
         }
 
         public TodoItemBuilder SetCreatedAt(string createdAt)
         {
-            todoItem.CreatedAt = DateTimeConverter(createdAt);
+            todoItem.CreatedAt = DateTimeUtils.DateTimeConverter(createdAt);
             return this;
         }
 
         public TodoItemBuilder SetUpdatedAt(string updatedAt)
         {
-            todoItem.UpdatedAt = DateTimeConverter(updatedAt);
+            todoItem.UpdatedAt = DateTimeUtils.DateTimeConverter(updatedAt);
             return this;
         }
 
@@ -118,13 +87,9 @@ namespace TODO.MVVM.Model
             return this;
         }
 
-        public TodoItemBuilder SetPriority(int level, string name = "Not required", string description = "")
+        public TodoItemBuilder SetPriority(Priority priority)
         {
-            if (level < 0 || level > 4)
-            {
-                throw new ArgumentOutOfRangeException(nameof(level), "Priority level must be between 0 and 4.");
-            }
-            todoItem.Priority = new Priority { Level = level, Name = name, Description = description };
+            todoItem.Priority = priority;
             return this;
         }
 
@@ -158,39 +123,19 @@ namespace TODO.MVVM.Model
             {
                 todoItem.Category = new Category { Name = "General" };
             }
-            if (todoItem.Deadline == default(DateTimeOffset))
+            if (todoItem.Deadline == default)
             { 
                 todoItem.Deadline = DateTimeOffset.Now;
             }
-            else if (todoItem.Deadline < DateTimeOffset.Now)
-            {
-                throw new InvalidOperationException("Deadline cannot be in the past");
-            }
-            if (todoItem.CreatedAt == default(DateTimeOffset))
+            if (todoItem.CreatedAt == default)
             {
                 todoItem.CreatedAt = DateTimeOffset.Now;
             }
-            if (todoItem.UpdatedAt == default(DateTimeOffset))
+            if (todoItem.UpdatedAt == default)
             {
                 todoItem.UpdatedAt = DateTimeOffset.Now;
             }
             return todoItem;
-        }
-
-        public DateTimeOffset DateTimeConverter(string zonedTimeData) 
-        {
-            if (string.IsNullOrEmpty(zonedTimeData))
-            {
-                throw new ArgumentNullException(nameof(zonedTimeData), "Date-time string cannot be null or empty.");
-            }
-            if (DateTimeOffset.TryParse(zonedTimeData, out DateTimeOffset dateTimeOffset))
-            {
-                return dateTimeOffset.LocalDateTime;
-            }
-            else
-            {
-                throw new FormatException("Invalid date-time format.");
-            }
         }
     }
 }
