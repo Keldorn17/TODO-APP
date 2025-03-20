@@ -70,6 +70,7 @@
             <Grid Grid.Row="0" Grid.Column="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="60"/>
                     <ColumnDefinition Width="100"/>
                 </Grid.ColumnDefinitions>
@@ -87,11 +88,11 @@
                          Grid.RowSpan="2"
                          Style="{StaticResource TextboxTheme}"/>
 
-                <Button Grid.Column="1" Style="{StaticResource CircularImageButton}"
+                <Button Grid.Column="2" Style="{StaticResource CircularImageButton}"
                         utils:ButtonUtils.ImageSource="/Images/download.jpg"
                         Grid.RowSpan="2"/>
 
-                <StackPanel Grid.Column="2" Grid.Row="0"
+                <StackPanel Grid.Column="3" Grid.Row="0"
                             Orientation="Horizontal"
                             Margin="5 5 0 5">
                     
