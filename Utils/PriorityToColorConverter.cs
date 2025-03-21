@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Media;
 
@@ -20,13 +16,13 @@ namespace TODO.Utils
                     case 0:
                         return Brushes.Transparent;
                     case 1:
-                        return Brushes.Green;
+                        return (SolidColorBrush)App.Current.Resources["PriorityGreen"];
                     case 2:
-                        return Brushes.Yellow;
+                        return (SolidColorBrush)App.Current.Resources["PriorityYellow"];
                     case 3:
-                        return Brushes.Orange;
+                        return (SolidColorBrush)App.Current.Resources["PriorityOrange"];
                     case 4:
-                        return Brushes.Red;
+                        return (SolidColorBrush)App.Current.Resources["PriorityRed"];
                     default:
                         return Brushes.Transparent;
                 }

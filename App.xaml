@@ -8,13 +8,31 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Theme/MenuButtonTheme.xaml"/>
-                <ResourceDictionary Source="/Theme/TextboxTheme.xaml"/>
-                <ResourceDictionary Source="/Theme/CircularButton.xaml"/>
-                <ResourceDictionary Source="/Theme/ActionButton.xaml"/>
-                <ResourceDictionary Source="/Theme/TodoCard.xaml"/>
-                <ResourceDictionary Source="/Theme/ModernCheckBox.xaml"/>
-                <ResourceDictionary Source="/Theme/ScrollBarStyles.xaml"/>
+                <!-- Button Themes -->
+                <ResourceDictionary Source="/Themes/ButtonThemes/CircularButton.xaml"/>
+                <ResourceDictionary Source="/Themes/ButtonThemes/ActionButton.xaml"/>
+                <ResourceDictionary Source="/Themes/ButtonThemes/DropdownButton.xaml"/>
+                <ResourceDictionary Source="/Themes/ButtonThemes/MenuButtonTheme.xaml"/>
+                <ResourceDictionary Source="/Themes/ButtonThemes/DropdownSettingsButton.xaml"/>
+
+                <!-- SVG Geometries -->
+                <ResourceDictionary Source="/Themes/SVG/SVGGeometries.xaml"/>
+                
+                <!-- CheckBox Themes -->
+                <ResourceDictionary Source="/Themes/CheckBoxThemes/ModernCheckBox.xaml"/>
+
+                <!-- Generic Styles -->
+                <ResourceDictionary Source="/Themes/Styles/ScrollBarStyles.xaml"/>
+
+                <!-- Card Themes -->
+                <ResourceDictionary Source="/Themes/CardThemes/TodoCard.xaml"/>
+
+                <!-- Textbox Themes -->
+                <ResourceDictionary Source="/Themes/TextboxThemes/TextboxTheme.xaml"/>
+
+                <!-- Color Themes -->
+                <ResourceDictionary Source="/Themes/ColorThemes/PriorityColors.xaml"/>
+                <ResourceDictionary Source="/Themes/ColorThemes/DarkTheme.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">

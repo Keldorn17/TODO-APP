@@ -3,7 +3,7 @@
 
     <!-- CheckBox Style -->
     <Style x:Key="ModernCheckBoxStyle" TargetType="CheckBox">
-        <Setter Property="Foreground" Value="LightGray" />
+        <Setter Property="Foreground" Value="{DynamicResource SecondaryTextBrush}" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Left" />
@@ -15,7 +15,7 @@
                         <!-- Outer Border -->
                         <Border x:Name="OuterBorder"
                                 Background="Transparent"
-                                BorderBrush="#555555"
+                                BorderBrush="{DynamicResource CheckboxBorderBrush}"
                                 BorderThickness="2"
                                 CornerRadius="5"
                                 Width="20"
@@ -25,7 +25,7 @@
                             <!-- Inner Check Mark -->
                             <Path x:Name="CheckMark"
                                   Data="M 2 6 L 6 10 L 14 2"
-                                  Stroke="LightGray"
+                                  Stroke="{DynamicResource CheckboxMarkBrush}"
                                   StrokeThickness="2"
                                   StrokeStartLineCap="Round"
                                   StrokeEndLineCap="Round"
@@ -37,18 +37,18 @@
                     <ControlTemplate.Triggers>
                         <!-- Trigger for Checked State -->
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter TargetName="OuterBorder" Property="Background" Value="#666" />
-                            <Setter TargetName="OuterBorder" Property="BorderBrush" Value="#666" />
+                            <Setter TargetName="OuterBorder" Property="Background" Value="{DynamicResource CheckboxCheckedBrush}" />
+                            <Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource CheckboxCheckedBrush}" />
                             <Setter TargetName="CheckMark" Property="Visibility" Value="Visible" />
                         </Trigger>
                         <!-- Trigger for MouseOver State -->
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="OuterBorder" Property="BorderBrush" Value="#777777" />
+                            <Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource CheckboxHoverBrush}" />
                         </Trigger>
                         <!-- Trigger for Pressed State -->
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="OuterBorder" Property="Background" Value="#666" />
-                            <Setter TargetName="OuterBorder" Property="BorderBrush" Value="#666" />
+                            <Setter TargetName="OuterBorder" Property="Background" Value="{DynamicResource CheckboxCheckedBrush}" />
+                            <Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource CheckboxCheckedBrush}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

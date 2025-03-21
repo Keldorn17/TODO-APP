@@ -9,7 +9,11 @@
                         <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto" Fill="Transparent"/>
                         <Border x:Name="Rectangle" CornerRadius="5" HorizontalAlignment="Stretch" 
                                 VerticalAlignment="Stretch" Width="Auto" Height="Auto" 
-                                Background="{TemplateBinding Background}"/>
+                                Background="{TemplateBinding Background}">
+                            <Border.Effect>
+                                <DropShadowEffect ShadowDepth="1" Color="{DynamicResource DarkerContrastColor}" Opacity="0.5" />
+                            </Border.Effect>
+                        </Border>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="Tag" Value="Horizontal">
@@ -24,8 +28,8 @@
 
     <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
         <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
-        <Setter Property="Foreground" Value="#353340"/>
-        <Setter Property="Background" Value="#22202f"/>
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource SecondaryBrush}"/>
         <Setter Property="Width" Value="10"/>
         <Setter Property="Template">
             <Setter.Value>
