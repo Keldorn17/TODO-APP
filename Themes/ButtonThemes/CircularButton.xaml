@@ -15,7 +15,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border Width="40" Height="40" CornerRadius="20"
-                            BorderBrush="LightGray" 
+                            BorderBrush="{DynamicResource SecondaryTextBrush}" 
                             BorderThickness="{TemplateBinding BorderThickness}">
                         <!-- Bind to the Button's BorderThickness -->
                         <Ellipse>

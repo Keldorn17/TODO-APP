@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
+﻿using System.Windows.Media;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -33,7 +28,7 @@ namespace TODO.Utils
                  "hoverColor",
                  typeof(SolidColorBrush),
                  typeof(HoverButton),
-                 new PropertyMetadata(new BrushConverter().ConvertFrom("#5D5D5D"))
+                 new PropertyMetadata(new BrushConverter().ConvertFrom("#737373"))
             );
 
         public SolidColorBrush hoverColor

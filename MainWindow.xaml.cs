@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TODO.Utils;
 
 namespace TODO
 {
@@ -50,6 +51,16 @@ namespace TODO
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
+        }
+
+        private void Btn_ToggleTheme(object sender, RoutedEventArgs e)
+        {
+            Utils.ThemeManager.ToggleTheme();
+            var button = sender as Button;
+            if (button != null)
+            {
+                button.Content = ThemeManager.GetCurrentTheme() == "DarkTheme" ? "Switch to Light Theme" : "Switch to Dark Theme";
+            }
         }
     }
 }

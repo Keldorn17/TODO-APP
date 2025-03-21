@@ -5,7 +5,7 @@
     <Style x:Key="ActionButton" TargetType="{x:Type local:HoverButton}">
         <Setter Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource Self}, Path = bgColor}"/>
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/>
         <Setter Property="Width" Value="30"/>
         <Setter Property="Height" Value="30"/>
         <Setter Property="Template">

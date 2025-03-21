@@ -24,8 +24,8 @@
                       CornerRadius="0"
                       CaptionHeight="0"/>
     </WindowChrome.WindowChrome>
-    
-    <Border Background="#272537"
+
+    <Border Background="{DynamicResource MainWindowBrush}"
             CornerRadius="10">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -37,31 +37,31 @@
                 <RowDefinition Height="75"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            
+
             <TextBlock Text="Todo App"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
-                       Foreground="White"
+                       Foreground="{DynamicResource SecondaryTextBrush}"
                        FontSize="22"
                        Margin="20, 0, 0, 0"/>
-            
+
             <StackPanel Grid.Row="1">
 
-                <RadioButton Content="Home"
+                <RadioButton Content="Personal"
                              Height="50"
-                             Foreground="White"
+                             Foreground="{DynamicResource SecondaryTextBrush}"
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
                              IsChecked="True"
                              Command="{Binding HomeViewCommand}"/>
                 <RadioButton Content="Shared"
                              Height="50"
-                             Foreground="White"
+                             Foreground="{DynamicResource SecondaryTextBrush}"
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"/>
-                <RadioButton Content="Menu 3"
+                <RadioButton Content="All"
                              Height="50"
-                             Foreground="White"
+                             Foreground="{DynamicResource SecondaryTextBrush}"
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"/>
 
@@ -71,8 +71,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="60"/>
-                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="130"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
@@ -88,32 +87,71 @@
                          Grid.RowSpan="2"
                          Style="{StaticResource TextboxTheme}"/>
 
-                <Button Grid.Column="2" Style="{StaticResource CircularImageButton}"
-                        utils:ButtonUtils.ImageSource="/Images/download.jpg"
-                        Grid.RowSpan="2"/>
 
-                <StackPanel Grid.Column="3" Grid.Row="0"
+                <StackPanel Grid.Column="2" Grid.Row="0"
                             Orientation="Horizontal"
                             Margin="5 5 0 5">
                     
+                    <Border Style="{StaticResource DropdownSettingsBorder}">
+                        <utils:DropdownMenu>
+                            <StackPanel>
+                                <!-- Profile -->
+                                <Button Style="{StaticResource DropdownButton}">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Viewbox Height="12">
+                                            <Path Data="{DynamicResource ProfileIcon}"
+                                                  Fill="{DynamicResource SecondaryTextBrush}" Stretch="Fill"/>
+                                        </Viewbox>
+                                        <TextBlock Text=" Profile"
+                                                   VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button>
+                                <Separator Width="120"/>
+                                
+                                <!-- Settings -->
+                                <Button Style="{StaticResource DropdownButton}">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Viewbox Height="12">
+                                            <Path Data="{DynamicResource SettingsIcon}"
+                                                  Fill="{DynamicResource SecondaryTextBrush}" Stretch="Fill"/>
+                                        </Viewbox>
+                                        <TextBlock Text=" Settings"
+                                                   VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button>
+                                <Separator Width="120"/>
+                                
+                                <!-- Themes -->
+                                <Button Content="Switch to Light Theme"
+                                        Click="Btn_ToggleTheme" 
+                                        Style="{StaticResource DropdownButton}"
+                                        Width="150"/>
+                            </StackPanel>
+                        </utils:DropdownMenu>
+                    </Border>
+
                     <utils:HoverButton 
                         x:Name="btnMinimize"
                         Content="—" 
                         Style="{StaticResource ActionButton}"
+                        hoverColor="{DynamicResource WaButtonsBrush}"
                         Click="Btn_Minimize"/>
                     <utils:HoverButton
                         x:Name="btnMaximize"
                         Content="❐" 
                         Style="{StaticResource ActionButton}"
+                        hoverColor="{DynamicResource WaButtonsBrush}"
                         Click="Btn_Maximize"/>
                     <utils:HoverButton
                         x:Name="btnClose"
                         Content="X"
                         Style="{StaticResource ActionButton}"
-                        hoverColor="#d63650"
+                        hoverColor="{DynamicResource WaExitBrush}"
                         Click="Btn_Exit"/>
-                    
+
                 </StackPanel>
+
+
             </Grid>
 
             <ContentControl Grid.Row="1"
@@ -123,5 +161,5 @@
 
         </Grid>
     </Border>
-    
+
 </Window>
