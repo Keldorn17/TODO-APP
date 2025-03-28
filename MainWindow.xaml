@@ -91,7 +91,7 @@
                 <StackPanel Grid.Column="2" Grid.Row="0"
                             Orientation="Horizontal"
                             Margin="5 5 0 5">
-                    
+
                     <Border Style="{StaticResource DropdownSettingsBorder}">
                         <utils:DropdownMenu>
                             <StackPanel>
@@ -99,7 +99,7 @@
                                 <Button Style="{StaticResource DropdownButton}">
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                         <Viewbox Height="12">
-                                            <Path Data="{DynamicResource ProfileIcon}"
+                                            <Path Data="{StaticResource ProfileIcon}"
                                                   Fill="{DynamicResource SecondaryTextBrush}" Stretch="Fill"/>
                                         </Viewbox>
                                         <TextBlock Text=" Profile"
@@ -107,12 +107,12 @@
                                     </StackPanel>
                                 </Button>
                                 <Separator Width="120"/>
-                                
+
                                 <!-- Settings -->
                                 <Button Style="{StaticResource DropdownButton}">
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                         <Viewbox Height="12">
-                                            <Path Data="{DynamicResource SettingsIcon}"
+                                            <Path Data="{StaticResource SettingsIcon}"
                                                   Fill="{DynamicResource SecondaryTextBrush}" Stretch="Fill"/>
                                         </Viewbox>
                                         <TextBlock Text=" Settings"
@@ -120,7 +120,7 @@
                                     </StackPanel>
                                 </Button>
                                 <Separator Width="120"/>
-                                
+
                                 <!-- Themes -->
                                 <Button Content="Switch to Light Theme"
                                         Click="Btn_ToggleTheme" 

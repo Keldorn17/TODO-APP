@@ -5,7 +5,7 @@ namespace TODO.Utils
 {
     public class DropdownMenu : ContentControl
     {
-        public static readonly DependencyProperty IsOpenProperty = 
+        public static readonly DependencyProperty IsOpenProperty =
             DependencyProperty.Register("IsOpen", typeof(bool), typeof(DropdownMenu), new PropertyMetadata(false));
 
         public bool IsOpen

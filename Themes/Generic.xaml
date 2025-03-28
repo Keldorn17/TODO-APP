@@ -3,7 +3,7 @@
                     xmlns:local="clr-namespace:TODO.Utils">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/Themes/SVG/SVGGeometries.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Themes/SVG/SVGGeometries.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="{x:Type local:DropdownMenu}">
@@ -17,7 +17,7 @@
                                 <ControlTemplate TargetType="CheckBox">
                                     <Grid Background="Transparent">
                                         <Viewbox Width="15">
-                                            <Path Data="{DynamicResource SettingsIcon}" 
+                                            <Path Data="{StaticResource SettingsIcon}" 
                                                   Fill="{DynamicResource SecondaryTextBrush}" Stretch="Fill"/>
                                         </Viewbox>
                                     </Grid>

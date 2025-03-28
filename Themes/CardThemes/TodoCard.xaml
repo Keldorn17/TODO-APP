@@ -9,32 +9,40 @@
     <local:PriorityToColorConverter x:Key="PriorityToColorConverter" />
 
     <DataTemplate x:Key="TodoCardTemplate">
-        <Border Background="{DynamicResource PrimaryBrush}" CornerRadius="10" Padding="10" Margin="5" Width="210" Height="170">
-            <Border.Effect>
-                <DropShadowEffect ShadowDepth="5" Color="{DynamicResource DarkerContrastColor}" Opacity="0.5" />
-            </Border.Effect>
-            <Grid>
-                <!-- Priority Indicator -->
-                <Border CornerRadius="5" Width="10" Height="10" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5"
+        <Button Command="{Binding DataContext.OpenEditWindowCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+            CommandParameter="{Binding}"
+            Style="{StaticResource InvisibleButtonStyle}">
+            <Button.Template>
+                <ControlTemplate>
+                    <Border Background="{DynamicResource PrimaryBrush}" CornerRadius="10" Padding="10" Margin="5" Width="210" Height="170">
+                        <Border.Effect>
+                            <DropShadowEffect ShadowDepth="5" Color="{DynamicResource DarkerContrastColor}" Opacity="0.5" />
+                        </Border.Effect>
+                        <Grid>
+                            <!-- Priority Indicator -->
+                            <Border CornerRadius="5" Width="10" Height="10" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5"
                         Background="{Binding Priority.Level, Converter={StaticResource PriorityToColorConverter}}" />
 
-                <!-- Main Content -->
-                <StackPanel VerticalAlignment="Top">
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <CheckBox IsChecked="{Binding IsCompleted}" Style="{StaticResource ModernCheckBoxStyle}" Margin="5 0" />
-                        <TextBlock Text="{Binding Title}" FontWeight="Bold" FontSize="15" Foreground="{DynamicResource SecondaryTextBrush}" 
+                            <!-- Main Content -->
+                            <StackPanel VerticalAlignment="Top">
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <CheckBox IsChecked="{Binding IsCompleted}" Style="{StaticResource ModernCheckBoxStyle}" Margin="5 0" />
+                                    <TextBlock Text="{Binding Title}" FontWeight="Bold" FontSize="15" Foreground="{DynamicResource SecondaryTextBrush}" 
                                    TextTrimming="CharacterEllipsis" VerticalAlignment="Center" Width="145"/>
-                    </StackPanel>
+                                </StackPanel>
 
-                    <!-- Description -->
-                    <TextBlock Text="{Binding Description}" FontSize="12" Foreground="{DynamicResource SecondaryTextBrush}" Margin="5" TextWrapping="Wrap"/>
-                </StackPanel>
+                                <!-- Description -->
+                                <TextBlock Text="{Binding Description}" FontSize="12" Foreground="{DynamicResource SecondaryTextBrush}" Margin="5" TextWrapping="Wrap"/>
+                            </StackPanel>
 
-                <!-- Footer -->
-                <Border Background="{DynamicResource SecondaryBrush}" CornerRadius="0,0,10,10" VerticalAlignment="Bottom" Height="20" Margin="-10,0,-10,-10">
-                    <TextBlock Text="Footer Content" Foreground="{DynamicResource SecondaryTextBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                </Border>
-            </Grid>
-        </Border>
+                            <!-- Footer -->
+                            <Border Background="{DynamicResource SecondaryBrush}" CornerRadius="0,0,10,10" VerticalAlignment="Bottom" Height="20" Margin="-10,0,-10,-10">
+                                <TextBlock Text="Footer Content" Foreground="{DynamicResource SecondaryTextBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            </Border>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
     </DataTemplate>
 </ResourceDictionary>

@@ -14,10 +14,11 @@
                 <ResourceDictionary Source="/Themes/ButtonThemes/DropdownButton.xaml"/>
                 <ResourceDictionary Source="/Themes/ButtonThemes/MenuButtonTheme.xaml"/>
                 <ResourceDictionary Source="/Themes/ButtonThemes/DropdownSettingsButton.xaml"/>
+                <ResourceDictionary Source="/Themes/ButtonThemes/InvisibleButton.xaml"/>
 
                 <!-- SVG Geometries -->
                 <ResourceDictionary Source="/Themes/SVG/SVGGeometries.xaml"/>
-                
+
                 <!-- CheckBox Themes -->
                 <ResourceDictionary Source="/Themes/CheckBoxThemes/ModernCheckBox.xaml"/>
 
@@ -38,7 +39,7 @@
             <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
                 <view:HomeView/>
             </DataTemplate>
-            
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

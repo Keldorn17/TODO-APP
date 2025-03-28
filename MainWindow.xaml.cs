@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using TODO.MVVM.ViewModel;
 using TODO.Utils;
 
 namespace TODO
@@ -21,37 +11,21 @@ namespace TODO
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MainViewModel _mainViewModel;
         public MainWindow()
         {
             InitializeComponent();
+            _mainViewModel = new MainViewModel();
+            DataContext = _mainViewModel;
         }
 
-        private void Btn_Exit(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Application.Current.Shutdown();
-        }
+        private void Btn_Exit(object sender, RoutedEventArgs e) => WindowHelper.CloseApp();
 
-        private void Btn_Minimize(object sender, RoutedEventArgs e)
-        {
-            WindowState = WindowState.Minimized;
-        }
+        private void Btn_Minimize(object sender, RoutedEventArgs e) => WindowHelper.MinimizeWindow(this);
 
-        private void Btn_Maximize(object sender, RoutedEventArgs e)
-        {
-            if (WindowState == WindowState.Maximized)
-            {
-                WindowState = WindowState.Normal;
-            }
-            else
-            {
-                WindowState = WindowState.Maximized;
-            }
-        }
+        private void Btn_Maximize(object sender, RoutedEventArgs e) => WindowHelper.MaximizeRestoreWindow(this);
 
-        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            DragMove();
-        }
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) => WindowHelper.DragWindow(this);
 
         private void Btn_ToggleTheme(object sender, RoutedEventArgs e)
         {
