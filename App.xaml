@@ -18,7 +18,7 @@
 
                 <!-- SVG Geometries -->
                 <ResourceDictionary Source="/Themes/SVG/SVGGeometries.xaml"/>
-                
+
                 <!-- CheckBox Themes -->
                 <ResourceDictionary Source="/Themes/CheckBoxThemes/ModernCheckBox.xaml"/>
 
@@ -39,7 +39,7 @@
             <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
                 <view:HomeView/>
             </DataTemplate>
-            
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

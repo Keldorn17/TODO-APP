@@ -29,7 +29,7 @@
     <!-- Window Action Brushes -->
     <SolidColorBrush x:Key="WaExitBrush" Color="{StaticResource WaExitColor}"/>
     <SolidColorBrush x:Key="WaButtonsBrush" Color="{StaticResource WaButtonsColor}"/>
-    
+
     <!-- Checkbox Brushes -->
     <SolidColorBrush x:Key="CheckboxBorderBrush" Color="{StaticResource CheckboxBorder}"/>
     <SolidColorBrush x:Key="CheckboxCheckedBrush" Color="{StaticResource CheckboxChecked}"/>

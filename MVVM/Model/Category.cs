@@ -11,6 +11,6 @@ namespace TODO.MVVM.Model
     /// </summary>
     public class Category
     {
-        public string Name { get; set; }
+        public string? Name { get; set; }
     }
 }

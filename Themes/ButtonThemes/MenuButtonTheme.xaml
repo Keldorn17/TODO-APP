@@ -29,6 +29,6 @@
                 <Setter Property="Background" Value="{DynamicResource SecondaryBrush}"/>
             </Trigger>
         </Style.Triggers>
-        
+
     </Style>
 </ResourceDictionary>

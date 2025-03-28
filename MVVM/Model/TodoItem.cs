@@ -13,15 +13,15 @@ namespace TODO.MVVM.Model
     public class TodoItem
     {
         public long Id { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public string Owner { get; set; }
+        public string? Title { get; set; }
+        public string? Description { get; set; }
+        public string? Owner { get; set; }
         public DateTimeOffset Deadline { get; set; }
-        public Category Category { get; set; }
+        public Category? Category { get; set; }
         public DateTimeOffset CreatedAt { get; set; }
         public DateTimeOffset UpdatedAt { get; set; }
-        public string Parent { get; set; }
-        public Priority Priority { get; set; }
+        public string? Parent { get; set; }
+        public Priority? Priority { get; set; }
         public bool IsCompleted { get; set; }
         public bool Shared { get; set; }
     }
@@ -30,7 +30,7 @@ namespace TODO.MVVM.Model
     /// Builder class for constructing <see cref="TodoItem"/> objects.
     /// </summary>
     public class TodoItemBuilder
-    { 
+    {
         private readonly TodoItem todoItem = new TodoItem();
 
         public TodoItemBuilder SetId(long id)
@@ -65,7 +65,7 @@ namespace TODO.MVVM.Model
 
         public TodoItemBuilder SetCategory(Category category)
         {
-            todoItem.Category = category; 
+            todoItem.Category = category;
             return this;
         }
 
@@ -124,7 +124,7 @@ namespace TODO.MVVM.Model
                 todoItem.Category = new Category { Name = "General" };
             }
             if (todoItem.Deadline == default)
-            { 
+            {
                 todoItem.Deadline = DateTimeOffset.Now;
             }
             if (todoItem.CreatedAt == default)

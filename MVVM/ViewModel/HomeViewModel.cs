@@ -1,25 +1,15 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
-using TODO.Core;
+﻿using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using TODO.MVVM.Model;
 using TODO.MVVM.View;
 
 namespace TODO.MVVM.ViewModel
 {
-    class HomeViewModel : ObservableObject
+    public partial class HomeViewModel : ObservableObject
     {
-        public ICommand OpenEditWindowCommand { get; }
+        [ObservableProperty]
         private ObservableCollection<TodoItem> _todoItems;
-        public ObservableCollection<TodoItem> TodoItems
-        {
-            get { return _todoItems; }
-            set
-            {
-                _todoItems = value;
-                OnPropertyChanged();
-            }
-        }
 
         public HomeViewModel(ObservableCollection<TodoItem> sharedTodoItems)
         {
@@ -29,16 +19,14 @@ namespace TODO.MVVM.ViewModel
             {
                 InitializeTodoItems();
             }
-
-            OpenEditWindowCommand = new RelayCommand<TodoItem>(item => {
-                System.Diagnostics.Debug.WriteLine("OpenEditWindow Command executed!");
-                OpenEditWindow(item);
-            });
         }
 
+        [RelayCommand]
         private void OpenEditWindow(TodoItem todoItem)
         {
             if (todoItem == null) return;
+
+            System.Diagnostics.Debug.WriteLine("OpenEditWindow Command executed!");
 
             EditTodoWindow editWindow = new EditTodoWindow(todoItem);
             editWindow.ShowDialog();

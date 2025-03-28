@@ -1,38 +1,32 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
-using TODO.Core;
+﻿using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using TODO.MVVM.Model;
-using TODO.MVVM.View;
 
 namespace TODO.MVVM.ViewModel
 {
-    class MainViewModel : ObservableObject
+    public partial class MainViewModel : ObservableObject
     {
-        public RelayCommand<HomeViewModel> HomeViewCommand { get; set; }
+        [ObservableProperty]
+        private HomeViewModel _homeVM;
 
-        public HomeViewModel HomeVM { get; set; }
+        [ObservableProperty]
         private object _currentView;
 
-        public object CurrentView
-        {
-            get { return _currentView; }
-            set { _currentView = value; OnPropertyChanged(); }
-        }
-
-        public ObservableCollection<TodoItem> TodoItems { get; set; }
+        [ObservableProperty]
+        private ObservableCollection<TodoItem> _todoItems;
 
         public MainViewModel()
         {
             TodoItems = new ObservableCollection<TodoItem>();
-
             HomeVM = new HomeViewModel(TodoItems);
             CurrentView = HomeVM;
+        }
 
-            HomeViewCommand = new RelayCommand<HomeViewModel>(o => 
-            {
-                CurrentView = HomeVM;
-            });
+        [RelayCommand]
+        private void HomeView(HomeViewModel parameter)
+        {
+            CurrentView = HomeVM;
         }
     }
 }
