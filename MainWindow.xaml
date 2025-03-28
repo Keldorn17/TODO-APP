@@ -99,7 +99,7 @@
                                 <Button Style="{StaticResource DropdownButton}">
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                         <Viewbox Height="12">
-                                            <Path Data="{DynamicResource ProfileIcon}"
+                                            <Path Data="{StaticResource ProfileIcon}"
                                                   Fill="{DynamicResource SecondaryTextBrush}" Stretch="Fill"/>
                                         </Viewbox>
                                         <TextBlock Text=" Profile"
@@ -112,7 +112,7 @@
                                 <Button Style="{StaticResource DropdownButton}">
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                         <Viewbox Height="12">
-                                            <Path Data="{DynamicResource SettingsIcon}"
+                                            <Path Data="{StaticResource SettingsIcon}"
                                                   Fill="{DynamicResource SecondaryTextBrush}" Stretch="Fill"/>
                                         </Viewbox>
                                         <TextBlock Text=" Settings"

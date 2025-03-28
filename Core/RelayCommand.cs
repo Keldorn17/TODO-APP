@@ -7,10 +7,10 @@ using System.Windows.Input;
 
 namespace TODO.Core
 {
-    class RelayCommand: ICommand
+    class RelayCommand<T>: ICommand
     {
-        private Action<object> _execute;
-        private Func<object, bool> _canExecute;
+        private readonly Action<T> _execute;
+        private readonly Func<T, bool> _canExecute;
 
         public event EventHandler CanExecuteChanged
         {
@@ -18,20 +18,23 @@ namespace TODO.Core
             remove { CommandManager.RequerySuggested -= value; }
         }
 
-        public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
+        public RelayCommand(Action<T> execute, Func<T, bool> canExecute = null)
         {
-            _execute = execute;
+            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
             _canExecute = canExecute;
         }
 
         public bool CanExecute(object parameter)
         {
-            return _canExecute == null || _canExecute(parameter);
+            return _canExecute == null || (parameter is T t && _canExecute(t));
         }
 
         public void Execute(object parameter)
         {
-            _execute(parameter);
+            if (parameter is T t)
+            {
+                _execute(t);
+            }
         }
     }
 }

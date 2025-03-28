@@ -10,42 +10,29 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TODO.MVVM.Model;
 using TODO.MVVM.ViewModel;
 using TODO.Utils;
 
-namespace TODO
+namespace TODO.MVVM.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for EditTodoWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class EditTodoWindow : Window
     {
-        private MainViewModel _mainViewModel;
-        public MainWindow()
+        public EditTodoWindow(TodoItem todoItem)
         {
             InitializeComponent();
-            _mainViewModel = new MainViewModel();
-            DataContext = _mainViewModel;
+            DataContext = new EditTodoViewModel(todoItem);
         }
-
-        private void Btn_Exit(object sender, RoutedEventArgs e) => WindowHelper.CloseApp();
+        private void Btn_Exit(object sender, RoutedEventArgs e) => WindowHelper.CloseWindow(this);
 
         private void Btn_Minimize(object sender, RoutedEventArgs e) => WindowHelper.MinimizeWindow(this);
 
         private void Btn_Maximize(object sender, RoutedEventArgs e) => WindowHelper.MaximizeRestoreWindow(this);
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) => WindowHelper.DragWindow(this);
-
-        private void Btn_ToggleTheme(object sender, RoutedEventArgs e)
-        {
-            Utils.ThemeManager.ToggleTheme();
-            var button = sender as Button;
-            if (button != null)
-            {
-                button.Content = ThemeManager.GetCurrentTheme() == "DarkTheme" ? "Switch to Light Theme" : "Switch to Dark Theme";
-            }
-        }
     }
 }

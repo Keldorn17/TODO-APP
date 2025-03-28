@@ -57,10 +57,15 @@
     </ApplicationDefinition>
     <Compile Include="MVVM\Model\Category.cs" />
     <Compile Include="MVVM\Model\Priority.cs" />
+    <Compile Include="MVVM\ViewModel\EditTodoViewModel.cs" />
+    <Compile Include="MVVM\View\EditTodoWindow.xaml.cs">
+      <DependentUpon>EditTodoWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utils\DateTimeUtils.cs" />
     <Compile Include="Utils\DropdownMenu.cs" />
     <Compile Include="Utils\PriorityToColorConverter.cs" />
     <Compile Include="Utils\ThemeManager.cs" />
+    <Compile Include="Utils\WindowHelper.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -76,6 +81,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MVVM\View\EditTodoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVVM\View\HomeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -89,6 +98,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\ButtonThemes\DropdownSettingsButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\ButtonThemes\InvisibleButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
