@@ -93,7 +93,7 @@
                             Margin="5 5 0 5">
 
                     <Border Style="{StaticResource DropdownSettingsBorder}">
-                        <utils:DropdownMenu>
+                        <Button Style="{StaticResource DropdownButtonStyle}">
                             <StackPanel>
                                 <!-- Profile -->
                                 <Button Style="{StaticResource DropdownButton}">
@@ -127,7 +127,7 @@
                                         Style="{StaticResource DropdownButton}"
                                         Width="150"/>
                             </StackPanel>
-                        </utils:DropdownMenu>
+                        </Button>
                     </Border>
 
                     <utils:HoverButton 

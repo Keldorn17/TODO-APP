@@ -24,10 +24,13 @@ namespace TODO.MVVM.ViewModel
         [RelayCommand]
         private void OpenEditWindow(TodoItem todoItem)
         {
-            if (todoItem == null) return;
+            if (todoItem == null)
+            {
+                System.Diagnostics.Debug.WriteLine("TodoItem is null!");
+                return;
+            }
 
-            System.Diagnostics.Debug.WriteLine("OpenEditWindow Command executed!");
-
+            System.Diagnostics.Debug.WriteLine($"Opening edit window for: {todoItem.Title}");
             EditTodoWindow editWindow = new EditTodoWindow(todoItem);
             editWindow.ShowDialog();
         }

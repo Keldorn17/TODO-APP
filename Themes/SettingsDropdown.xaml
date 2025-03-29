@@ -1,20 +1,19 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:TODO.Utils">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Themes/SVG/SVGGeometries.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <Style TargetType="{x:Type local:DropdownMenu}">
+    <Style x:Key="DropdownButtonStyle" TargetType="Button">
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:DropdownMenu}">
+                <ControlTemplate TargetType="Button">
                     <Grid>
-                        <CheckBox x:Name="cbDropdown"  IsChecked="{Binding IsOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
-                            <CheckBox.Template>
-                                <ControlTemplate TargetType="CheckBox">
+                        <ToggleButton x:Name="TogglePart" Background="Transparent" BorderThickness="0">
+                            <ToggleButton.Template>
+                                <ControlTemplate TargetType="ToggleButton">
                                     <Grid Background="Transparent">
                                         <Viewbox Width="15">
                                             <Path Data="{StaticResource SettingsIcon}" 
@@ -22,20 +21,20 @@
                                         </Viewbox>
                                     </Grid>
                                 </ControlTemplate>
-                            </CheckBox.Template>
-                        </CheckBox>
+                            </ToggleButton.Template>
+                        </ToggleButton>
 
-                        <Popup IsOpen="{Binding IsOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                        <Popup IsOpen="{Binding IsChecked, ElementName=TogglePart}"
                                Placement="Bottom"
                                HorizontalOffset="-130"
-                               PlacementTarget="{Binding ElementName=cbDropdown}"
+                               PlacementTarget="{Binding ElementName=TogglePart}"
                                StaysOpen="False"
                                AllowsTransparency="True">
                             <Border Background="{DynamicResource MainWindowBrush}"
                                     CornerRadius="10"
                                     BorderBrush="{DynamicResource SecondaryTextBrush}"
                                     BorderThickness="2">
-                                <ContentPresenter/>
+                                <ContentPresenter Content="{TemplateBinding Content}"/>
                             </Border>
                         </Popup>
                     </Grid>

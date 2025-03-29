@@ -30,6 +30,15 @@
 
                 <!-- Textbox Themes -->
                 <ResourceDictionary Source="/Themes/TextboxThemes/TextboxTheme.xaml"/>
+                <ResourceDictionary Source="/Themes/TextboxThemes/EditTextboxTheme.xaml"/>
+                
+                <!-- ComboBox Themes -->
+                <ResourceDictionary Source="/Themes/ComboBoxThemes/EditComboBoxTheme.xaml"/>
+
+                <!-- DatePicker Themes -->
+                <ResourceDictionary Source="/Themes/DatePickerThemes/EditDatePickerTheme.xaml"/>
+
+                <ResourceDictionary Source="/Themes/SettingsDropdown.xaml"/>
 
                 <!-- Color Themes -->
                 <ResourceDictionary Source="/Themes/ColorThemes/PriorityColors.xaml"/>
