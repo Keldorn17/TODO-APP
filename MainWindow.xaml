@@ -95,7 +95,6 @@
                     <Border Style="{StaticResource DropdownSettingsBorder}">
                         <Button Style="{StaticResource DropdownButtonStyle}">
                             <StackPanel>
-                                <!-- Profile -->
                                 <Button Style="{StaticResource DropdownButton}">
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                         <Viewbox Height="12">
@@ -108,7 +107,6 @@
                                 </Button>
                                 <Separator Width="120"/>
 
-                                <!-- Settings -->
                                 <Button Style="{StaticResource DropdownButton}">
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                         <Viewbox Height="12">
@@ -121,7 +119,6 @@
                                 </Button>
                                 <Separator Width="120"/>
 
-                                <!-- Themes -->
                                 <Button Content="Switch to Light Theme"
                                         Click="Btn_ToggleTheme" 
                                         Style="{StaticResource DropdownButton}"
