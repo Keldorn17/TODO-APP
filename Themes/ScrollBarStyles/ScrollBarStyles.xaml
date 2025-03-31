@@ -11,7 +11,7 @@
                                 VerticalAlignment="Stretch" Width="Auto" Height="Auto" 
                                 Background="{TemplateBinding Background}">
                             <Border.Effect>
-                                <DropShadowEffect ShadowDepth="1" Color="{DynamicResource DarkerContrastColor}" Opacity="0.5" />
+                                <DropShadowEffect ShadowDepth="4" Color="{DynamicResource DarkerContrastColor}" Opacity="0.5" />
                             </Border.Effect>
                         </Border>
                     </Grid>
