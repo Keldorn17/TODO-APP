@@ -93,9 +93,9 @@
                             Margin="5 5 0 5">
 
                     <Border Style="{StaticResource DropdownSettingsBorder}">
-                        <Button Style="{StaticResource DropdownButtonStyle}">
+                        <Button Style="{StaticResource DropdownButtonStyle}" Cursor="Hand">
                             <StackPanel>
-                                <Button Style="{StaticResource DropdownButton}">
+                                <Button Style="{StaticResource DropdownButton}" Cursor="Hand">
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                         <Viewbox Height="12">
                                             <Path Data="{StaticResource ProfileIcon}"
@@ -107,7 +107,7 @@
                                 </Button>
                                 <Separator Width="120"/>
 
-                                <Button Style="{StaticResource DropdownButton}">
+                                <Button Style="{StaticResource DropdownButton}" Cursor="Hand">
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                         <Viewbox Height="12">
                                             <Path Data="{StaticResource SettingsIcon}"
@@ -122,7 +122,8 @@
                                 <Button Content="Switch to Light Theme"
                                         Click="Btn_ToggleTheme" 
                                         Style="{StaticResource DropdownButton}"
-                                        Width="150"/>
+                                        Width="150" 
+                                        Cursor="Hand"/>
                             </StackPanel>
                         </Button>
                     </Border>

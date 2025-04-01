@@ -14,7 +14,7 @@
             Style="{StaticResource InvisibleButtonStyle}">
             <Button.Template>
                 <ControlTemplate>
-                    <Border Background="{DynamicResource PrimaryBrush}" CornerRadius="10" Padding="10" Margin="5" Width="210" Height="170">
+                    <Border Background="{DynamicResource PrimaryBrush}" CornerRadius="10" Padding="10" Margin="5" Width="210" Height="170" Cursor="Hand">
                         <Border.Effect>
                             <DropShadowEffect ShadowDepth="5" Color="{DynamicResource DarkerContrastColor}" Opacity="0.5" />
                         </Border.Effect>
@@ -37,7 +37,7 @@
 
                             <!-- Footer -->
                             <Border Background="{DynamicResource SecondaryBrush}" CornerRadius="0,0,10,10" VerticalAlignment="Bottom" Height="20" Margin="-10,0,-10,-10">
-                                <TextBlock Text="Footer Content" Foreground="{DynamicResource SecondaryTextBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Text="{Binding Deadline}" Foreground="{DynamicResource SecondaryTextBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                             </Border>
                         </Grid>
                     </Border>

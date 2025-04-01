@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using TODO.MVVM.Model;
@@ -20,7 +19,7 @@ namespace TODO.MVVM.ViewModel
         public MainViewModel()
         {
             TodoItems = new ObservableCollection<TodoItem>();
-            HomeVM = new HomeViewModel(TodoItems);
+            HomeVM = new HomeViewModel(this);
             CurrentView = HomeVM;
         }
 

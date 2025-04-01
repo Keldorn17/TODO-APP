@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System.Collections.ObjectModel;
 using TODO.Utils;
 
 namespace TODO.MVVM.Model
@@ -10,20 +7,85 @@ namespace TODO.MVVM.Model
     /// <summary>
     /// Represents a to-do item with properties such as title, description, deadline, and priority.
     /// </summary>
-    public class TodoItem
+    public partial class TodoItem : ObservableObject
     {
-        public long Id { get; set; }
-        public string? Title { get; set; }
-        public string? Description { get; set; }
-        public string? Owner { get; set; }
-        public DateTimeOffset Deadline { get; set; }
-        public Category? Category { get; set; }
-        public DateTimeOffset CreatedAt { get; set; }
-        public DateTimeOffset UpdatedAt { get; set; }
-        public string? Parent { get; set; }
-        public Priority? Priority { get; set; }
-        public bool IsCompleted { get; set; }
-        public bool Shared { get; set; }
+        [ObservableProperty]
+        private long _id;
+
+        [ObservableProperty]
+        private string? _title;
+
+        [ObservableProperty]
+        private string? _description;
+
+        [ObservableProperty]
+        private string? _owner;
+
+        [ObservableProperty]
+        private DateTime _deadline;
+
+        [ObservableProperty]
+        private Category? _category;
+
+        [ObservableProperty]
+        private DateTime _createdAt;
+
+        [ObservableProperty]
+        private DateTime _updatedAt;
+
+        [ObservableProperty]
+        private string? _parent;
+
+        [ObservableProperty]
+        private Priority? _priority;
+
+        [ObservableProperty]
+        private bool _isCompleted;
+
+        public ObservableCollection<Shared> Shared { get; set; } = new ObservableCollection<Shared>();
+
+        /// <summary>
+        /// Creates a deep copy of the TodoItem
+        /// </summary>
+        public TodoItem Clone()
+        {
+            var clone = new TodoItem
+            {
+                Id = this.Id,
+                Title = this.Title,
+                Description = this.Description,
+                Owner = this.Owner,
+                Deadline = this.Deadline,
+                CreatedAt = this.CreatedAt,
+                UpdatedAt = this.UpdatedAt,
+                Parent = this.Parent,
+                IsCompleted = this.IsCompleted
+            };
+
+            if (this.Category != null)
+            {
+                clone.Category = new Category { Name = this.Category.Name };
+            }
+
+            if (this.Priority != null)
+            {
+                clone.Priority = new Priority
+                {
+                    Level = this.Priority.Level,
+                    Description = this.Priority.Description
+                };
+            }
+
+            foreach (var sharedItem in this.Shared)
+            {
+                clone.Shared.Add(new Shared(
+                    sharedItem.Email,
+                    new Access { Level = sharedItem.SharedAccess.Level }
+                ));
+            }
+
+            return clone;
+        }
     }
 
     /// <summary>
@@ -99,9 +161,9 @@ namespace TODO.MVVM.Model
             return this;
         }
 
-        public TodoItemBuilder SetShared(bool shared)
+        public TodoItemBuilder SetShared(Shared shared)
         {
-            todoItem.Shared = shared;
+            todoItem.Shared.Add(shared);
             return this;
         }
 
@@ -117,7 +179,7 @@ namespace TODO.MVVM.Model
             }
             if (todoItem.Priority == null)
             {
-                todoItem.Priority = new Priority { Level = 0, Name = "Not required" };
+                todoItem.Priority = new Priority { Level = 0 };
             }
             if (todoItem.Category == null)
             {
@@ -125,15 +187,15 @@ namespace TODO.MVVM.Model
             }
             if (todoItem.Deadline == default)
             {
-                todoItem.Deadline = DateTimeOffset.Now;
+                todoItem.Deadline = DateTime.Now;
             }
             if (todoItem.CreatedAt == default)
             {
-                todoItem.CreatedAt = DateTimeOffset.Now;
+                todoItem.CreatedAt = DateTime.Now;
             }
             if (todoItem.UpdatedAt == default)
             {
-                todoItem.UpdatedAt = DateTimeOffset.Now;
+                todoItem.UpdatedAt = DateTime.Now;
             }
             return todoItem;
         }

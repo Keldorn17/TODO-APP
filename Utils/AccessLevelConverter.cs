@@ -3,24 +3,24 @@ using System.Windows.Data;
 
 namespace TODO.Utils
 {
-    public class PriorityLevelConverter : IValueConverter
+    public class AccessLevelConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is int intValue)
             {
-                return PriorityLevel.GetByIndex(intValue);
+                return AccessLevel.GetByIndex(intValue);
             }
-            return PriorityLevel.Normal;
+            return AccessLevel.Read;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is PriorityLevel priorityLevel)
+            if (value is AccessLevel accessLevel)
             {
-                return priorityLevel.Index;
+                return accessLevel.Index;
             }
-            return 2;
+            return 0;
         }
     }
 }
