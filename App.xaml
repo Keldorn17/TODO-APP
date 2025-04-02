@@ -14,6 +14,9 @@
                 <ResourceDictionary Source="/Themes/ButtonThemes/MenuButtonTheme.xaml"/>
                 <ResourceDictionary Source="/Themes/ButtonThemes/SettingsDropdown.xaml"/>
                 <ResourceDictionary Source="/Themes/ButtonThemes/InvisibleButton.xaml"/>
+                <ResourceDictionary Source="/Themes/ButtonThemes/DatePickerButton.xaml"/>
+                <ResourceDictionary Source="/Themes/ButtonThemes/EditButtons.xaml"/>
+                
 
                 <!-- Border Themes -->
                 <ResourceDictionary Source="/Themes/BorderThemes/DropdownSettingsBorder.xaml"/>

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using TODO.Utils;
 
 namespace TODO.MVVM.Model
 {
@@ -12,6 +8,7 @@ namespace TODO.MVVM.Model
     public class Priority
     {
         private int level;
+        private string? name;
         public int Level
         {
             get => level;
@@ -20,6 +17,7 @@ namespace TODO.MVVM.Model
                 if (value >= 0 && value <= 4)
                 {
                     level = value;
+                    name = PriorityLevel.GetByIndex(value).Name;
                 }
                 else
                 {
@@ -28,6 +26,6 @@ namespace TODO.MVVM.Model
             }
         }
         public string? Description { get; set; }
-        public string? Name { get; set; }
+        public string? Name { get => name; }
     }
 }

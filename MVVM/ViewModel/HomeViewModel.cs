@@ -11,9 +11,13 @@ namespace TODO.MVVM.ViewModel
         [ObservableProperty]
         private ObservableCollection<TodoItem> _todoItems;
 
-        public HomeViewModel(ObservableCollection<TodoItem> sharedTodoItems)
+        private readonly MainViewModel _mainViewModel;
+
+        public HomeViewModel(MainViewModel mainViewModel)
         {
-            TodoItems = sharedTodoItems;
+            _mainViewModel = mainViewModel;
+
+            TodoItems = mainViewModel.TodoItems;
 
             for (int i = 0; i < 5; i++)
             {
@@ -30,8 +34,7 @@ namespace TODO.MVVM.ViewModel
                 return;
             }
 
-            System.Diagnostics.Debug.WriteLine($"Opening edit window for: {todoItem.Title}");
-            EditTodoWindow editWindow = new EditTodoWindow(todoItem);
+            EditTodoWindow editWindow = new EditTodoWindow(todoItem, _mainViewModel);
             editWindow.ShowDialog();
         }
 
@@ -45,6 +48,8 @@ namespace TODO.MVVM.ViewModel
                     .SetDescription("Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
                     .SetPriority(new Priority { Level = 1 })
                     .SetDeadline("2026-10-02T14:45:30.123456789+05:30")
+                    .SetShared(new Shared("Csaba@gmail.com", new Access { Level = 2 }))
+                    .SetShared(new Shared("Zoli@gmail.com", new Access { Level = 1 }))
                     .Build());
 
                 TodoItems.Add(new TodoItemBuilder()
@@ -52,6 +57,7 @@ namespace TODO.MVVM.ViewModel
                     .SetTitle("Why do we use it?")
                     .SetDescription("It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.")
                     .SetIsCompleted(true)
+                    .SetDeadline("2026-10-02T14:45:30.1234567Z")
                     .Build());
 
                 TodoItems.Add(new TodoItemBuilder()
@@ -67,6 +73,7 @@ namespace TODO.MVVM.ViewModel
                     .SetDescription("There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.")
                     .SetPriority(new Priority { Level = 3 })
                     .SetIsCompleted(true)
+                    .SetDeadline("2026-10-02T16:45:30.1234568+02:00")
                     .Build());
 
                 TodoItems.Add(new TodoItemBuilder()
