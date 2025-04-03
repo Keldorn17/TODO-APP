@@ -2,8 +2,8 @@ name: "Deploy Todo App"
 
 on:
     push:
-        tags:
-            - "todo-app/v*"
+      branches:
+          - main
     pull_request:
         branches:
             - main
