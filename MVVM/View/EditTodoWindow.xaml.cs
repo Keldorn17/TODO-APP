@@ -11,10 +11,10 @@ namespace TODO.MVVM.View
     /// </summary>
     public partial class EditTodoWindow : Window
     {
-        public EditTodoWindow(TodoItem todoItem, MainViewModel mainViewModel)
+        public EditTodoWindow(TodoItem todoItem, MainViewModel mainViewModel, bool isEditing)
         {
             InitializeComponent();
-            DataContext = new EditTodoViewModel(todoItem, this, mainViewModel);
+            DataContext = new EditTodoViewModel(todoItem, this, mainViewModel, isEditing);
         }
         private void Btn_Exit(object sender, RoutedEventArgs e) => WindowHelper.CloseWindow(this);
 

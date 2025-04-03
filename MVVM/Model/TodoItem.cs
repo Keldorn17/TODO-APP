@@ -169,14 +169,6 @@ namespace TODO.MVVM.Model
 
         public TodoItem Build()
         {
-            if (string.IsNullOrEmpty(todoItem.Title))
-            {
-                throw new InvalidOperationException("Title is required");
-            }
-            if (string.IsNullOrEmpty(todoItem.Description))
-            {
-                throw new InvalidOperationException("Description is required");
-            }
             if (todoItem.Priority == null)
             {
                 todoItem.Priority = new Priority { Level = 0 };

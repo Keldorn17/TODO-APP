@@ -45,7 +45,7 @@
             </Grid.RowDefinitions>
 
             <!-- #region Window Title -->
-            <TextBlock Text="Edit Todo"
+            <TextBlock Text="{Binding Title}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
                        Foreground="{DynamicResource SecondaryTextBrush}"
