@@ -9,7 +9,7 @@ on:
             - main
 
 env:
-    PROJECT_PATH: TODO/TODO.csproj
+    PROJECT_PATH: TODO.csproj
 
 jobs:
     deploy:
