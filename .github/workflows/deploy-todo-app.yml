@@ -23,8 +23,11 @@ jobs:
               with:
                 dotnet-version: 8.0.x
 
+            - name: 📦 Install .NET Workloads (if needed)
+              run: dotnet workload install
+
             - name: Restore dependencies
-              run: dotnet restore ${{ env.PROJECT_PATH }}
+              run: dotnet restore ${{ env.PROJECT_PATH }} -r win-x64
   
             - name: Build the application
               run: dotnet build ${{ env.PROJECT_PATH }} -c Release --no-restore
