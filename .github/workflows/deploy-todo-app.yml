@@ -1,0 +1,70 @@
+name: "Deploy Todo App"
+
+on:
+    push:
+        tags:
+            - "todo-app/v*"
+    pull_request:
+        branches:
+            - main
+
+env:
+    PROJECT_PATH: TODO/TODO.csproj
+
+jobs:
+    deploy:
+        runs-on: windows-latest
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v2
+  
+            - name: Setup .NET 8
+              uses: actions/setup-dotnet@v3
+              with:
+                dotnet-version: 8.0.x
+
+            - name: Restore dependencies
+              run: dotnet restore ${{ env.PROJECT_PATH }}
+  
+            - name: Build the application
+              run: dotnet build ${{ env.PROJECT_PATH }} -c Release --no-restore
+  
+            - name: Publish the executable
+              run: dotnet publish ${{ env.PROJECT_PATH }} -c Release --self-contained -r win-x64 -p:PublishSingleFile=true --no-build -o publish_output
+
+            - name: Upload artifact (Executable)
+              uses: actions/upload-artifact@v3
+              with:
+                name: todo-app-executable
+                path: publish_output/*.exe
+
+    tag-and-release:
+        needs: deploy
+        if: github.ref == 'refs/heads/main'
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v2
+
+            - name: Generate new tag
+              id: tag
+              run: |
+                VERSION=$(date +'%Y.%m.%d-%H%M%S')
+                echo "New tag: todo-app/v$VERSION"
+                echo "TAG_NAME=todo-app/v$VERSION" >> $GITHUB_ENV
+
+            - name: Push the new tag
+              run: |
+                git config --global user.email "actions@github.com"
+                git config --global user.name "GitHub Actions"
+                git tag $TAG_NAME
+                git push origin $TAG_NAME
+
+            - name: Create GitHub Release
+              uses: softprops/action-gh-release@v1
+              with:
+                tag_name: ${{ env.TAG_NAME }}
+                name: ${{ env.TAG_NAME }}
+                files: publish_output/*.exe
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
