@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Windows;
 using TODO.MVVM.Model;
 using TODO.Utils;
@@ -39,6 +40,11 @@ namespace TODO.MVVM.ViewModel
         [ObservableProperty]
         private MainViewModel _mainViewModel;
 
+        [ObservableProperty]
+        private string _title;
+
+        private bool _isEditing;
+
         private Window _editWindow;
 
         private ObservableCollection<Shared> _sharedItems;
@@ -48,8 +54,10 @@ namespace TODO.MVVM.ViewModel
             set => SetProperty(ref _sharedItems, value);
         }
 
-        public EditTodoViewModel(TodoItem todoItem, Window editWindow, MainViewModel mainViewModel)
+        public EditTodoViewModel(TodoItem todoItem, Window editWindow, MainViewModel mainViewModel, bool isEditing)
         {
+            _isEditing = isEditing;
+            Title = isEditing ? "Edit Todo" : "Add Todo";
             CurrentTodo = todoItem;
             CopyTodo = CurrentTodo.Clone();
             MainViewModel = mainViewModel;
@@ -106,14 +114,31 @@ namespace TODO.MVVM.ViewModel
         [RelayCommand]
         private void Save()
         {
-            CurrentTodo.Title = CopyTodo.Title;
-            CurrentTodo.Description = CopyTodo.Description;
-            CurrentTodo.Deadline = CopyTodo.Deadline;
-            CurrentTodo.Priority = CopyTodo.Priority;
-            CurrentTodo.Shared = CopyTodo.Shared;
-            CurrentTodo.UpdatedAt = DateTime.Now;
-            CurrentTodo.Shared = CopyTodo.Shared;
-            CurrentTodo.IsCompleted = CopyTodo.IsCompleted;
+            if (string.IsNullOrEmpty(CopyTodo.Title) && string.IsNullOrEmpty(CopyTodo.Description))
+            {
+                if (_isEditing)
+                {
+                    MainViewModel.TodoItems.Remove(CurrentTodo);
+                }
+                WindowHelper.CloseWindow(_editWindow);
+                return;
+            }
+
+            if (_isEditing)
+            {
+                CurrentTodo.Title = CopyTodo.Title;
+                CurrentTodo.Description = CopyTodo.Description;
+                CurrentTodo.Deadline = CopyTodo.Deadline;
+                CurrentTodo.Priority = CopyTodo.Priority;
+                CurrentTodo.Shared = CopyTodo.Shared;
+                CurrentTodo.UpdatedAt = DateTime.Now;
+                CurrentTodo.Shared = CopyTodo.Shared;
+                CurrentTodo.IsCompleted = CopyTodo.IsCompleted;
+            }
+            else
+            { 
+                MainViewModel.TodoItems.Add(CopyTodo);
+            }
 
             WindowHelper.CloseWindow(_editWindow);
         }

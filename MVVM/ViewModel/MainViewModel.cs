@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using TODO.MVVM.Model;
+using TODO.MVVM.View;
 
 namespace TODO.MVVM.ViewModel
 {
@@ -27,6 +28,16 @@ namespace TODO.MVVM.ViewModel
         private void HomeView(HomeViewModel parameter)
         {
             CurrentView = HomeVM;
+        }
+
+        [RelayCommand]
+        private void OpenAddWindow()
+        {
+            TodoItem newTodoItem = new TodoItemBuilder()
+                .SetId(TodoItems.Count + 1)
+                .Build();
+            EditTodoWindow editWindow = new EditTodoWindow(newTodoItem, this, false);
+            editWindow.ShowDialog();
         }
     }
 }

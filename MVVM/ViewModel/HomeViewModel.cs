@@ -34,7 +34,7 @@ namespace TODO.MVVM.ViewModel
                 return;
             }
 
-            EditTodoWindow editWindow = new EditTodoWindow(todoItem, _mainViewModel);
+            EditTodoWindow editWindow = new EditTodoWindow(todoItem, _mainViewModel, true);
             editWindow.ShowDialog();
         }
 
