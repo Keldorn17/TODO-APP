@@ -23,8 +23,8 @@ jobs:
               with:
                 dotnet-version: 8.0.x
 
-            - name: 📦 Install .NET Workloads (if needed)
-              run: dotnet workload install
+            - name: Install .NET Workloads
+              run: dotnet workload install microsoft-net-sdk-desktop microsoft-net-sdk-windowsdesktop
 
             - name: Restore dependencies
               run: dotnet restore ${{ env.PROJECT_PATH }} -r win-x64
