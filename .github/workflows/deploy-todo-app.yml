@@ -30,7 +30,7 @@ jobs:
               run: dotnet build ${{ env.PROJECT_PATH }} -c Release --no-restore
   
             - name: Publish the executable
-              run: dotnet publish ${{ env.PROJECT_PATH }} -c Release --self-contained -r win-x64 -p:PublishSingleFile=true --no-build -o publish_output
+              run: dotnet publish ${{ env.PROJECT_PATH }} -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true --no-build -o publish_output
 
             - name: Upload artifact (Executable)
               uses: actions/upload-artifact@v4
@@ -39,32 +39,39 @@ jobs:
                 path: publish_output/*.exe
 
     tag-and-release:
-        needs: deploy
-        if: github.ref == 'refs/heads/main'
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout repository
-              uses: actions/checkout@v2
+      needs: deploy
+      if: github.ref == 'refs/heads/main'
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout repository
+          uses: actions/checkout@v2
 
-            - name: Generate new tag
-              id: tag
-              run: |
-                VERSION=$(date +'%Y.%m.%d-%H%M%S')
-                echo "New tag: todo-app/v$VERSION"
-                echo "TAG_NAME=todo-app/v$VERSION" >> $GITHUB_ENV
+        - name: Download artifact
+          uses: actions/download-artifact@v4
+          with:
+            name: todo-app-executable
+            path: publish_output
 
-            - name: Push the new tag
-              run: |
-                git config --global user.email "actions@github.com"
-                git config --global user.name "GitHub Actions"
-                git tag $TAG_NAME
-                git push origin $TAG_NAME
+        - name: Generate new tag
+          id: tag
+          run: |
+            VERSION=$(date +'%Y.%m.%d-%H%M%S')
+            echo "New tag: todo-app/v$VERSION"
+            echo "TAG_NAME=todo-app/v$VERSION" >> $GITHUB_ENV
 
-            - name: Create GitHub Release
-              uses: softprops/action-gh-release@v1
-              with:
-                tag_name: ${{ github.ref_name }}
-                name: ${{ github.ref_name }}
-                files: publish_output/*.exe
-              env:
-                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        - name: Push the new tag
+          run: |
+            git config --global user.email "actions@github.com"
+            git config --global user.name "GitHub Actions"
+            git tag $TAG_NAME
+            git push origin $TAG_NAME
+
+        - name: Create GitHub Release
+          uses: softprops/action-gh-release@v1
+          with:
+            tag_name: ${{ env.TAG_NAME }}
+            name: ${{ env.TAG_NAME }}
+            files: publish_output/*.exe
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
