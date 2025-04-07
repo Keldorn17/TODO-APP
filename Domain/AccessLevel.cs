@@ -1,5 +1,4 @@
-﻿
-namespace TODO.Utils
+﻿namespace TODO.Domain
 {
     public sealed class AccessLevel
     {

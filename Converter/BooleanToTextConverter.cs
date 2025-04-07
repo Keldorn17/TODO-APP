@@ -1,16 +1,13 @@
 ﻿using System.Globalization;
 using System.Windows.Data;
-using System.Windows;
 
-namespace TODO.Utils
+namespace TODO.Converter
 {
-    public class StringToVisibilityConverter : IValueConverter
+    public class BooleanToTextConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return string.IsNullOrEmpty(value?.ToString())
-                ? Visibility.Collapsed
-                : Visibility.Visible;
+            return (bool)value ? "Completed" : "Complete";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

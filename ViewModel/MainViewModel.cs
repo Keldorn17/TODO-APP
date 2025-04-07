@@ -1,10 +1,11 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using TODO.MVVM.Model;
-using TODO.MVVM.View;
+using TODO.Model;
+using TODO.View;
 
-namespace TODO.MVVM.ViewModel
+
+namespace TODO.ViewModel
 {
     public partial class MainViewModel : ObservableObject
     {

@@ -1,26 +1,27 @@
 ﻿using System.Globalization;
 using System.Windows.Data;
+using TODO.Domain;
 
-namespace TODO.Utils
+namespace TODO.Converter
 {
-    public class AccessLevelConverter : IValueConverter
+    public class PriorityLevelConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is int intValue)
             {
-                return AccessLevel.GetByIndex(intValue);
+                return PriorityLevel.GetByIndex(intValue);
             }
-            return AccessLevel.Read;
+            return PriorityLevel.Normal;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is AccessLevel accessLevel)
+            if (value is PriorityLevel priorityLevel)
             {
-                return accessLevel.Index;
+                return priorityLevel.Index;
             }
-            return 0;
+            return 2;
         }
     }
 }

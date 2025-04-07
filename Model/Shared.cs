@@ -1,7 +1,7 @@
 ﻿
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace TODO.MVVM.Model
+namespace TODO.Model
 {
     public partial class Shared : ObservableObject
     {

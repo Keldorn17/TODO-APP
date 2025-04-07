@@ -1,5 +1,4 @@
-﻿
-namespace TODO.MVVM.Model
+﻿namespace TODO.Model
 {
     /// <summary>
     /// Represents the category of a to-do item.

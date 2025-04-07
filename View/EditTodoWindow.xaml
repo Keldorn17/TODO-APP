@@ -1,11 +1,12 @@
-﻿<Window x:Class="TODO.MVVM.View.EditTodoWindow"
+﻿<Window x:Class="TODO.View.EditTodoWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TODO.MVVM.View" 
-        xmlns:viewmodel="clr-namespace:TODO.MVVM.ViewModel" 
+        xmlns:local="clr-namespace:TODO.View" 
+        xmlns:viewmodel="clr-namespace:TODO.ViewModel" 
         xmlns:utils="clr-namespace:TODO.Utils" d:DataContext="{d:DesignInstance Type=viewmodel:EditTodoViewModel}"
+        xmlns:converter="clr-namespace:TODO.Converter"
         mc:Ignorable="d"
         Height="600" Width="500"
         MinHeight="600" MinWidth="500"
@@ -17,11 +18,11 @@
         AllowsTransparency="True">
 
     <Window.Resources>
-        <utils:PriorityLevelConverter x:Key="PriorityLevelConverter"/>
-        <utils:AccessLevelConverter x:Key="AccessLevelConverter"/>
-        <utils:NullToBoolConverter x:Key="NullToBoolConverter"/>
-        <utils:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
-        <utils:BooleanToTextConverter x:Key="BoolToText"/>
+        <converter:PriorityLevelConverter x:Key="PriorityLevelConverter"/>
+        <converter:AccessLevelConverter x:Key="AccessLevelConverter"/>
+        <converter:NullToBoolConverter x:Key="NullToBoolConverter"/>
+        <converter:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
+        <converter:BooleanToTextConverter x:Key="BoolToText"/>
     </Window.Resources>
     
     <WindowChrome.WindowChrome>

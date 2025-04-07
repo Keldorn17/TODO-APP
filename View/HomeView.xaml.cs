@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace TODO.MVVM.View
+namespace TODO.View
 {
     /// <summary>
     /// Interaction logic for HomeView.xaml
