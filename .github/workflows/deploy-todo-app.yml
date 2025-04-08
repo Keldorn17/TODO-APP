@@ -1,0 +1,157 @@
+name: "Deploy Todo App"
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+env:
+  PROJECT_PATH: TODO.csproj
+
+jobs:
+  validate-project:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate project file
+        run: |
+          # Check if file exists
+          if (-not (Test-Path ${{ env.PROJECT_PATH }})) {
+            Write-Error "Project file not found at ${{ env.PROJECT_PATH }}"
+            exit 1
+          }
+          
+          # Simple XML validation
+          try {
+            [xml]$proj = Get-Content ${{ env.PROJECT_PATH }}
+            Write-Output "Project file is valid XML"
+          } catch {
+            Write-Error "Invalid XML in project file: $_"
+            Write-Output "Problem likely at line $($_.Exception.LineNumber)"
+            exit 1
+          }
+
+  deploy:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+  
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore ${{ env.PROJECT_PATH }} -r win-x64
+  
+      - name: Build the application
+        run: dotnet build ${{ env.PROJECT_PATH }} -c Release --no-restore
+  
+      - name: Publish application (Complete Bundle)
+        run: |
+          dotnet publish ${{ env.PROJECT_PATH }} `
+            -c Release `
+            -r win-x64 `
+            --self-contained true `
+            -p:PublishSingleFile=false `
+            -p:IncludeNativeLibrariesForSelfExtract=true `
+            -p:IncludeAllContentForSelfExtract=true `
+            -p:SelfContained=true `
+            -p:UseAppHost=true `
+            -p:CopyLocalLockFileAssemblies=true `
+            --no-build `
+            -o publish_output
+
+      - name: Verify output structure
+        run: |
+          # Check for essential files (relaxed check)
+          $exeExists = Test-Path "publish_output\*.exe"
+          $dllExists = Test-Path "publish_output\*.dll"
+          
+          if (-not ($exeExists -and $dllExists)) {
+              Write-Error "Essential files missing from publish output!"
+              Get-ChildItem -Path publish_output -Recurse
+              exit 1
+          }
+          Write-Output "Publish output verification passed"
+
+      - name: Create release ZIP
+        run: |
+          Compress-Archive -Path publish_output\* -DestinationPath TODO_Release.zip -Force
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-package
+          path: TODO_Release.zip
+
+  create-release:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get current version
+        id: get_version
+        run: |
+          CURRENT_VERSION=$(grep '<Version>' ${{ env.PROJECT_PATH }} | sed -E 's/.*<Version>(.*)<\/Version>.*/\1/')
+          echo "CURRENT_VERSION=$CURRENT_VERSION" >> $GITHUB_ENV
+
+      - name: Calculate new version
+        id: bump_version
+        run: |
+          IFS='.' read -ra VERSION_PARTS <<< "$CURRENT_VERSION"
+          MAJOR=${VERSION_PARTS[0]}
+          MINOR=${VERSION_PARTS[1]}
+          PATCH=${VERSION_PARTS[2]}
+          NEW_PATCH=$((PATCH + 1))
+          NEW_VERSION="$MAJOR.$MINOR.$NEW_PATCH"
+          echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
+          echo "TAG_NAME=todo/v$NEW_VERSION" >> $GITHUB_ENV
+
+      - name: Check if tag exists
+        id: check_tag
+        run: |
+          if git rev-parse $TAG_NAME >/dev/null 2>&1; then
+            echo "SKIP_RELEASE=true" >> $GITHUB_ENV
+          else
+            echo "SKIP_RELEASE=false" >> $GITHUB_ENV
+          fi
+
+      - name: Update version and create tag
+        if: env.SKIP_RELEASE == 'false'
+        run: |
+          sed -i "s/<Version>.*<\/Version>/<Version>$NEW_VERSION<\/Version>/" ${{ env.PROJECT_PATH }}
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git add ${{ env.PROJECT_PATH }}
+          git commit -m "Bump version to $NEW_VERSION [skip ci]"
+          git push
+          git tag $TAG_NAME
+          git push origin $TAG_NAME
+
+      - name: Download artifact
+        if: env.SKIP_RELEASE == 'false'
+        uses: actions/download-artifact@v4
+        with:
+          name: release-package
+          path: release
+
+      - name: Create Release
+        if: env.SKIP_RELEASE == 'false'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.TAG_NAME }}
+          name: "Release ${{ env.TAG_NAME }}"
+          files: release/TODO_Release.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
