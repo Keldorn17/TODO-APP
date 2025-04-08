@@ -1,6 +1,6 @@
-﻿using TODO.Utils;
+﻿using TODO.Domain;
 
-namespace TODO.MVVM.Model
+namespace TODO.Model
 {
     /// <summary>
     /// Represents the priority level of a to-do item.

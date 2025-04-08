@@ -1,8 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using TODO.MVVM.ViewModel;
 using TODO.Utils;
+using TODO.ViewModel;
 
 namespace TODO
 {

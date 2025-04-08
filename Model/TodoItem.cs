@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using TODO.Utils;
 
-namespace TODO.MVVM.Model
+namespace TODO.Model
 {
     /// <summary>
     /// Represents a to-do item with properties such as title, description, deadline, and priority.

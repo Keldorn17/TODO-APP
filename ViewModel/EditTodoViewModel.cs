@@ -1,12 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Windows;
-using TODO.MVVM.Model;
+using TODO.Domain;
+using TODO.Model;
 using TODO.Utils;
 
-namespace TODO.MVVM.ViewModel
+namespace TODO.ViewModel
 {
     public partial class EditTodoViewModel : ObservableObject
     {

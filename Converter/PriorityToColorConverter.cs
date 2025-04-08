@@ -2,7 +2,7 @@
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace TODO.Utils
+namespace TODO.Converter
 {
     public class PriorityToColorConverter : IValueConverter
     {

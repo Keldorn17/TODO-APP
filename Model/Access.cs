@@ -1,6 +1,6 @@
-﻿using TODO.Utils;
+﻿using TODO.Domain;
 
-namespace TODO.MVVM.Model
+namespace TODO.Model
 {
     public class Access
     {
