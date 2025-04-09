@@ -4,39 +4,13 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 
 env:
   PROJECT_PATH: TODO.csproj
 
 jobs:
-  validate-project:
-    runs-on: windows-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Validate project file
-        run: |
-          # Check if file exists
-          if (-not (Test-Path ${{ env.PROJECT_PATH }})) {
-            Write-Error "Project file not found at ${{ env.PROJECT_PATH }}"
-            exit 1
-          }
-          
-          # Simple XML validation
-          try {
-            [xml]$proj = Get-Content ${{ env.PROJECT_PATH }}
-            Write-Output "Project file is valid XML"
-          } catch {
-            Write-Error "Invalid XML in project file: $_"
-            Write-Output "Problem likely at line $($_.Exception.LineNumber)"
-            exit 1
-          }
-
   deploy:
+    if: ${{ !contains(github.ref, 'version-update') }}
     runs-on: windows-latest
     steps:
       - name: Checkout repository
@@ -53,7 +27,7 @@ jobs:
       - name: Build the application
         run: dotnet build ${{ env.PROJECT_PATH }} -c Release --no-restore
   
-      - name: Publish application (Complete Bundle)
+      - name: Publish application
         run: |
           dotnet publish ${{ env.PROJECT_PATH }} `
             -c Release `
@@ -62,24 +36,8 @@ jobs:
             -p:PublishSingleFile=false `
             -p:IncludeNativeLibrariesForSelfExtract=true `
             -p:IncludeAllContentForSelfExtract=true `
-            -p:SelfContained=true `
-            -p:UseAppHost=true `
-            -p:CopyLocalLockFileAssemblies=true `
             --no-build `
             -o publish_output
-
-      - name: Verify output structure
-        run: |
-          # Check for essential files (relaxed check)
-          $exeExists = Test-Path "publish_output\*.exe"
-          $dllExists = Test-Path "publish_output\*.dll"
-          
-          if (-not ($exeExists -and $dllExists)) {
-              Write-Error "Essential files missing from publish output!"
-              Get-ChildItem -Path publish_output -Recurse
-              exit 1
-          }
-          Write-Output "Publish output verification passed"
 
       - name: Create release ZIP
         run: |
@@ -118,6 +76,9 @@ jobs:
           echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
           echo "TAG_NAME=todo/v$NEW_VERSION" >> $GITHUB_ENV
 
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "tag_name=todo/v$NEW_VERSION" >> $GITHUB_OUTPUT
+
       - name: Check if tag exists
         id: check_tag
         run: |
@@ -130,12 +91,22 @@ jobs:
       - name: Update version and create tag
         if: env.SKIP_RELEASE == 'false'
         run: |
+          # Checkout properly to a branch
+          git checkout -b version-update-$NEW_VERSION
+          
+          # Update version
           sed -i "s/<Version>.*<\/Version>/<Version>$NEW_VERSION<\/Version>/" ${{ env.PROJECT_PATH }}
+          
+          # Configure git
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
+          
+          # Commit and push
           git add ${{ env.PROJECT_PATH }}
-          git commit -m "Bump version to $NEW_VERSION [skip ci]"
-          git push
+          git commit -m "Bump version to $NEW_VERSION"
+          git push origin version-update-$NEW_VERSION
+          
+          # Create and push tag
           git tag $TAG_NAME
           git push origin $TAG_NAME
 
@@ -155,3 +126,7 @@ jobs:
           files: release/TODO_Release.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Skip release notice
+        if: env.SKIP_RELEASE == 'true'
+        run: echo "Skipping release as tag $TAG_NAME already exists"

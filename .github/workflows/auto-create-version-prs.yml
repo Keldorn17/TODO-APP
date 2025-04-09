@@ -1,0 +1,54 @@
+name: "Auto-Create Version PR"
+
+on:
+  workflow_run:
+    workflows: ["Deploy Todo App"]
+    types:
+      - completed
+
+jobs:
+  create-version-pr:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      checks: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Find version-update branch
+        id: find_branch
+        run: |
+          # Fetch all remote branches
+          git fetch --all
+          # Find the most recent version-update branch
+          BRANCH_NAME=$(git branch -r | grep 'origin/version-update-' | sort -r | head -1 | sed 's/origin\///' | tr -d ' ')
+          if [ -z "$BRANCH_NAME" ]; then
+            echo "No version-update branch found"
+            exit 0
+          fi
+          echo "branch_name=${BRANCH_NAME}" >> $GITHUB_OUTPUT
+          echo "Found branch: ${BRANCH_NAME}"
+
+      - name: Fetch required branches
+        if: steps.find_branch.outputs.branch_name != ''
+        run: |
+          git fetch origin main
+          git fetch origin ${{ steps.find_branch.outputs.branch_name }}
+
+      - name: Create Pull Request
+        if: steps.find_branch.outputs.branch_name != ''
+        run: |
+          gh pr create \
+            -B main \
+            -H "${{ steps.find_branch.outputs.branch_name }}" \
+            -t "Version Update: ${{ steps.find_branch.outputs.branch_name }}" \
+            -b "Automated version bump created by GitHub Actions"
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
