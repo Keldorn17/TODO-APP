@@ -1,0 +1,132 @@
+name: "Deploy Todo App"
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  PROJECT_PATH: TODO.csproj
+
+jobs:
+  deploy:
+    if: ${{ !contains(github.ref, 'version-update') }}
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+  
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore ${{ env.PROJECT_PATH }} -r win-x64
+  
+      - name: Build the application
+        run: dotnet build ${{ env.PROJECT_PATH }} -c Release --no-restore
+  
+      - name: Publish application
+        run: |
+          dotnet publish ${{ env.PROJECT_PATH }} `
+            -c Release `
+            -r win-x64 `
+            --self-contained true `
+            -p:PublishSingleFile=false `
+            -p:IncludeNativeLibrariesForSelfExtract=true `
+            -p:IncludeAllContentForSelfExtract=true `
+            --no-build `
+            -o publish_output
+
+      - name: Create release ZIP
+        run: |
+          Compress-Archive -Path publish_output\* -DestinationPath TODO_Release.zip -Force
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-package
+          path: TODO_Release.zip
+
+  create-release:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get current version
+        id: get_version
+        run: |
+          CURRENT_VERSION=$(grep '<Version>' ${{ env.PROJECT_PATH }} | sed -E 's/.*<Version>(.*)<\/Version>.*/\1/')
+          echo "CURRENT_VERSION=$CURRENT_VERSION" >> $GITHUB_ENV
+
+      - name: Calculate new version
+        id: bump_version
+        run: |
+          IFS='.' read -ra VERSION_PARTS <<< "$CURRENT_VERSION"
+          MAJOR=${VERSION_PARTS[0]}
+          MINOR=${VERSION_PARTS[1]}
+          PATCH=${VERSION_PARTS[2]}
+          NEW_PATCH=$((PATCH + 1))
+          NEW_VERSION="$MAJOR.$MINOR.$NEW_PATCH"
+          echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
+          echo "TAG_NAME=todo/v$NEW_VERSION" >> $GITHUB_ENV
+
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "tag_name=todo/v$NEW_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Check if tag exists
+        id: check_tag
+        run: |
+          if git rev-parse $TAG_NAME >/dev/null 2>&1; then
+            echo "SKIP_RELEASE=true" >> $GITHUB_ENV
+          else
+            echo "SKIP_RELEASE=false" >> $GITHUB_ENV
+          fi
+
+      - name: Update version and create tag
+        if: env.SKIP_RELEASE == 'false'
+        run: |
+          # Checkout properly to a branch
+          git checkout -b version-update-$NEW_VERSION
+          
+          # Update version
+          sed -i "s/<Version>.*<\/Version>/<Version>$NEW_VERSION<\/Version>/" ${{ env.PROJECT_PATH }}
+          
+          # Configure git
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          
+          # Commit and push
+          git add ${{ env.PROJECT_PATH }}
+          git commit -m "Bump version to $NEW_VERSION"
+          git push origin version-update-$NEW_VERSION
+          
+          # Create and push tag
+          git tag $TAG_NAME
+          git push origin $TAG_NAME
+
+      - name: Download artifact
+        if: env.SKIP_RELEASE == 'false'
+        uses: actions/download-artifact@v4
+        with:
+          name: release-package
+          path: release
+
+      - name: Create Release
+        if: env.SKIP_RELEASE == 'false'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.TAG_NAME }}
+          name: "Release ${{ env.TAG_NAME }}"
+          files: release/TODO_Release.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Skip release notice
+        if: env.SKIP_RELEASE == 'true'
+        run: echo "Skipping release as tag $TAG_NAME already exists"
