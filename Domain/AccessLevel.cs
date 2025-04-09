@@ -2,34 +2,34 @@
 {
     public sealed class AccessLevel
     {
-        private static readonly List<AccessLevel> _accessLevels = new List<AccessLevel>();
-        public static readonly AccessLevel Read = new AccessLevel(0, "Read");
-        public static readonly AccessLevel Write = new AccessLevel(1, "Write");
-        public static readonly AccessLevel Manage = new AccessLevel(2, "Manage");
-        public static readonly AccessLevel Owner = new AccessLevel(3, "Owner");
+        private static readonly List<AccessLevel> AccessLevels = [];
+        private static readonly AccessLevel Read = new AccessLevel(0, "Read");
+        private static readonly AccessLevel Write = new AccessLevel(1, "Write");
+        private static readonly AccessLevel Manage = new AccessLevel(2, "Manage");
+        private static readonly AccessLevel Owner = new AccessLevel(3, "Owner");
         public int Index { get; }
         public string Name { get; }
         private AccessLevel(int value, string name)
         {
             Index = value;
             Name = name;
-            _accessLevels.Add(this);
+            AccessLevels.Add(this);
         }
         public static AccessLevel GetByIndex(int index)
         {
-            return _accessLevels.FirstOrDefault(accessIndex => accessIndex.Index == index, Read);
+            return AccessLevels.FirstOrDefault(accessIndex => accessIndex.Index == index, Read);
         }
         public static AccessLevel GetByName(string name)
         {
-            return _accessLevels.FirstOrDefault(accessIndex => accessIndex.Name.Equals(name), Read);
+            return AccessLevels.FirstOrDefault(accessIndex => accessIndex.Name.Equals(name), Read);
         }
         public static List<AccessLevel> GetAccessLevels()
         {
-            return _accessLevels;
+            return AccessLevels;
         }
         public static List<AccessLevel> GetAccessLevels(int maxIndex)
         {
-            return _accessLevels.Where(accessIndex => accessIndex.Index <= maxIndex).ToList();
+            return AccessLevels.Where(accessIndex => accessIndex.Index <= maxIndex).ToList();
         }
         public override string ToString()
         {

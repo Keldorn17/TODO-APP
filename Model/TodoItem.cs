@@ -42,7 +42,7 @@ namespace TODO.Model
         [ObservableProperty]
         private bool _isCompleted;
 
-        public ObservableCollection<Shared> Shared { get; set; } = new ObservableCollection<Shared>();
+        public ObservableCollection<Shared> Shared { get; set; } = [];
 
         /// <summary>
         /// Creates a deep copy of the TodoItem
@@ -93,103 +93,103 @@ namespace TODO.Model
     /// </summary>
     public class TodoItemBuilder
     {
-        private readonly TodoItem todoItem = new TodoItem();
+        private readonly TodoItem _todoItem = new TodoItem();
 
         public TodoItemBuilder SetId(long id)
         {
-            todoItem.Id = id;
+            _todoItem.Id = id;
             return this;
         }
 
         public TodoItemBuilder SetTitle(string title)
         {
-            todoItem.Title = title;
+            _todoItem.Title = title;
             return this;
         }
 
         public TodoItemBuilder SetDescription(string description)
         {
-            todoItem.Description = description;
+            _todoItem.Description = description;
             return this;
         }
 
         public TodoItemBuilder SetOwner(string owner)
         {
-            todoItem.Owner = owner;
+            _todoItem.Owner = owner;
             return this;
         }
 
         public TodoItemBuilder SetDeadline(string deadline)
         {
-            todoItem.Deadline = DateTimeUtils.DateTimeConverter(deadline);
+            _todoItem.Deadline = DateTimeUtils.DateTimeConverter(deadline);
             return this;
         }
 
         public TodoItemBuilder SetCategory(Category category)
         {
-            todoItem.Category = category;
+            _todoItem.Category = category;
             return this;
         }
 
         public TodoItemBuilder SetCreatedAt(string createdAt)
         {
-            todoItem.CreatedAt = DateTimeUtils.DateTimeConverter(createdAt);
+            _todoItem.CreatedAt = DateTimeUtils.DateTimeConverter(createdAt);
             return this;
         }
 
         public TodoItemBuilder SetUpdatedAt(string updatedAt)
         {
-            todoItem.UpdatedAt = DateTimeUtils.DateTimeConverter(updatedAt);
+            _todoItem.UpdatedAt = DateTimeUtils.DateTimeConverter(updatedAt);
             return this;
         }
 
         public TodoItemBuilder SetParent(string parent)
         {
-            todoItem.Parent = parent;
+            _todoItem.Parent = parent;
             return this;
         }
 
         public TodoItemBuilder SetPriority(Priority priority)
         {
-            todoItem.Priority = priority;
+            _todoItem.Priority = priority;
             return this;
         }
 
         public TodoItemBuilder SetIsCompleted(bool isCompleted)
         {
-            todoItem.IsCompleted = isCompleted;
+            _todoItem.IsCompleted = isCompleted;
             return this;
         }
 
         public TodoItemBuilder SetShared(Shared shared)
         {
-            todoItem.Shared.Add(shared);
+            _todoItem.Shared.Add(shared);
             return this;
         }
 
         public TodoItem Build()
         {
-            if (todoItem.Priority == null)
+            if (_todoItem.Priority == null)
             {
-                todoItem.Priority = new Priority { Level = 0 };
+                _todoItem.Priority = new Priority { Level = 0 };
             }
-            if (todoItem.Category == null)
+            if (_todoItem.Category == null)
             {
-                todoItem.Category = new Category { Name = "General" };
+                _todoItem.Category = new Category { Name = "General" };
             }
-            if (todoItem.Deadline == default)
+            if (_todoItem.Deadline == default)
             {
-                todoItem.Deadline = DateTime.Now;
+                _todoItem.Deadline = DateTime.Now;
             }
-            if (todoItem.CreatedAt == default)
+            if (_todoItem.CreatedAt == default)
             {
-                todoItem.CreatedAt = DateTime.Now;
+                _todoItem.CreatedAt = DateTime.Now;
             }
-            if (todoItem.UpdatedAt == default)
+            if (_todoItem.UpdatedAt == default)
             {
-                todoItem.UpdatedAt = DateTime.Now;
+                _todoItem.UpdatedAt = DateTime.Now;
             }
-            return todoItem;
+            return _todoItem;
         }
     }
 }

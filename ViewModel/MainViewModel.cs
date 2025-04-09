@@ -10,7 +10,7 @@ namespace TODO.ViewModel
     public partial class MainViewModel : ObservableObject
     {
         [ObservableProperty]
-        private HomeViewModel _homeVM;
+        private HomeViewModel _homeVm;
 
         [ObservableProperty]
         private object _currentView;
@@ -20,24 +20,24 @@ namespace TODO.ViewModel
 
         public MainViewModel()
         {
-            TodoItems = new ObservableCollection<TodoItem>();
-            HomeVM = new HomeViewModel(this);
-            CurrentView = HomeVM;
+            TodoItems = [];
+            HomeVm = new HomeViewModel(this);
+            CurrentView = HomeVm;
         }
 
         [RelayCommand]
         private void HomeView(HomeViewModel parameter)
         {
-            CurrentView = HomeVM;
+            CurrentView = HomeVm;
         }
 
         [RelayCommand]
         private void OpenAddWindow()
         {
-            TodoItem newTodoItem = new TodoItemBuilder()
+            var newTodoItem = new TodoItemBuilder()
                 .SetId(TodoItems.Count + 1)
                 .Build();
-            EditTodoWindow editWindow = new EditTodoWindow(newTodoItem, this, false);
+            var editWindow = new EditTodoWindow(newTodoItem, this, false);
             editWindow.ShowDialog();
         }
     }

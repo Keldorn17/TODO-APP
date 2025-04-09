@@ -18,8 +18,8 @@ namespace TODO.Utils
 
         public static string ToJavaZonedDateTime(DateTime dateTime)
         {
-            TimeSpan userOffset = TimeZoneInfo.Local.GetUtcOffset(dateTime);
-            DateTimeOffset localDateTime = new DateTimeOffset(dateTime, userOffset);
+            var userOffset = TimeZoneInfo.Local.GetUtcOffset(dateTime);
+            var localDateTime = new DateTimeOffset(dateTime, userOffset);
             return localDateTime.ToString("yyyy-MM-ddTHH:mm:ss.fffffffzzz");
         }
     }

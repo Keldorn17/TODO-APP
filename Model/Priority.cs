@@ -7,25 +7,25 @@ namespace TODO.Model
     /// </summary>
     public class Priority
     {
-        private int level;
-        private string? name;
+        private int _level;
+
         public int Level
         {
-            get => level;
+            get => _level;
             set
             {
-                if (value >= 0 && value <= 4)
+                if (value is >= 0 and <= 4)
                 {
-                    level = value;
-                    name = PriorityLevel.GetByIndex(value).Name;
+                    _level = value;
+                    Name = PriorityLevel.GetByIndex(value).Name;
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException("Priority level must be between 0 and 4");
+                    throw new ArgumentOutOfRangeException($"Priority level must be between 0 and 4");
                 }
             }
         }
-        public string? Description { get; set; }
-        public string? Name { get => name; }
+        public string? Description { get; init; }
+        public string? Name { get; private set; }
     }
 }

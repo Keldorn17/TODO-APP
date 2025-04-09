@@ -8,8 +8,8 @@
     </ResourceDictionary.MergedDictionaries>
     <!-- #endregion -->
 
-    <!-- #region DatePickerCalandarStyle -->
-    <Style x:Key="DatePickerCalandarStyle" TargetType="{x:Type Calendar}">
+    <!-- #region DatePickerCalendarStyle -->
+    <Style x:Key="DatePickerCalendarStyle" TargetType="{x:Type Calendar}">
         <Setter Property="Foreground" Value="{DynamicResource SecondaryTextBrush}"/>
         <Setter Property="Background" Value="{DynamicResource CalendarBrush}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource SecondaryTextBrush}"/>
@@ -57,7 +57,7 @@
                                     <ColumnDefinition Width="35"/>
                                 </Grid.ColumnDefinitions>
                                 <DatePickerTextBox x:Name="PART_TextBox"
-                                                   Style="{StaticResource tbox_TextPlaceholder}"
+                                                   Style="{StaticResource TboxTextPlaceholder}"
                                                    BorderThickness="0"
                                                    Grid.Column="0"
                                                    FontSize="14"
@@ -67,16 +67,16 @@
                                                    IsReadOnly="True"
                                                    Focusable="False"/>
                                 <Button x:Name="PART_Button"
-                                        Style="{StaticResource bt_CalendarStyle}"
+                                        Style="{StaticResource BtCalendarStyle}"
                                         Grid.Column="1"
                                         Margin="0 0 5 0"/>
-                                <Popup x:Name="PART_Popup"
+                                <Popup Grid.Column="0" x:Name="PART_Popup"
                                        AllowsTransparency="True"
                                        Placement="Bottom"
                                        PlacementTarget="{Binding ElementName=PART_TextBox}"
                                        StaysOpen="False"
                                        HorizontalOffset="17"/>
-                                <Label x:Name="Placeholder"
+                                <Label Grid.Column="0" x:Name="Placeholder"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Left"
                                        Foreground="{DynamicResource SecondaryTextBrush}"

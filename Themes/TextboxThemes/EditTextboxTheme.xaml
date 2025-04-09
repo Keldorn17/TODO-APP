@@ -155,7 +155,7 @@
     <!-- #endregion -->
     
     <!-- #region Textbox Placeholder Style -->
-    <Style x:Key="tbox_TextPlaceholder" TargetType="{x:Type TextBox}">
+    <Style x:Key="TboxTextPlaceholder" TargetType="{x:Type TextBox}">
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="Height" Value="40"/>
         <Setter Property="MinWidth" Value="220"/>
@@ -188,8 +188,7 @@
                                    Foreground="{DynamicResource SecondaryTextBrush}"
                                    Visibility="Collapsed"
                                    Padding="3 0 20 0"
-                                   Content="{TemplateBinding Tag}"
-                                   Grid.Column="1"/>
+                                   Content="{TemplateBinding Tag}"/>
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -207,7 +206,7 @@
     <!-- #endregion -->
     
     <!-- #region Created/Edited At Style -->
-    <Style x:Key="ceTBox" TargetType="{x:Type TextBox}">
+    <Style x:Key="CeTBox" TargetType="{x:Type TextBox}">
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="Height" Value="40"/>
         <Setter Property="MinWidth" Value="220"/>
