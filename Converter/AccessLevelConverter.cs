@@ -12,7 +12,7 @@ namespace TODO.Converter
             {
                 return AccessLevel.GetByIndex(intValue);
             }
-            return AccessLevel.GetByIndex(0);
+            return AccessLevel.Read;
         }
 
         public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)

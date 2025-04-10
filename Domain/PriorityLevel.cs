@@ -3,11 +3,11 @@
     public sealed class PriorityLevel
     {
         private static readonly List<PriorityLevel> Priorities = [];
-        private static readonly PriorityLevel NotRequired = new PriorityLevel(0, "Not Required");
-        private static readonly PriorityLevel Low = new PriorityLevel(1, "Low");
-        private static readonly PriorityLevel Normal = new PriorityLevel(2, "Normal");
-        private static readonly PriorityLevel High = new PriorityLevel(3, "High");
-        private static readonly PriorityLevel Critical = new PriorityLevel(4, "Critical");
+        public static readonly PriorityLevel NotRequired = new PriorityLevel(0, "Not Required");
+        public static readonly PriorityLevel Low = new PriorityLevel(1, "Low");
+        public static readonly PriorityLevel Normal = new PriorityLevel(2, "Normal");
+        public static readonly PriorityLevel High = new PriorityLevel(3, "High");
+        public static readonly PriorityLevel Critical = new PriorityLevel(4, "Critical");
 
         public int Index { get; }
         public string Name { get; }

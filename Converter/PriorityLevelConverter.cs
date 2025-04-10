@@ -12,7 +12,7 @@ namespace TODO.Converter
             {
                 return PriorityLevel.GetByIndex(intValue);
             }
-            return PriorityLevel.GetByIndex(2);
+            return PriorityLevel.Normal;
         }
 
         public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)

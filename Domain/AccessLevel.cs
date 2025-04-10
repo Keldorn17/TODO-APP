@@ -3,10 +3,10 @@
     public sealed class AccessLevel
     {
         private static readonly List<AccessLevel> AccessLevels = [];
-        private static readonly AccessLevel Read = new AccessLevel(0, "Read");
-        private static readonly AccessLevel Write = new AccessLevel(1, "Write");
-        private static readonly AccessLevel Manage = new AccessLevel(2, "Manage");
-        private static readonly AccessLevel Owner = new AccessLevel(3, "Owner");
+        public static readonly AccessLevel Read = new AccessLevel(0, "Read");
+        public static readonly AccessLevel Write = new AccessLevel(1, "Write");
+        public static readonly AccessLevel Manage = new AccessLevel(2, "Manage");
+        public static readonly AccessLevel Owner = new AccessLevel(3, "Owner");
         public int Index { get; }
         public string Name { get; }
         private AccessLevel(int value, string name)

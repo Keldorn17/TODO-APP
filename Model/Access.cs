@@ -6,13 +6,14 @@ namespace TODO.Model
     {
         private string? _name;
         private int _level = 0;
-        public string? Name { get => _name; }
+        public string? Name => _name;
+
         public int Level 
         { 
             get => _level;
             set
             {
-                if (value < 0 || value > 3)
+                if (value is < 0 or > 3)
                 {
                     throw new ArgumentOutOfRangeException($"Access level must be between 0 and 3.");
                 }
