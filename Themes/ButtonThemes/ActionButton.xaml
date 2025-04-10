@@ -3,7 +3,7 @@
                     xmlns:local="clr-namespace:TODO.Utils">
 
     <Style x:Key="ActionButton" TargetType="{x:Type local:HoverButton}">
-        <Setter Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource Self}, Path = bgColor}"/>
+        <Setter Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource Self}, Path = BgColor}"/>
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/>
         <Setter Property="Width" Value="30"/>
@@ -20,7 +20,7 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value ="{Binding RelativeSource={RelativeSource Self}, Path = hoverColor}" />
+                <Setter Property="Background" Value ="{Binding RelativeSource={RelativeSource Self}, Path = HoverColor}" />
             </Trigger>
         </Style.Triggers>
     </Style>

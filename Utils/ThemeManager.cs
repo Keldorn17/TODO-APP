@@ -13,7 +13,7 @@ namespace TODO.Utils
             _currentTheme = newTheme;
         }
 
-        public static void ApplyTheme(string themeName)
+        private static void ApplyTheme(string themeName)
         {
             var app = Application.Current;
             if (app == null) return;

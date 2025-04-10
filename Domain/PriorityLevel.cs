@@ -2,8 +2,7 @@
 {
     public sealed class PriorityLevel
     {
-        private static readonly List<PriorityLevel> _priorities = new List<PriorityLevel>();
-
+        private static readonly List<PriorityLevel> Priorities = [];
         public static readonly PriorityLevel NotRequired = new PriorityLevel(0, "Not Required");
         public static readonly PriorityLevel Low = new PriorityLevel(1, "Low");
         public static readonly PriorityLevel Normal = new PriorityLevel(2, "Normal");
@@ -16,21 +15,21 @@
         {
             Index = value;
             Name = name;
-            _priorities.Add(this);
+            Priorities.Add(this);
         }
 
         public static PriorityLevel GetByIndex(int index)
         {
-            return _priorities.FirstOrDefault(priorityIndex => priorityIndex.Index == index, NotRequired);
+            return Priorities.FirstOrDefault(priorityIndex => priorityIndex.Index == index, NotRequired);
         }
 
         public static PriorityLevel GetByName(string name)
         {
-            return _priorities.FirstOrDefault(priorityIndex => priorityIndex.Name.Equals(name), NotRequired);
+            return Priorities.FirstOrDefault(priorityIndex => priorityIndex.Name.Equals(name), NotRequired);
         }
         public static List<PriorityLevel> GetPriorities()
         {
-            return _priorities;
+            return Priorities;
         }
         public override string ToString()
         {

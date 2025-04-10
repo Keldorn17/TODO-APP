@@ -6,15 +6,12 @@ namespace TODO.Utils
     {
         public static void CloseApp() => Application.Current.Shutdown();
 
-        public static void CloseWindow(Window window)
+        public static void CloseWindow(Window? window)
         {
-            if (window != null)
-            {
-                window.Close();
-            }
+            window?.Close();
         }
 
-        public static void MinimizeWindow(Window window)
+        public static void MinimizeWindow(Window? window)
         {
             if (window != null)
             {
@@ -22,7 +19,7 @@ namespace TODO.Utils
             }
         }
 
-        public static void MaximizeRestoreWindow(Window window)
+        public static void MaximizeRestoreWindow(Window? window)
         {
             if (window != null)
             {
@@ -32,12 +29,9 @@ namespace TODO.Utils
             }
         }
 
-        public static void DragWindow(Window window)
+        public static void DragWindow(Window? window)
         {
-            if (window != null)
-            {
-                window.DragMove();
-            }
+            window?.DragMove();
         }
     }
 }

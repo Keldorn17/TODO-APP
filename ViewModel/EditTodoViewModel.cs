@@ -43,11 +43,11 @@ namespace TODO.ViewModel
         [ObservableProperty]
         private string _title;
 
-        private bool _isEditing;
+        private readonly bool _isEditing;
 
-        private Window _editWindow;
+        private readonly Window? _editWindow;
 
-        private ObservableCollection<Shared> _sharedItems;
+        private ObservableCollection<Shared> _sharedItems = null!;
         public ObservableCollection<Shared> SharedItems
         {
             get => _sharedItems ??= CopyTodo.Shared;
@@ -104,11 +104,9 @@ namespace TODO.ViewModel
         [RelayCommand]
         private void RemoveSharedItem()
         {
-            if (SelectedSharedItem != null)
-            {
-                CopyTodo.Shared.Remove(SelectedSharedItem);
-                SelectedSharedItem = null;
-            }
+            if (SelectedSharedItem == null) return;
+            CopyTodo.Shared.Remove(SelectedSharedItem);
+            SelectedSharedItem = null;
         }
 
         [RelayCommand]

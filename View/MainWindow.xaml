@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TODO"
         xmlns:viewModel="clr-namespace:TODO.ViewModel"
         xmlns:utils="clr-namespace:TODO.Utils"
         mc:Ignorable="d"
@@ -45,7 +44,7 @@
                        FontSize="22"
                        Margin="20, 0, 0, 0"/>
 
-            <StackPanel Grid.Row="1">
+            <StackPanel Grid.Row="1" Grid.Column="0">
 
                 <RadioButton Content="Personal"
                              Height="50"
@@ -83,8 +82,7 @@
 
                     <Button Style="{StaticResource AddTodoButton}"
                             Command="{Binding OpenAddWindowCommand}"
-                            Tag="Add Todo"
-                            VerticalAlignment="Center"/>
+                            Tag="Add Todo"/>
                 </StackPanel>
 
                 <StackPanel Grid.Column="1"
@@ -129,27 +127,25 @@
                     </Border>
 
                     <utils:HoverButton 
-                        x:Name="btnMinimize"
+                        x:Name="BtnMinimize"
                         Content="—" 
                         Style="{StaticResource ActionButton}"
-                        hoverColor="{DynamicResource WaButtonsBrush}"
+                        HoverColor="{DynamicResource WaButtonsBrush}"
                         Click="Btn_Minimize"/>
                     <utils:HoverButton
-                        x:Name="btnMaximize"
+                        x:Name="BtnMaximize"
                         Content="❐" 
                         Style="{StaticResource ActionButton}"
-                        hoverColor="{DynamicResource WaButtonsBrush}"
+                        HoverColor="{DynamicResource WaButtonsBrush}"
                         Click="Btn_Maximize"/>
                     <utils:HoverButton
-                        x:Name="btnClose"
+                        x:Name="BtnClose"
                         Content="X"
                         Style="{StaticResource ActionButton}"
-                        hoverColor="{DynamicResource WaExitBrush}"
+                        HoverColor="{DynamicResource WaExitBrush}"
                         Click="Btn_Exit"/>
 
                 </StackPanel>
-
-
             </Grid>
 
             <ContentControl Grid.Row="1"

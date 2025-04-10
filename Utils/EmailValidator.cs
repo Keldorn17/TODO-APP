@@ -2,7 +2,7 @@
 
 namespace TODO.Utils
 {
-    public static class EmailValidator
+    public static partial class EmailValidator
     {
         public static bool IsValidEmail(string email)
         {
@@ -11,7 +11,7 @@ namespace TODO.Utils
 
             try
             {
-                var regex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$");
+                var regex = EmailRegex();
                 return regex.IsMatch(email);
             }
             catch (RegexParseException)
@@ -19,5 +19,8 @@ namespace TODO.Utils
                 return false;
             }
         }
+
+        [GeneratedRegex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$")]
+        private static partial Regex EmailRegex();
     }
 }

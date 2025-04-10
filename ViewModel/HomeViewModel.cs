@@ -4,7 +4,6 @@ using CommunityToolkit.Mvvm.Input;
 using TODO.Model;
 using TODO.View;
 
-
 namespace TODO.ViewModel
 {
     public partial class HomeViewModel : ObservableObject
@@ -20,7 +19,7 @@ namespace TODO.ViewModel
 
             TodoItems = mainViewModel.TodoItems;
 
-            for (int i = 0; i < 5; i++)
+            for (var i = 0; i < 5; i++)
             {
                 InitializeTodoItems();
             }
@@ -29,12 +28,6 @@ namespace TODO.ViewModel
         [RelayCommand]
         private void OpenEditWindow(TodoItem todoItem)
         {
-            if (todoItem == null)
-            {
-                System.Diagnostics.Debug.WriteLine("TodoItem is null!");
-                return;
-            }
-
             EditTodoWindow editWindow = new EditTodoWindow(todoItem, _mainViewModel, true);
             editWindow.ShowDialog();
         }

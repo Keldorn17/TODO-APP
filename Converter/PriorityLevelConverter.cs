@@ -6,7 +6,7 @@ namespace TODO.Converter
 {
     public class PriorityLevelConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             if (value is int intValue)
             {
@@ -15,13 +15,13 @@ namespace TODO.Converter
             return PriorityLevel.Normal;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             if (value is PriorityLevel priorityLevel)
             {
                 return priorityLevel.Index;
             }
-            return 2;
+            return PriorityLevel.Normal.Index;
         }
     }
 }
