@@ -11,7 +11,7 @@ namespace TODO.Utils
 
             try
             {
-                var regex = MyRegex();
+                var regex = EmailRegex();
                 return regex.IsMatch(email);
             }
             catch (RegexParseException)
@@ -21,6 +21,6 @@ namespace TODO.Utils
         }
 
         [GeneratedRegex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$")]
-        private static partial Regex MyRegex();
+        private static partial Regex EmailRegex();
     }
 }

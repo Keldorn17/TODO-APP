@@ -21,7 +21,7 @@ namespace TODO.Converter
             {
                 return priorityLevel.Index;
             }
-            return 2;
+            return PriorityLevel.Normal.Index;
         }
     }
 }

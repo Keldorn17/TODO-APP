@@ -21,7 +21,7 @@ namespace TODO.Converter
             {
                 return accessLevel.Index;
             }
-            return 0;
+            return AccessLevel.Read.Index;
         }
     }
 }

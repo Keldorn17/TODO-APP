@@ -54,7 +54,7 @@ namespace TODO.ViewModel
             set => SetProperty(ref _sharedItems, value);
         }
 
-        public EditTodoViewModel(TodoItem todoItem, Window? editWindow, MainViewModel mainViewModel, bool isEditing)
+        public EditTodoViewModel(TodoItem todoItem, Window editWindow, MainViewModel mainViewModel, bool isEditing)
         {
             _isEditing = isEditing;
             Title = isEditing ? "Edit Todo" : "Add Todo";
