@@ -4,7 +4,6 @@ using CommunityToolkit.Mvvm.Input;
 using TODO.Model;
 using TODO.Service;
 using TODO.View;
-using TODO.Core;
 
 
 namespace TODO.ViewModel
