@@ -9,8 +9,8 @@ namespace TODO.Service
 {
     public interface INavigationService
     {
-        AbstractViewMode CurrentView { get; }
-        void NavigateTo<T>() where T : AbstractViewMode;
+        AbstractViewModel CurrentView { get; }
+        void NavigateTo<T>() where T : AbstractViewModel;
 
     }
 }

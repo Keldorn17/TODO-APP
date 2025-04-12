@@ -7,18 +7,18 @@ namespace TODO.Service;
 public partial class NavigationService : ObservableObject, INavigationService
 {
     [ObservableProperty]
-    private AbstractViewMode _currentView;
+    private AbstractViewModel _currentView;
 
-    private readonly Func<Type, AbstractViewMode> _viewModelFactory;
+    private readonly Func<Type, AbstractViewModel> _viewModelFactory;
 
-    public NavigationService(Func<Type, AbstractViewMode> viewModelFactory)
+    public NavigationService(Func<Type, AbstractViewModel> viewModelFactory)
     {
         _viewModelFactory = viewModelFactory;
     }
 
-    public void NavigateTo<TViewModel>() where TViewModel : AbstractViewMode
+    public void NavigateTo<TViewModel>() where TViewModel : AbstractViewModel
     {
-        AbstractViewMode viewModel = _viewModelFactory.Invoke(typeof(TViewModel));
+        AbstractViewModel viewModel = _viewModelFactory.Invoke(typeof(TViewModel));
         CurrentView = viewModel;
     }
 }

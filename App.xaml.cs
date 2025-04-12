@@ -27,7 +27,7 @@ public partial class App
         services.AddSingleton<SharedViewModel>();
         services.AddSingleton<INavigationService, NavigationService>();
 
-        services.AddSingleton<Func<Type, AbstractViewMode>>(serviceProvider => viewModelType => (AbstractViewMode)serviceProvider.GetRequiredService(viewModelType));
+        services.AddSingleton<Func<Type, AbstractViewModel>>(serviceProvider => viewModelType => (AbstractViewModel)serviceProvider.GetRequiredService(viewModelType));
 
         _serviceProvider = services.BuildServiceProvider();
         

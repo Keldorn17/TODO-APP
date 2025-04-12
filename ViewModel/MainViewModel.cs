@@ -9,7 +9,7 @@ using TODO.Core;
 
 namespace TODO.ViewModel
 {
-    public partial class MainViewModel : AbstractViewMode
+    public partial class MainViewModel : AbstractViewModel
     {
         [ObservableProperty]
         private ObservableCollection<TodoItem> _todoItems;

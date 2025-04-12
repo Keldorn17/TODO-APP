@@ -2,7 +2,7 @@
 
 namespace TODO.ViewModel;
 
-public class SharedViewModel: AbstractViewMode
+public class SharedViewModel: AbstractViewModel
 {
     
 }

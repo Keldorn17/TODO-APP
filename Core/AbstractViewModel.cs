@@ -2,7 +2,7 @@
 
 namespace TODO.Core;
 
-public abstract class AbstractViewMode : ObservableObject
+public abstract class AbstractViewModel : ObservableObject
 {
     
 }
