@@ -2,13 +2,13 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using TODO.Model;
-using TODO.Services;
+using TODO.Service;
 using TODO.View;
 
 
 namespace TODO.ViewModel
 {
-    public partial class MainViewModel : Core.ViewModel
+    public partial class MainViewModel : Core.AbstractViewMode
     {
         [ObservableProperty]
         private ObservableCollection<TodoItem> _todoItems;

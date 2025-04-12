@@ -8,7 +8,7 @@ using TODO.Utils;
 
 namespace TODO.ViewModel
 {
-    public partial class EditTodoViewModel : Core.ViewModel
+    public partial class EditTodoViewModel : Core.AbstractViewMode
     {
         public List<PriorityLevel> PriorityList { get; } = PriorityLevel.GetPriorities();
         public List<AccessLevel> AccessLevelList { get; } = AccessLevel.GetAccessLevels(2);

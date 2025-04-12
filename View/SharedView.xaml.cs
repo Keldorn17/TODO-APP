@@ -2,7 +2,7 @@
 
 namespace TODO.View;
 
-public partial class SharedView : UserControl
+public partial class SharedView
 {
     public SharedView()
     {

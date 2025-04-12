@@ -1,6 +1,6 @@
 ﻿namespace TODO.ViewModel;
 
-public class SharedViewModel: Core.ViewModel
+public class SharedViewModel: Core.AbstractViewMode
 {
     
 }

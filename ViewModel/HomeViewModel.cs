@@ -6,7 +6,7 @@ using TODO.View;
 
 namespace TODO.ViewModel
 {
-    public partial class HomeViewModel : Core.ViewModel
+    public partial class HomeViewModel : Core.AbstractViewMode
     {
         [ObservableProperty]
         private ObservableCollection<TodoItem> _todoItems;

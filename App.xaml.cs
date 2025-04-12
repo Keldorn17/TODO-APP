@@ -1,8 +1,6 @@
-﻿using System.Configuration;
-using System.Data;
-using System.Windows;
+﻿using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
-using TODO.Services;
+using TODO.Service;
 using TODO.View;
 using TODO.ViewModel;
 
@@ -28,7 +26,7 @@ public partial class App : Application
         services.AddSingleton<SharedViewModel>();
         services.AddSingleton<INavigationService, NavigationService>();
 
-        services.AddSingleton<Func<Type, Core.ViewModel>>(serviceProvider => viewModelType => (Core.ViewModel)serviceProvider.GetRequiredService(viewModelType));
+        services.AddSingleton<Func<Type, Core.AbstractViewMode>>(serviceProvider => viewModelType => (Core.AbstractViewMode)serviceProvider.GetRequiredService(viewModelType));
 
         _serviceProvider = services.BuildServiceProvider();
         
