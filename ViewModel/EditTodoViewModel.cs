@@ -5,10 +5,11 @@ using System.Windows;
 using TODO.Domain;
 using TODO.Model;
 using TODO.Utils;
+using TODO.Core;
 
 namespace TODO.ViewModel
 {
-    public partial class EditTodoViewModel : Core.AbstractViewMode
+    public partial class EditTodoViewModel : AbstractViewMode
     {
         public List<PriorityLevel> PriorityList { get; } = PriorityLevel.GetPriorities();
         public List<AccessLevel> AccessLevelList { get; } = AccessLevel.GetAccessLevels(2);

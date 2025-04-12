@@ -3,10 +3,11 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using TODO.Model;
 using TODO.View;
+using TODO.Core;
 
 namespace TODO.ViewModel
 {
-    public partial class HomeViewModel : Core.AbstractViewMode
+    public partial class HomeViewModel : AbstractViewMode
     {
         [ObservableProperty]
         private ObservableCollection<TodoItem> _todoItems;

@@ -4,11 +4,12 @@ using CommunityToolkit.Mvvm.Input;
 using TODO.Model;
 using TODO.Service;
 using TODO.View;
+using TODO.Core;
 
 
 namespace TODO.ViewModel
 {
-    public partial class MainViewModel : Core.AbstractViewMode
+    public partial class MainViewModel : AbstractViewMode
     {
         [ObservableProperty]
         private ObservableCollection<TodoItem> _todoItems;

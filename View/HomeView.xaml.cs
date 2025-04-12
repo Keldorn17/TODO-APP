@@ -1,6 +1,4 @@
-﻿using System.Windows.Controls;
-
-namespace TODO.View
+﻿namespace TODO.View
 {
     /// <summary>
     /// Interaction logic for HomeView.xaml

@@ -1,6 +1,4 @@
-﻿using System.Windows.Controls;
-
-namespace TODO.View;
+﻿namespace TODO.View;
 
 public partial class SharedView
 {

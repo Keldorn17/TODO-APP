@@ -3,13 +3,14 @@ using Microsoft.Extensions.DependencyInjection;
 using TODO.Service;
 using TODO.View;
 using TODO.ViewModel;
+using TODO.Core;
 
 namespace TODO;
 
 /// <summary>
 /// Interaction logic for App.xaml
 /// </summary>
-public partial class App : Application
+public partial class App
 {
     private readonly ServiceProvider _serviceProvider;
 
@@ -26,7 +27,7 @@ public partial class App : Application
         services.AddSingleton<SharedViewModel>();
         services.AddSingleton<INavigationService, NavigationService>();
 
-        services.AddSingleton<Func<Type, Core.AbstractViewMode>>(serviceProvider => viewModelType => (Core.AbstractViewMode)serviceProvider.GetRequiredService(viewModelType));
+        services.AddSingleton<Func<Type, AbstractViewMode>>(serviceProvider => viewModelType => (AbstractViewMode)serviceProvider.GetRequiredService(viewModelType));
 
         _serviceProvider = services.BuildServiceProvider();
         

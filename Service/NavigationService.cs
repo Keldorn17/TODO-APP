@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using TODO.Core;
 
 namespace TODO.Service;
 
@@ -6,18 +7,18 @@ namespace TODO.Service;
 public partial class NavigationService : ObservableObject, INavigationService
 {
     [ObservableProperty]
-    private Core.AbstractViewMode _currentView;
+    private AbstractViewMode _currentView;
 
-    private readonly Func<Type, Core.AbstractViewMode> _viewModelFactory;
+    private readonly Func<Type, AbstractViewMode> _viewModelFactory;
 
-    public NavigationService(Func<Type, Core.AbstractViewMode> viewModelFactory)
+    public NavigationService(Func<Type, AbstractViewMode> viewModelFactory)
     {
         _viewModelFactory = viewModelFactory;
     }
 
-    public void NavigateTo<TViewModel>() where TViewModel : Core.AbstractViewMode
+    public void NavigateTo<TViewModel>() where TViewModel : AbstractViewMode
     {
-        Core.AbstractViewMode viewModel = _viewModelFactory.Invoke(typeof(TViewModel));
+        AbstractViewMode viewModel = _viewModelFactory.Invoke(typeof(TViewModel));
         CurrentView = viewModel;
     }
 }
