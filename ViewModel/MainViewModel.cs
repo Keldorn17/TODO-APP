@@ -2,33 +2,30 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using TODO.Model;
+using TODO.Service;
 using TODO.View;
+using TODO.Core;
 
 
 namespace TODO.ViewModel
 {
-    public partial class MainViewModel : ObservableObject
+    public partial class MainViewModel : AbstractViewModel
     {
-        [ObservableProperty]
-        private HomeViewModel _homeVm;
-
-        [ObservableProperty]
-        private object _currentView;
-
         [ObservableProperty]
         private ObservableCollection<TodoItem> _todoItems;
 
-        public MainViewModel()
-        {
-            TodoItems = [];
-            HomeVm = new HomeViewModel(this);
-            CurrentView = HomeVm;
-        }
+        [ObservableProperty]
+        private INavigationService _navigation;
 
-        [RelayCommand]
-        private void HomeView(HomeViewModel parameter)
+        public RelayCommand NavigateHomeCommand { get; set; }
+        public RelayCommand NavigateSharedCommand { get; set; }
+
+        public MainViewModel(INavigationService navService)
         {
-            CurrentView = HomeVm;
+            Navigation = navService;
+            NavigateHomeCommand = new RelayCommand(() => { Navigation.NavigateTo<HomeViewModel>(); }, () => true);
+            NavigateSharedCommand = new RelayCommand(() => { Navigation.NavigateTo<SharedViewModel>(); }, () => true);
+            TodoItems = [];
         }
 
         [RelayCommand]

@@ -4,19 +4,25 @@ using System.Windows.Input;
 using TODO.Utils;
 using TODO.ViewModel;
 
-namespace TODO
+namespace TODO.View
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
-        private MainViewModel _mainViewModel;
         public MainWindow()
         {
             InitializeComponent();
-            _mainViewModel = new MainViewModel();
-            DataContext = _mainViewModel;
+            Loaded += OnMainWindowLoaded;
+        }
+
+        private void OnMainWindowLoaded(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is MainViewModel mainViewModel)
+            {
+                mainViewModel.Navigation.NavigateTo<HomeViewModel>();
+            }
         }
 
         private void Btn_Exit(object sender, RoutedEventArgs e) => WindowHelper.CloseApp();
@@ -30,8 +36,7 @@ namespace TODO
         private void Btn_ToggleTheme(object sender, RoutedEventArgs e)
         {
             Utils.ThemeManager.ToggleTheme();
-            var button = sender as Button;
-            if (button != null)
+            if (sender is Button button)
             {
                 button.Content = ThemeManager.GetCurrentTheme() == "DarkTheme" ? "Switch to Light Theme" : "Switch to Dark Theme";
             }

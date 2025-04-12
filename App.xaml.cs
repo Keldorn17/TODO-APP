@@ -1,26 +1,50 @@
-﻿using System.Configuration;
-using System.Data;
-using System.Windows;
+﻿using System.Windows;
+using Microsoft.Extensions.DependencyInjection;
+using TODO.Service;
+using TODO.View;
+using TODO.ViewModel;
+using TODO.Core;
 
 namespace TODO;
 
 /// <summary>
 /// Interaction logic for App.xaml
 /// </summary>
-public partial class App : Application
+public partial class App
 {
+    private readonly ServiceProvider _serviceProvider;
+
     public App()
     {
-        // Attach the handler for unhandled exceptions
+        IServiceCollection services = new ServiceCollection();
+        services.AddSingleton<MainWindow>(provider => new MainWindow
+        {
+            DataContext = provider.GetRequiredService<MainViewModel>()
+        });
+        services.AddSingleton<MainViewModel>();
+        services.AddSingleton<HomeViewModel>();
+        services.AddSingleton<EditTodoViewModel>();
+        services.AddSingleton<SharedViewModel>();
+        services.AddSingleton<INavigationService, NavigationService>();
+
+        services.AddSingleton<Func<Type, AbstractViewModel>>(serviceProvider => viewModelType => (AbstractViewModel)serviceProvider.GetRequiredService(viewModelType));
+
+        _serviceProvider = services.BuildServiceProvider();
+        
         this.DispatcherUnhandledException += App_DispatcherUnhandledException;
     }
 
-    // This will handle unhandled exceptions in the app
+    protected override void OnStartup(StartupEventArgs e)
+    {
+        var mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
+        mainWindow.Show();
+        base.OnStartup(e);
+    }
+
     private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
     {
-        // Show an error message or log the exception details
         MessageBox.Show($"Unhandled exception: {e.Exception.Message}");
-        e.Handled = true; // Prevents the application from crashing
+        e.Handled = true;
     }
 }
 
