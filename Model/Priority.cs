@@ -21,7 +21,7 @@ namespace TODO.Model
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException("Priority level must be between 0 and 4");
+                    throw new ArgumentOutOfRangeException(nameof(value), "Priority level must be between 0 and 4");
                 }
             }
         }

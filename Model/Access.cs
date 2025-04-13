@@ -15,7 +15,7 @@ namespace TODO.Model
             {
                 if (value is < 0 or > 3)
                 {
-                    throw new ArgumentOutOfRangeException("Access level must be between 0 and 3.");
+                    throw new ArgumentOutOfRangeException(nameof(value), "Access level must be between 0 and 3.");
                 }
                 _level = value;
                 _name = AccessLevel.GetByIndex(value).Name;

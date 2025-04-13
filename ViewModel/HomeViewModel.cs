@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using TODO.Model;
 using TODO.View;
-using TODO.Core;
 
 namespace TODO.ViewModel
 {

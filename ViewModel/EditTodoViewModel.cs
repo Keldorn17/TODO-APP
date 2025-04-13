@@ -5,7 +5,6 @@ using System.Windows;
 using TODO.Domain;
 using TODO.Model;
 using TODO.Utils;
-using TODO.Core;
 
 namespace TODO.ViewModel
 {
