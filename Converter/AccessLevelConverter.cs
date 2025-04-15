@@ -2,26 +2,25 @@
 using System.Windows.Data;
 using TODO.Domain;
 
-namespace TODO.Converter
-{
-    public class AccessLevelConverter : IValueConverter
-    {
-        public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
-        {
-            if (value is int intValue)
-            {
-                return AccessLevel.GetByIndex(intValue);
-            }
-            return AccessLevel.Read;
-        }
+namespace TODO.Converter;
 
-        public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+public class AccessLevelConverter : IValueConverter
+{
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        if (value is int intValue)
         {
-            if (value is AccessLevel accessLevel)
-            {
-                return accessLevel.Index;
-            }
-            return AccessLevel.Read.Index;
+            return AccessLevel.GetByIndex(intValue);
         }
+        return AccessLevel.Read;
+    }
+
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        if (value is AccessLevel accessLevel)
+        {
+            return accessLevel.Index;
+        }
+        return AccessLevel.Read.Index;
     }
 }
