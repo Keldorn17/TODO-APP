@@ -17,7 +17,6 @@ namespace TODO.Model
                 if (value is >= 0 and <= 4)
                 {
                     _level = value;
-                    Name = PriorityLevel.GetByIndex(value).Name;
                 }
                 else
                 {
@@ -25,7 +24,8 @@ namespace TODO.Model
                 }
             }
         }
-        public string? Description { get; init; }
-        public string? Name { get; private set; }
+        
+        public string Name { get; init; }
+        
     }
 }

@@ -22,5 +22,11 @@ namespace TODO.Utils
             var localDateTime = new DateTimeOffset(dateTime, userOffset);
             return localDateTime.ToString("yyyy-MM-ddTHH:mm:ss.fffffffzzz");
         }
+        
+        public static DateTime ToDateTime(long millis)
+        {
+            return DateTimeOffset.FromUnixTimeMilliseconds(millis).DateTime;
+        }
+        
     }
 }

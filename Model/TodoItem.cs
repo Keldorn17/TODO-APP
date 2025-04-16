@@ -34,7 +34,7 @@ namespace TODO.Model
         private DateTime _updatedAt;
 
         [ObservableProperty]
-        private string? _parent;
+        private long? _parent;
 
         [ObservableProperty]
         private Priority? _priority;
@@ -72,7 +72,7 @@ namespace TODO.Model
                 clone.Priority = new Priority
                 {
                     Level = this.Priority.Level,
-                    Description = this.Priority.Description
+                    Name = this.Priority.Name
                 };
             }
 
@@ -101,13 +101,13 @@ namespace TODO.Model
             return this;
         }
 
-        public TodoItemBuilder SetTitle(string title)
+        public TodoItemBuilder SetTitle(string? title)
         {
             _todoItem.Title = title;
             return this;
         }
 
-        public TodoItemBuilder SetDescription(string description)
+        public TodoItemBuilder SetDescription(string? description)
         {
             _todoItem.Description = description;
             return this;
@@ -119,9 +119,12 @@ namespace TODO.Model
             return this;
         }
 
-        public TodoItemBuilder SetDeadline(string deadline)
+        public TodoItemBuilder SetDeadline(string? deadline)
         {
-            _todoItem.Deadline = DateTimeUtils.DateTimeConverter(deadline);
+            if (deadline != null)
+            {
+                _todoItem.Deadline = DateTimeUtils.DateTimeConverter(deadline);
+            }
             return this;
         }
 
@@ -143,7 +146,7 @@ namespace TODO.Model
             return this;
         }
 
-        public TodoItemBuilder SetParent(string parent)
+        public TodoItemBuilder SetParent(long? parent)
         {
             _todoItem.Parent = parent;
             return this;
