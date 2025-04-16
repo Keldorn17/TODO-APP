@@ -3,12 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:utils="clr-namespace:TODO.Utils"
+        xmlns:viewmodel="clr-namespace:TODO.ViewModel"
+        xmlns:local="clr-namespace:TODO.View"
         mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}"
         Height="600" Width="920"
         MinHeight="600" MinWidth="920"
         WindowStyle="None"
-        MouseLeftButtonDown="Window_MouseLeftButtonDown"
         ResizeMode="CanResize"
         Background="Transparent"
         AllowsTransparency="True">
@@ -31,8 +32,13 @@
                 <RowDefinition Height="75"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
+            
+            <local:WindowControlView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                                     IsMinimizeButtonVisible="True"
+                                     IsMaximizeButtonVisible="True"
+                                     IsExitButtonVisible="True"/>
 
-            <TextBlock Text="Todo App"
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Todo App"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
                        Foreground="{DynamicResource SecondaryTextBrush}"
@@ -68,7 +74,7 @@
                     <ColumnDefinition Width="130"/>
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
                     <TextBox Width="250"
                          Height="40"
                          VerticalAlignment="Center"
@@ -81,12 +87,10 @@
                             Tag="Add Todo"/>
                 </StackPanel>
 
-                <StackPanel Grid.Column="1"
-                            Orientation="Horizontal"
-                            Margin="5 5 0 5"
-                            VerticalAlignment="Top">
-
-                    <Border Style="{StaticResource DropdownSettingsBorder}">
+                <Border Grid.Column="1" Style="{StaticResource DropdownSettingsBorder}"
+                        HorizontalAlignment="Left"
+                        Margin="5,5,0,5"
+                        VerticalAlignment="Top">
                         <Button Style="{StaticResource DropdownButtonStyle}" Cursor="Hand">
                             <StackPanel>
                                 <Button Style="{StaticResource DropdownButton}" Cursor="Hand">
@@ -121,27 +125,6 @@
                             </StackPanel>
                         </Button>
                     </Border>
-
-                    <utils:HoverButton 
-                        x:Name="BtnMinimize"
-                        Content="—" 
-                        Style="{StaticResource ActionButton}"
-                        HoverColor="{DynamicResource WaButtonsBrush}"
-                        Click="Btn_Minimize"/>
-                    <utils:HoverButton
-                        x:Name="BtnMaximize"
-                        Content="❐" 
-                        Style="{StaticResource ActionButton}"
-                        HoverColor="{DynamicResource WaButtonsBrush}"
-                        Click="Btn_Maximize"/>
-                    <utils:HoverButton
-                        x:Name="BtnClose"
-                        Content="X"
-                        Style="{StaticResource ActionButton}"
-                        HoverColor="{DynamicResource WaExitBrush}"
-                        Click="Btn_Exit"/>
-
-                </StackPanel>
             </Grid>
 
             <ContentControl Grid.Row="1"

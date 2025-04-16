@@ -41,7 +41,6 @@ jobs:
           gh pr merge ${{ github.event.pull_request.number }} \
             --squash \
             --admin \
-            --delete-branch \
             --body "Automatically merged: Version bump [skip ci]"
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}

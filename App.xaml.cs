@@ -133,6 +133,7 @@ public partial class App
         services.AddSingleton<HomeViewModel>();
         services.AddSingleton<EditTodoViewModel>();
         services.AddSingleton<SharedViewModel>();
+        services.AddSingleton<WindowControlViewModel>();
     }
 
     private void RegisterProviders(IServiceCollection services)

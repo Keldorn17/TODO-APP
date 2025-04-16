@@ -4,13 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewmodel="clr-namespace:TODO.ViewModel" 
-        xmlns:utils="clr-namespace:TODO.Utils" d:DataContext="{d:DesignInstance Type=viewmodel:EditTodoViewModel}"
+        d:DataContext="{d:DesignInstance Type=viewmodel:EditTodoViewModel}"
         xmlns:converter="clr-namespace:TODO.Converter"
+        xmlns:view="clr-namespace:TODO.View"
         mc:Ignorable="d"
         Height="600" Width="500"
         MinHeight="600" MinWidth="500"
         WindowStartupLocation="CenterScreen"
-        MouseLeftButtonDown="Window_MouseLeftButtonDown"
         WindowStyle="None"
         ResizeMode="NoResize"
         Background="Transparent"
@@ -54,24 +54,9 @@
             <!-- #endregion -->
 
             <!-- #region Window Controls -->
-            <StackPanel Grid.Column="1" Grid.Row="0"
-                        Orientation="Horizontal"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Top"
-                        Margin="0,5,5,5">
-                <utils:HoverButton 
-                    x:Name="BtnMinimize"
-                    Content="—" 
-                    Style="{StaticResource ActionButton}"
-                    HoverColor="{DynamicResource WaButtonsBrush}"
-                    Click="Btn_Minimize"/>
-                <utils:HoverButton
-                    x:Name="BtnClose"
-                    Content="X"
-                    Style="{StaticResource ActionButton}"
-                    HoverColor="{DynamicResource WaExitBrush}"
-                    Click="Btn_Exit"/>
-            </StackPanel>
+            <view:WindowControlView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                                     IsMinimizeButtonVisible="True"
+                                     IsCloseButtonVisible="True"/>
             <!-- #endregion -->
 
             <!-- #region Main Content -->
