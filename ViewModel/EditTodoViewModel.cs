@@ -5,6 +5,7 @@ using System.Windows;
 using TODO.Domain;
 using TODO.Model;
 using TODO.Utils;
+using TODO.View;
 
 namespace TODO.ViewModel
 {
@@ -118,7 +119,7 @@ namespace TODO.ViewModel
                 {
                     MainViewModel.TodoItems.Remove(CurrentTodo);
                 }
-                WindowHelper.CloseWindow(_editWindow);
+                _editWindow?.Close();
                 return;
             }
 
@@ -138,20 +139,20 @@ namespace TODO.ViewModel
                 MainViewModel.TodoItems.Add(CopyTodo);
             }
 
-            WindowHelper.CloseWindow(_editWindow);
+            _editWindow?.Close();
         }
 
         [RelayCommand]
         private void Cancel()
         {
-            WindowHelper.CloseWindow(_editWindow);
+            _editWindow?.Close();
         }
 
         [RelayCommand]
         private void Delete()
         {
             MainViewModel.TodoItems.Remove(CurrentTodo);
-            WindowHelper.CloseWindow(_editWindow);
+            _editWindow?.Close();
         }
 
         [RelayCommand]
