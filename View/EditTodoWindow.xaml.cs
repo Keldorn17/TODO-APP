@@ -17,12 +17,6 @@ namespace TODO.View
             InitializeComponent();
             DataContext = new EditTodoViewModel(todoItem, this, mainViewModel, isEditing);
         }
-        
-        private void Btn_Exit(object sender, RoutedEventArgs e) => WindowHelper.CloseWindow(this);
-
-        private void Btn_Minimize(object sender, RoutedEventArgs e) => WindowHelper.MinimizeWindow(this);
-
-        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) => WindowHelper.DragWindow(this);
 
     }
 }

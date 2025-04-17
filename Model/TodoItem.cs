@@ -25,7 +25,7 @@ namespace TODO.Model
         private DateTime _deadline;
 
         [ObservableProperty]
-        private Category? _category;
+        private ObservableCollection<string> _category = [];
 
         [ObservableProperty]
         private DateTime _createdAt;
@@ -59,13 +59,9 @@ namespace TODO.Model
                 CreatedAt = this.CreatedAt,
                 UpdatedAt = this.UpdatedAt,
                 Parent = this.Parent,
-                IsCompleted = this.IsCompleted
+                IsCompleted = this.IsCompleted,
+                Category = this.Category
             };
-
-            if (this.Category != null)
-            {
-                clone.Category = new Category { Name = this.Category.Name };
-            }
 
             if (this.Priority != null)
             {
@@ -128,9 +124,9 @@ namespace TODO.Model
             return this;
         }
 
-        public TodoItemBuilder SetCategory(Category category)
+        public TodoItemBuilder SetCategory(List<string> category)
         {
-            _todoItem.Category = category;
+            _todoItem.Category = new ObservableCollection<string>(category);
             return this;
         }
 
@@ -172,14 +168,7 @@ namespace TODO.Model
 
         public TodoItem Build()
         {
-            if (_todoItem.Priority == null)
-            {
-                _todoItem.Priority = new Priority { Level = 0 };
-            }
-            if (_todoItem.Category == null)
-            {
-                _todoItem.Category = new Category { Name = "General" };
-            }
+            _todoItem.Priority ??= new Priority { Level = 0 };
             if (_todoItem.Deadline == default)
             {
                 _todoItem.Deadline = DateTime.Now;

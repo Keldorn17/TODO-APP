@@ -15,7 +15,7 @@ namespace TODO.ViewModel
 
         [ObservableProperty]
         private INavigationService _navigation;
-
+        
         public RelayCommand NavigateHomeCommand { get; set; }
         public RelayCommand NavigateSharedCommand { get; set; }
 

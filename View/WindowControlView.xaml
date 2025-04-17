@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="TODO.View.WindowControlView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:wm="clr-namespace:TODO.ViewModel"
+             xmlns:converter="clr-namespace:TODO.Converter"
+             mc:Ignorable="d"
+             d:DesignHeight="40"
+             HorizontalAlignment="Stretch">
+    <UserControl.Resources>
+        <converter:MaximizeButtonContentConverter x:Key="MaximizeButtonContentConverter"/>
+    </UserControl.Resources>
+        
+    <UserControl.DataContext>
+        <wm:WindowControlViewModel/>
+    </UserControl.DataContext>
+    
+    <Grid Background="Transparent"
+          HorizontalAlignment="Stretch"
+          Height="40"
+          VerticalAlignment="Top"
+          MouseLeftButtonDown="Window_MouseLeftButtonDown">
+        <StackPanel Orientation="Horizontal"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Right"
+                    Margin="5">
+            <Button
+                Content="—" 
+                Style="{StaticResource ActionButton}"
+                Tag="{DynamicResource WaButtonsBrush}"
+                Visibility="{Binding MinimizeButtonVisibility, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                Command="{Binding MinimizeCommand}"/>
+            <Button
+                Content="{Binding WindowState, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource MaximizeButtonContentConverter}}"
+                Style="{StaticResource ActionButton}"
+                Tag="{DynamicResource WaButtonsBrush}"
+                Visibility="{Binding MaximizeButtonVisibility, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                Command="{Binding MaximizeRestoreCommand}"/>
+            <Button
+                Content="X"
+                Style="{StaticResource ActionButton}"
+                Tag="{DynamicResource WaExitBrush}"
+                Visibility="{Binding CloseButtonVisibility, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                Command="{Binding ExitCurrentCommand}"/>
+            <Button
+                Content="X"
+                Style="{StaticResource ActionButton}"
+                Tag="{DynamicResource WaExitBrush}"
+                Visibility="{Binding ExitButtonVisibility, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                Command="{Binding ExitCommand}"/>
+        </StackPanel>
+
+    </Grid>
+</UserControl>
