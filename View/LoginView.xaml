@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TODO.View"
-             d:DataContext="LoginViewModel"
              Height="600" Width="920"
              MinHeight="600" MinWidth="920"
              Background="Transparent">
@@ -20,7 +19,7 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
                 <TextBlock
-                   Text="Todo App"
+                   Text="Dodo App"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    Foreground="{DynamicResource SecondaryTextBrush}"
@@ -39,6 +38,7 @@
                          Foreground="{DynamicResource SecondaryTextBrush}"
                          FontSize="14"
                          HorizontalAlignment="Center"
+                         Command="{Binding NavigateMainViewCommand}"
                          Style="{StaticResource AddTodoButton}"
                          Margin="0,0,20,0"
                          />
@@ -48,10 +48,9 @@
                          Foreground="{DynamicResource SecondaryTextBrush}"
                          FontSize="14"
                          HorizontalAlignment="Center"
+                         Command="{Binding NavigateMainViewCommand}"
                          Style="{StaticResource AddTodoButton}"
-                         Command=""
                          Margin="20,0,0,0"
-                         
                          />
                 </StackPanel>
                 
