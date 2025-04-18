@@ -87,10 +87,9 @@
                     <StackPanel>
                         <Button Style="{StaticResource DropdownButton}" Cursor="Hand">
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                <Viewbox Height="12">
-                                    <Path Data="{StaticResource ProfileIcon}"
-                                          Fill="{DynamicResource SecondaryTextBrush}" Stretch="Fill" />
-                                </Viewbox>
+                                <ContentControl ContentTemplate="{StaticResource SvgIconTemplate}" 
+                                                Width="14" 
+                                                Content="{StaticResource ProfileIcon}"/>
                                 <TextBlock Text=" Profile"
                                            VerticalAlignment="Center" />
                             </StackPanel>
@@ -99,10 +98,9 @@
 
                         <Button Style="{StaticResource DropdownButton}" Cursor="Hand">
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                <Viewbox Height="12">
-                                    <Path Data="{StaticResource SettingsIcon}"
-                                          Fill="{DynamicResource SecondaryTextBrush}" Stretch="Fill" />
-                                </Viewbox>
+                                <ContentControl ContentTemplate="{StaticResource SvgIconTemplate}" 
+                                                Width="14" 
+                                                Content="{StaticResource SettingsIcon}"/>
                                 <TextBlock Text=" Settings"
                                            VerticalAlignment="Center" />
                             </StackPanel>
