@@ -25,8 +25,9 @@
                         </ToggleButton>
 
                         <Popup IsOpen="{Binding IsChecked, ElementName=TogglePart}"
-                               Placement="Bottom"
-                               HorizontalOffset="-130"
+                               Placement="Left"
+                               VerticalOffset="{Binding ActualHeight, ElementName=TogglePart}"
+                               HorizontalOffset="23"
                                PlacementTarget="{Binding ElementName=TogglePart}"
                                StaysOpen="False"
                                AllowsTransparency="True">

@@ -12,10 +12,10 @@ namespace TODO.View
     public partial class EditTodoWindow
     {
         
-        public EditTodoWindow(TodoItem todoItem, MainViewModel mainViewModel, bool isEditing)
+        public EditTodoWindow(TodoItem todoItem, bool isEditing)
         {
             InitializeComponent();
-            DataContext = new EditTodoViewModel(todoItem, this, mainViewModel, isEditing);
+            DataContext = new EditTodoViewModel(todoItem, this, isEditing);
         }
 
     }

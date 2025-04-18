@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Text.Json;
 using System.Windows;
+using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
@@ -122,18 +123,20 @@ public partial class App
         Log.Information("Registering windows");
         services.AddSingleton<MainWindow>(provider => new MainWindow
         {
-            DataContext = provider.GetRequiredService<MainViewModel>()
+            DataContext = provider.GetRequiredService<MainWindowViewModel>()
         });
     }
 
     private void RegisterViewModels(IServiceCollection services)
     {
         Log.Information("Registering view models");
-        services.AddSingleton<MainViewModel>();
-        services.AddSingleton<HomeViewModel>();
+        services.AddSingleton<MainWindowViewModel>();
         services.AddSingleton<EditTodoViewModel>();
-        services.AddSingleton<SharedViewModel>();
         services.AddSingleton<WindowControlViewModel>();
+        services.AddSingleton<DashboardViewModel>();
+        services.AddSingleton<PersonalTodoTabViewModel>();
+        services.AddSingleton<SharedTodoTabViewModel>();
+        services.AddSingleton<AllTodoTabViewModel>();
     }
 
     private void RegisterProviders(IServiceCollection services)
@@ -156,11 +159,13 @@ public partial class App
     private void RegisterServices(IServiceCollection services)
     {
         Log.Information("Registering services");
-        services.AddSingleton<INavigationService, NavigationService>();
+        services.AddSingleton<MainWindowNavigationService>();
+        services.AddSingleton<DashboardNavigationService>();
         services.AddSingleton<Func<Type, AbstractViewModel>>(serviceProvider =>
             viewModelType => (AbstractViewModel)serviceProvider.GetRequiredService(viewModelType));
         services.AddSingleton<ICallbackService, CallbackService>();
         services.AddSingleton<IAuthenticationService, AuthenticationService>();
+        services.AddSingleton<IMessenger>(WeakReferenceMessenger.Default);
     }
 
     private void RegisterClients(IServiceCollection services)
