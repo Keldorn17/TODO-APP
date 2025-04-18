@@ -356,4 +356,79 @@
     </Style>
     <!-- #endregion -->
     
+            <!-- #region Title Textbox Style -->
+    <Style x:Key="SearchTbox" TargetType="{x:Type TextBox}">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="MinWidth" Value="200"/>
+        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/>
+        <Setter Property="Padding" Value="0 5 5 4"/>
+        <Setter Property="Margin" Value="0 10 0 0"/>
+        <Setter Property="Grid.Column" Value="1"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Cursor" Value="IBeam"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Border x:Name="TxtBorder"
+                            Background="{DynamicResource PrimaryBrush}"
+                            BorderThickness="2"
+                            CornerRadius="10"
+                            SnapsToDevicePixels="True">
+                        <Border.Effect>
+                            <DropShadowEffect ShadowDepth="5" Color="{DynamicResource DarkerContrastColor}" Opacity="0.5" />
+                        </Border.Effect>
+                        <Grid Margin="{TemplateBinding Padding}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                          Focusable="False"
+                                          Grid.Column="1"
+                                          Margin="5 0 0 0"
+                                          HorizontalScrollBarVisibility="Hidden"
+                                          VerticalScrollBarVisibility="Hidden"/>
+                            <Border BorderThickness="0"
+                                    Height="15"
+                                    Width="15"
+                                    Margin="5 0 0 3"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    ToolTip="Title"
+                                    Cursor="Arrow"
+                                    Grid.Column="0">
+                                <Viewbox>
+                                    <Path Data="{StaticResource SearchIcon}"
+                                          Fill="{DynamicResource SecondaryTextBrush}" Stretch="Fill"/>
+                                </Viewbox>
+                            </Border>
+                            <Label x:Name="Placeholder"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Foreground="{DynamicResource SecondaryTextBrush}"
+                                   Visibility="Collapsed"
+                                   Padding="8 0 20 0"
+                                   Content="{TemplateBinding Tag}"
+                                   Grid.Column="1"/>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                
+                                <Condition Property="Text" Value=""/>
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="Placeholder" Property="Visibility" Value="Visible"/>
+                        </MultiTrigger>
+                       </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!-- #endregion -->
+    
 </ResourceDictionary>

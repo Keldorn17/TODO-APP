@@ -5,14 +5,13 @@ using System.Windows;
 using TODO.Domain;
 using TODO.Model;
 using TODO.Utils;
-using TODO.View;
 
 namespace TODO.ViewModel
 {
     public partial class EditTodoViewModel : AbstractViewModel
     {
         public List<PriorityLevel> PriorityList { get; } = PriorityLevel.GetPriorities();
-        public List<AccessLevel> AccessLevelList { get; } = AccessLevel.GetAccessLevels(2);
+        public List<AccessLevel> AccessLevelList { get; } = AccessLevel.GetAccessLevels();
 
         [ObservableProperty]
         private TodoItem _currentTodo;
@@ -37,10 +36,7 @@ namespace TODO.ViewModel
 
         [ObservableProperty]
         private bool? _dialogResult;
-
-        [ObservableProperty]
-        private MainViewModel _mainViewModel;
-
+        
         [ObservableProperty]
         private string _title;
 
@@ -55,13 +51,12 @@ namespace TODO.ViewModel
             set => SetProperty(ref _sharedItems, value);
         }
 
-        public EditTodoViewModel(TodoItem todoItem, Window editWindow, MainViewModel mainViewModel, bool isEditing)
+        public EditTodoViewModel(TodoItem todoItem, Window editWindow, bool isEditing)
         {
             _isEditing = isEditing;
             Title = isEditing ? "Edit Todo" : "Add Todo";
             CurrentTodo = todoItem;
             CopyTodo = CurrentTodo.Clone();
-            MainViewModel = mainViewModel;
             _editWindow = editWindow;
         }
 
@@ -113,16 +108,6 @@ namespace TODO.ViewModel
         [RelayCommand]
         private void Save()
         {
-            if (string.IsNullOrEmpty(CopyTodo.Title) && string.IsNullOrEmpty(CopyTodo.Description))
-            {
-                if (_isEditing)
-                {
-                    MainViewModel.TodoItems.Remove(CurrentTodo);
-                }
-                _editWindow?.Close();
-                return;
-            }
-
             if (_isEditing)
             {
                 CurrentTodo.Title = CopyTodo.Title;
@@ -133,10 +118,11 @@ namespace TODO.ViewModel
                 CurrentTodo.UpdatedAt = DateTime.Now;
                 CurrentTodo.Shared = CopyTodo.Shared;
                 CurrentTodo.IsCompleted = CopyTodo.IsCompleted;
+                // Todo Edit logic
             }
             else
             { 
-                MainViewModel.TodoItems.Add(CopyTodo);
+                // TODO Add logic
             }
 
             _editWindow?.Close();
@@ -151,7 +137,7 @@ namespace TODO.ViewModel
         [RelayCommand]
         private void Delete()
         {
-            MainViewModel.TodoItems.Remove(CurrentTodo);
+            // TODO Delete logic
             _editWindow?.Close();
         }
 
