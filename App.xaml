@@ -43,6 +43,8 @@
                 <!-- Color Themes -->
                 <ResourceDictionary Source="/Themes/ColorThemes/PriorityColors.xaml"/>
                 <ResourceDictionary Source="/Themes/ColorThemes/DarkTheme.xaml"/>
+                
+                <ResourceDictionary Source="/Themes/SVG/LoadSvgTemplate.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             
             <DataTemplate DataType="{x:Type viewModel:DashboardViewModel}">
