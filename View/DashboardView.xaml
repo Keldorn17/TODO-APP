@@ -1,0 +1,126 @@
+﻿<UserControl x:Class="TODO.View.DashboardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:view="clr-namespace:TODO.View"
+             mc:Ignorable="d">
+    
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding WindowLoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <view:WindowControlView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                                IsMinimizeButtonVisible="True"
+                                IsMaximizeButtonVisible="True"
+                                IsExitButtonVisible="True" />
+
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Todo App"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Left"
+                   Foreground="{DynamicResource SecondaryTextBrush}"
+                   FontSize="22"
+                   Margin="20, 0, 0, 0" />
+
+        <StackPanel Grid.Row="1" Grid.Column="0">
+
+            <RadioButton Content="Personal"
+                         Height="50"
+                         Foreground="{DynamicResource SecondaryTextBrush}"
+                         FontSize="14"
+                         Style="{StaticResource MenuButtonTheme}"
+                         IsChecked="True"
+                         Command="{Binding NavigateToPersonalCommand}" />
+            <RadioButton Content="Shared"
+                         Height="50"
+                         Foreground="{DynamicResource SecondaryTextBrush}"
+                         FontSize="14"
+                         Style="{StaticResource MenuButtonTheme}"
+                         Command="{Binding NavigateToSharedCommand}" />
+            <RadioButton Content="All"
+                         Height="50"
+                         Foreground="{DynamicResource SecondaryTextBrush}"
+                         FontSize="14"
+                         Style="{StaticResource MenuButtonTheme}"
+                         Command="{Binding NavigateToAllCommand}" />
+
+        </StackPanel>
+
+        <Grid Grid.Row="0" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="130" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                <TextBox Width="250"
+                         HorizontalAlignment="Left"
+                         Margin="10"
+                         Style="{StaticResource SearchTbox}"
+                         Tag="Search"
+                         Text="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Button Style="{StaticResource AddTodoButton}"
+                        Command="{Binding OpenAddWindowCommand}"
+                        Tag="Add Todo" />
+            </StackPanel>
+
+            <Border Grid.Column="1" Style="{StaticResource DropdownSettingsBorder}"
+                    HorizontalAlignment="Left"
+                    Margin="5,5,0,5"
+                    VerticalAlignment="Top">
+                <Button Style="{StaticResource DropdownButtonStyle}" Cursor="Hand">
+                    <StackPanel>
+                        <Button Style="{StaticResource DropdownButton}" Cursor="Hand">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <ContentControl ContentTemplate="{StaticResource SvgIconTemplate}" 
+                                                Width="14" 
+                                                Content="{StaticResource ProfileIcon}"/>
+                                <TextBlock Text=" Profile"
+                                           VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+                        <Separator Width="120" />
+
+                        <Button Style="{StaticResource DropdownButton}" Cursor="Hand">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <ContentControl ContentTemplate="{StaticResource SvgIconTemplate}" 
+                                                Width="14" 
+                                                Content="{StaticResource SettingsIcon}"/>
+                                <TextBlock Text=" Settings"
+                                           VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+                        <Separator Width="120" />
+
+                        <Button Content="Switch to Light Theme"
+                                Click="Btn_ToggleTheme"
+                                Style="{StaticResource DropdownButton}"
+                                Width="150"
+                                Cursor="Hand" />
+                    </StackPanel>
+                </Button>
+            </Border>
+        </Grid>
+
+        <ContentControl Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="10"
+                        Content="{Binding Navigation.CurrentView}" />
+
+    </Grid>
+</UserControl>

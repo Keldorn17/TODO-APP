@@ -3,20 +3,21 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Themes/SVG/SVGGeometries.xaml" />
+        <ResourceDictionary Source="/Themes/SVG/LoadSvgTemplate.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <!-- #region Title Textbox Style -->
     <Style x:Key="TitleTbox" TargetType="{x:Type TextBox}">
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="Height" Value="40"/>
-        <Setter Property="MinWidth" Value="450"/>
-        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}"/>
-        <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/>
-        <Setter Property="Padding" Value="0 5 5 4"/>
-        <Setter Property="Margin" Value="0 10 0 0"/>
-        <Setter Property="Grid.Column" Value="1"/>
-        <Setter Property="HorizontalAlignment" Value="Center"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Height" Value="40" />
+        <Setter Property="MinWidth" Value="450" />
+        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
+        <Setter Property="Padding" Value="0 5 5 4" />
+        <Setter Property="Margin" Value="0 10 0 0" />
+        <Setter Property="Grid.Column" Value="1" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
 
         <Setter Property="Template">
             <Setter.Value>
@@ -27,19 +28,20 @@
                             CornerRadius="5"
                             SnapsToDevicePixels="True">
                         <Border.Effect>
-                            <DropShadowEffect ShadowDepth="5" Color="{DynamicResource DarkerContrastColor}" Opacity="0.5" />
+                            <DropShadowEffect ShadowDepth="5" Color="{DynamicResource DarkerContrastColor}"
+                                              Opacity="0.5" />
                         </Border.Effect>
                         <Grid Margin="{TemplateBinding Padding}">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="20"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <ScrollViewer x:Name="PART_ContentHost"
                                           Focusable="False"
                                           Grid.Column="1"
                                           Margin="5 0 0 0"
                                           HorizontalScrollBarVisibility="Hidden"
-                                          VerticalScrollBarVisibility="Hidden"/>
+                                          VerticalScrollBarVisibility="Hidden" />
                             <Border BorderThickness="0"
                                     Height="15"
                                     Width="15"
@@ -49,10 +51,8 @@
                                     ToolTip="Title"
                                     Cursor="Arrow"
                                     Grid.Column="0">
-                                <Viewbox>
-                                    <Path Data="{StaticResource TitleIcon}"
-                                          Fill="{DynamicResource SecondaryTextBrush}" Stretch="Fill"/>
-                                </Viewbox>
+                                <ContentControl ContentTemplate="{StaticResource SvgIconTemplate}"
+                                                Content="{StaticResource TitleIcon}" />
                             </Border>
                             <Label x:Name="Placeholder"
                                    VerticalAlignment="Center"
@@ -61,38 +61,38 @@
                                    Visibility="Collapsed"
                                    Padding="8 0 20 0"
                                    Content="{TemplateBinding Tag}"
-                                   Grid.Column="1"/>
+                                   Grid.Column="1" />
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
-                                
-                                <Condition Property="Text" Value=""/>
+
+                                <Condition Property="Text" Value="" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="Placeholder" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="Placeholder" Property="Visibility" Value="Visible" />
                         </MultiTrigger>
-                       </ControlTemplate.Triggers>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
     <!-- #endregion -->
-    
+
     <!-- #region Description Textbox Style -->
     <Style x:Key="DescriptionTbox" TargetType="{x:Type TextBox}">
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="Height" Value="120"/>
-        <Setter Property="MinWidth" Value="450"/>
-        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}"/>
-        <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/>
-        <Setter Property="Padding" Value="0 5 5 4"/>
-        <Setter Property="Margin" Value="0 10 0 0"/>
-        <Setter Property="Grid.Column" Value="1"/>
-        <Setter Property="HorizontalAlignment" Value="Center"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
-        <Setter Property="HorizontalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Height" Value="120" />
+        <Setter Property="MinWidth" Value="450" />
+        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
+        <Setter Property="Padding" Value="0 5 5 4" />
+        <Setter Property="Margin" Value="0 10 0 0" />
+        <Setter Property="Grid.Column" Value="1" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
 
         <Setter Property="Template">
             <Setter.Value>
@@ -103,19 +103,20 @@
                             CornerRadius="5"
                             SnapsToDevicePixels="True">
                         <Border.Effect>
-                            <DropShadowEffect ShadowDepth="5" Color="{DynamicResource DarkerContrastColor}" Opacity="0.5" />
+                            <DropShadowEffect ShadowDepth="5" Color="{DynamicResource DarkerContrastColor}"
+                                              Opacity="0.5" />
                         </Border.Effect>
                         <Grid Margin="{TemplateBinding Padding}">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="20"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <ScrollViewer x:Name="PART_ContentHost"
                                           Focusable="False"
                                           Grid.Column="1"
                                           Margin="5 0 0 0"
                                           HorizontalScrollBarVisibility="{TemplateBinding HorizontalScrollBarVisibility}"
-                                          VerticalScrollBarVisibility="{TemplateBinding VerticalScrollBarVisibility}"/>
+                                          VerticalScrollBarVisibility="{TemplateBinding VerticalScrollBarVisibility}" />
                             <Border BorderThickness="0"
                                     Height="15"
                                     Width="15"
@@ -125,10 +126,8 @@
                                     ToolTip="Title"
                                     Cursor="Arrow"
                                     Grid.Column="0">
-                                <Viewbox>
-                                    <Path Data="{StaticResource DescriptionIcon}"
-                                      Fill="{DynamicResource SecondaryTextBrush}" Stretch="Fill"/>
-                                </Viewbox>
+                                <ContentControl ContentTemplate="{StaticResource SvgIconTemplate}"
+                                                Content="{StaticResource DescriptionIcon}" />
                             </Border>
                             <Label x:Name="Placeholder"
                                    VerticalAlignment="Top"
@@ -137,15 +136,15 @@
                                    Visibility="Collapsed"
                                    Padding="8 5 20 0"
                                    Content="{TemplateBinding Tag}"
-                                   Grid.Column="1"/>
+                                   Grid.Column="1" />
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
-                                <Condition Property="Text" Value=""/>
+                                <Condition Property="Text" Value="" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="Placeholder" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="Placeholder" Property="Visibility" Value="Visible" />
                         </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -153,19 +152,19 @@
         </Setter>
     </Style>
     <!-- #endregion -->
-    
+
     <!-- #region Textbox Placeholder Style -->
     <Style x:Key="TboxTextPlaceholder" TargetType="{x:Type TextBox}">
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="Height" Value="40"/>
-        <Setter Property="MinWidth" Value="220"/>
-        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}"/>
-        <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/>
-        <Setter Property="Padding" Value="5 4.5 5 4"/>
-        <Setter Property="Grid.Column" Value="1"/>
-        <Setter Property="HorizontalAlignment" Value="Center"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="Cursor" Value="Arrow"/>
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Height" Value="40" />
+        <Setter Property="MinWidth" Value="220" />
+        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
+        <Setter Property="Padding" Value="5 4.5 5 4" />
+        <Setter Property="Grid.Column" Value="1" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Cursor" Value="Arrow" />
 
         <Setter Property="Template">
             <Setter.Value>
@@ -181,22 +180,22 @@
                                           Grid.Column="0"
                                           Margin="0"
                                           HorizontalScrollBarVisibility="Hidden"
-                                          VerticalScrollBarVisibility="Hidden"/>
+                                          VerticalScrollBarVisibility="Hidden" />
                             <Label x:Name="Placeholder"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Left"
                                    Foreground="{DynamicResource SecondaryTextBrush}"
                                    Visibility="Collapsed"
                                    Padding="3 0 20 0"
-                                   Content="{TemplateBinding Tag}"/>
+                                   Content="{TemplateBinding Tag}" />
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
-                                <Condition Property="Text" Value=""/>
+                                <Condition Property="Text" Value="" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="Placeholder" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="Placeholder" Property="Visibility" Value="Visible" />
                         </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -204,76 +203,75 @@
         </Setter>
     </Style>
     <!-- #endregion -->
-    
+
     <!-- #region Created/Edited At Style -->
     <Style x:Key="CeTBox" TargetType="{x:Type TextBox}">
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="Height" Value="40"/>
-        <Setter Property="MinWidth" Value="220"/>
-        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}"/>
-        <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/>
-        <Setter Property="Padding" Value="0 5 5 4"/>
-        <Setter Property="Margin" Value="0 10 0 0"/>
-        <Setter Property="Grid.Column" Value="1"/>
-        <Setter Property="HorizontalAlignment" Value="Left"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="IsReadOnly" Value="True"/>
-        <Setter Property="Focusable" Value="False"/>
-        <Setter Property="Cursor" Value="Arrow"/>
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Height" Value="40" />
+        <Setter Property="MinWidth" Value="220" />
+        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
+        <Setter Property="Padding" Value="0 5 5 4" />
+        <Setter Property="Margin" Value="0 10 0 0" />
+        <Setter Property="Grid.Column" Value="1" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="IsReadOnly" Value="True" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Cursor" Value="Arrow" />
 
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
                     <Border x:Name="TxtBorder"
-                        Background="{DynamicResource PrimaryBrush}"
-                        BorderThickness="2"
-                        CornerRadius="5"
-                        SnapsToDevicePixels="True">
+                            Background="{DynamicResource PrimaryBrush}"
+                            BorderThickness="2"
+                            CornerRadius="5"
+                            SnapsToDevicePixels="True">
                         <Border.Effect>
-                            <DropShadowEffect ShadowDepth="5" Color="{DynamicResource DarkerContrastColor}" Opacity="0.5" />
+                            <DropShadowEffect ShadowDepth="5" Color="{DynamicResource DarkerContrastColor}"
+                                              Opacity="0.5" />
                         </Border.Effect>
                         <Grid Margin="{TemplateBinding Padding}">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="20"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <ScrollViewer x:Name="PART_ContentHost"
-                                      Focusable="False"
-                                      Grid.Column="1"
-                                      Margin="5 0 0 0"
-                                      HorizontalScrollBarVisibility="Hidden"
-                                      VerticalScrollBarVisibility="Hidden"/>
+                                          Focusable="False"
+                                          Grid.Column="1"
+                                          Margin="5 0 0 0"
+                                          HorizontalScrollBarVisibility="Hidden"
+                                          VerticalScrollBarVisibility="Hidden" />
                             <Border BorderThickness="0"
-                                Height="15"
-                                Width="15"
-                                Margin="5 0 0 3"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                ToolTip="Title"
-                                Cursor="Arrow"
-                                Grid.Column="0">
-                                <Viewbox>
-                                    <Path Data="{TemplateBinding Tag}"
-                                      Fill="{DynamicResource SecondaryTextBrush}" Stretch="Fill"/>
-                                </Viewbox>
+                                    Height="15"
+                                    Width="15"
+                                    Margin="5 0 0 3"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    ToolTip="Title"
+                                    Cursor="Arrow"
+                                    Grid.Column="0">
+                                <ContentControl ContentTemplate="{StaticResource SvgIconTemplate}"
+                                                Content="{TemplateBinding Tag}" />
                             </Border>
                             <Label x:Name="Placeholder"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Left"
-                               Foreground="{DynamicResource SecondaryTextBrush}"
-                               Visibility="Collapsed"
-                               Padding="8 0 20 0"
-                               Content="No Data"
-                               Grid.Column="1"/>
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Foreground="{DynamicResource SecondaryTextBrush}"
+                                   Visibility="Collapsed"
+                                   Padding="8 0 20 0"
+                                   Content="No Data"
+                                   Grid.Column="1" />
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
 
-                                <Condition Property="Text" Value=""/>
+                                <Condition Property="Text" Value="" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="Placeholder" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="Placeholder" Property="Visibility" Value="Visible" />
                         </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -281,73 +279,72 @@
         </Setter>
     </Style>
     <!-- #endregion -->
-    
+
     <!-- #region Share With Textbox Style -->
     <Style x:Key="ShareWithTbox" TargetType="{x:Type TextBox}">
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="Height" Value="40"/>
-        <Setter Property="MinWidth" Value="220"/>
-        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}"/>
-        <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/>
-        <Setter Property="Padding" Value="0 5 5 4"/>
-        <Setter Property="Margin" Value="0 0 0 0"/>
-        <Setter Property="Grid.Column" Value="1"/>
-        <Setter Property="HorizontalAlignment" Value="Center"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Height" Value="40" />
+        <Setter Property="MinWidth" Value="220" />
+        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
+        <Setter Property="Padding" Value="0 5 5 4" />
+        <Setter Property="Margin" Value="0 0 0 0" />
+        <Setter Property="Grid.Column" Value="1" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
 
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
                     <Border x:Name="TxtBorder"
-                        Background="{DynamicResource PrimaryBrush}"
-                        BorderThickness="2"
-                        CornerRadius="5"
-                        SnapsToDevicePixels="True">
+                            Background="{DynamicResource PrimaryBrush}"
+                            BorderThickness="2"
+                            CornerRadius="5"
+                            SnapsToDevicePixels="True">
                         <Border.Effect>
-                            <DropShadowEffect ShadowDepth="5" Color="{DynamicResource DarkerContrastColor}" Opacity="0.5" />
+                            <DropShadowEffect ShadowDepth="5" Color="{DynamicResource DarkerContrastColor}"
+                                              Opacity="0.5" />
                         </Border.Effect>
                         <Grid Margin="{TemplateBinding Padding}">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="20"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <ScrollViewer x:Name="PART_ContentHost"
-                                      Focusable="False"
-                                      Grid.Column="1"
-                                      Margin="5 0 0 0"
-                                      HorizontalScrollBarVisibility="Hidden"
-                                      VerticalScrollBarVisibility="Hidden"/>
+                                          Focusable="False"
+                                          Grid.Column="1"
+                                          Margin="5 0 0 0"
+                                          HorizontalScrollBarVisibility="Hidden"
+                                          VerticalScrollBarVisibility="Hidden" />
                             <Border BorderThickness="0"
-                                Height="15"
-                                Width="15"
-                                Margin="5 0 0 3"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                ToolTip="Title"
-                                Cursor="Arrow"
-                                Grid.Column="0">
-                                <Viewbox>
-                                    <Path Data="{StaticResource EmailIcon}"
-                                      Fill="{DynamicResource SecondaryTextBrush}" Stretch="Fill"/>
-                                </Viewbox>
+                                    Height="15"
+                                    Width="15"
+                                    Margin="5 0 0 3"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    ToolTip="Title"
+                                    Cursor="Arrow"
+                                    Grid.Column="0">
+                                <ContentControl ContentTemplate="{StaticResource SvgIconTemplate}"
+                                                Content="{StaticResource EmailIcon}" />
                             </Border>
                             <Label x:Name="Placeholder"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Left"
-                               Foreground="{DynamicResource SecondaryTextBrush}"
-                               Visibility="Collapsed"
-                               Padding="8 0 20 0"
-                               Content="{TemplateBinding Tag}"
-                               Grid.Column="1"/>
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Foreground="{DynamicResource SecondaryTextBrush}"
+                                   Visibility="Collapsed"
+                                   Padding="8 0 20 0"
+                                   Content="{TemplateBinding Tag}"
+                                   Grid.Column="1" />
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
 
-                                <Condition Property="Text" Value=""/>
+                                <Condition Property="Text" Value="" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="Placeholder" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="Placeholder" Property="Visibility" Value="Visible" />
                         </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -355,5 +352,79 @@
         </Setter>
     </Style>
     <!-- #endregion -->
-    
+
+    <!-- #region Title Textbox Style -->
+    <Style x:Key="SearchTbox" TargetType="{x:Type TextBox}">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Height" Value="40" />
+        <Setter Property="MinWidth" Value="200" />
+        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
+        <Setter Property="Padding" Value="0 5 5 4" />
+        <Setter Property="Margin" Value="0 10 0 0" />
+        <Setter Property="Grid.Column" Value="1" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Cursor" Value="IBeam" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Border x:Name="TxtBorder"
+                            Background="{DynamicResource PrimaryBrush}"
+                            BorderThickness="2"
+                            CornerRadius="10"
+                            SnapsToDevicePixels="True">
+                        <Border.Effect>
+                            <DropShadowEffect ShadowDepth="5" Color="{DynamicResource DarkerContrastColor}"
+                                              Opacity="0.5" />
+                        </Border.Effect>
+                        <Grid Margin="{TemplateBinding Padding}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                          Focusable="False"
+                                          Grid.Column="1"
+                                          Margin="5 0 0 0"
+                                          HorizontalScrollBarVisibility="Hidden"
+                                          VerticalScrollBarVisibility="Hidden" />
+                            <Border BorderThickness="0"
+                                    Height="15"
+                                    Width="15"
+                                    Margin="5 0 0 3"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    ToolTip="Title"
+                                    Cursor="Arrow"
+                                    Grid.Column="0">
+                                <ContentControl ContentTemplate="{StaticResource SvgIconTemplate}"
+                                                Content="{StaticResource SearchIcon}" />
+                            </Border>
+                            <Label x:Name="Placeholder"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Foreground="{DynamicResource SecondaryTextBrush}"
+                                   Visibility="Collapsed"
+                                   Padding="8 0 20 0"
+                                   Content="{TemplateBinding Tag}"
+                                   Grid.Column="1" />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+
+                                <Condition Property="Text" Value="" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="Placeholder" Property="Visibility" Value="Visible" />
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!-- #endregion -->
+
 </ResourceDictionary>

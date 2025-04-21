@@ -3,6 +3,7 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Themes/SVG/SVGGeometries.xaml" />
+        <ResourceDictionary Source="/Themes/SVG/LoadSvgTemplate.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
     <Style x:Key="DropdownButtonStyle" TargetType="Button">
@@ -15,18 +16,18 @@
                             <ToggleButton.Template>
                                 <ControlTemplate TargetType="ToggleButton">
                                     <Grid Background="Transparent">
-                                        <Viewbox Width="15">
-                                            <Path Data="{StaticResource SettingsIcon}" 
-                                                  Fill="{DynamicResource SecondaryTextBrush}" Stretch="Fill"/>
-                                        </Viewbox>
+                                        <ContentControl ContentTemplate="{StaticResource SvgIconTemplate}" 
+                                                        Width="15" 
+                                                        Content="{StaticResource SettingsIcon}"/>
                                     </Grid>
                                 </ControlTemplate>
                             </ToggleButton.Template>
                         </ToggleButton>
 
                         <Popup IsOpen="{Binding IsChecked, ElementName=TogglePart}"
-                               Placement="Bottom"
-                               HorizontalOffset="-130"
+                               Placement="Left"
+                               VerticalOffset="{Binding ActualHeight, ElementName=TogglePart}"
+                               HorizontalOffset="23"
                                PlacementTarget="{Binding ElementName=TogglePart}"
                                StaysOpen="False"
                                AllowsTransparency="True">

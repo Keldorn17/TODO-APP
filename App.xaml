@@ -32,7 +32,6 @@
                 <ResourceDictionary Source="/Themes/CardThemes/TodoCard.xaml"/>
 
                 <!-- Textbox Themes -->
-                <ResourceDictionary Source="/Themes/TextboxThemes/TextboxTheme.xaml"/>
                 <ResourceDictionary Source="/Themes/TextboxThemes/EditTextboxTheme.xaml"/>
                 
                 <!-- ComboBox Themes -->
@@ -44,16 +43,26 @@
                 <!-- Color Themes -->
                 <ResourceDictionary Source="/Themes/ColorThemes/PriorityColors.xaml"/>
                 <ResourceDictionary Source="/Themes/ColorThemes/DarkTheme.xaml"/>
+                
+                <ResourceDictionary Source="/Themes/SVG/LoadSvgTemplate.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-
-            <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
-                <view:HomeView/>
+            
+            <DataTemplate DataType="{x:Type viewModel:DashboardViewModel}">
+                <view:DashboardView/>
             </DataTemplate>
             
-            <DataTemplate DataType="{x:Type viewModel:SharedViewModel}">
-                <view:SharedView/>
+            <DataTemplate DataType="{x:Type viewModel:PersonalTodoTabViewModel}">
+                <view:TodoTabView/>
             </DataTemplate>
-
+            
+            <DataTemplate DataType="{x:Type viewModel:SharedTodoTabViewModel}">
+                <view:TodoTabView/>
+            </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type viewModel:AllTodoTabViewModel}">
+                <view:TodoTabView/>
+            </DataTemplate>
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>

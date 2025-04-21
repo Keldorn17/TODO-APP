@@ -3,49 +3,51 @@
 
     <!-- #region Add Button -->
     <Style x:Key="AddDeleteButton" TargetType="{x:Type Button}">
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="Height" Value="40"/>
-        <Setter Property="MinWidth" Value="40"/>
-        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}"/>
-        <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/>
-        <Setter Property="Padding" Value="10 5"/>
-        <Setter Property="Margin" Value="0 10 0 0"/>
-        <Setter Property="HorizontalAlignment" Value="Center"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Height" Value="40" />
+        <Setter Property="MinWidth" Value="40" />
+        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
+        <Setter Property="Padding" Value="10 5" />
+        <Setter Property="Margin" Value="0 10 0 0" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Cursor" Value="Hand" />
 
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border x:Name="BtnBorder"
-                        Background="{TemplateBinding Background}"
-                        BorderThickness="2"
-                        CornerRadius="5"
-                        SnapsToDevicePixels="True">
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="2"
+                            CornerRadius="5"
+                            SnapsToDevicePixels="True">
                         <Border.Effect>
-                            <DropShadowEffect ShadowDepth="5" Color="{DynamicResource DarkerContrastColor}" Opacity="0.5" />
+                            <DropShadowEffect ShadowDepth="5" Color="{DynamicResource DarkerContrastColor}"
+                                              Opacity="0.5" />
                         </Border.Effect>
                         <Grid>
                             <Viewbox Width="15">
                                 <Path Data="{TemplateBinding Tag}"
-                                      Fill="{DynamicResource SecondaryTextBrush}" Stretch="Fill"/>
+                                      Fill="{DynamicResource SecondaryTextBrush}" Stretch="Fill" />
                             </Viewbox>
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="BtnBorder" Property="Background" Value="{DynamicResource PrimaryBrush}"/>
+                            <Setter TargetName="BtnBorder" Property="Background" Value="{DynamicResource PrimaryBrush}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="BtnBorder" Property="Background" Value="{DynamicResource PrimaryBrush}"/>
+                            <Setter TargetName="BtnBorder" Property="Background" Value="{DynamicResource PrimaryBrush}" />
                             <Setter TargetName="BtnBorder" Property="Effect">
                                 <Setter.Value>
-                                    <DropShadowEffect ShadowDepth="3" Color="{DynamicResource DarkerContrastColor}" Opacity="0.3" />
+                                    <DropShadowEffect ShadowDepth="3" Color="{DynamicResource DarkerContrastColor}"
+                                                      Opacity="0.3" />
                                 </Setter.Value>
                             </Setter>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="BtnBorder" Property="Opacity" Value="0.6"/>
+                            <Setter TargetName="BtnBorder" Property="Opacity" Value="0.6" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -53,54 +55,56 @@
         </Setter>
     </Style>
     <!-- #endregion -->
-    
+
     <!-- #region CancelSave Button -->
     <Style x:Key="CancelSaveButton" TargetType="{x:Type Button}">
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="Height" Value="40"/>
-        <Setter Property="MinWidth" Value="100"/>
-        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}"/>
-        <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/>
-        <Setter Property="Padding" Value="10 5"/>
-        <Setter Property="Margin" Value="0 10 0 0"/>
-        <Setter Property="HorizontalAlignment" Value="Center"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Height" Value="40" />
+        <Setter Property="MinWidth" Value="100" />
+        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
+        <Setter Property="Padding" Value="10 5" />
+        <Setter Property="Margin" Value="0 10 0 0" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Cursor" Value="Hand" />
 
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border x:Name="BtnBorder"
-                    Background="{TemplateBinding Background}"
-                    BorderThickness="2"
-                    CornerRadius="5"
-                    SnapsToDevicePixels="True">
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="2"
+                            CornerRadius="5"
+                            SnapsToDevicePixels="True">
                         <Border.Effect>
-                            <DropShadowEffect ShadowDepth="5" Color="{DynamicResource DarkerContrastColor}" Opacity="0.5" />
+                            <DropShadowEffect ShadowDepth="5" Color="{DynamicResource DarkerContrastColor}"
+                                              Opacity="0.5" />
                         </Border.Effect>
                         <Grid>
                             <ContentPresenter x:Name="ContentHost"
-                                          Focusable="False"
-                                          Margin="{TemplateBinding Padding}"
-                                          HorizontalAlignment="Center"
-                                          VerticalAlignment="Center"
-                                          Content="{TemplateBinding Tag}"/>
+                                              Focusable="False"
+                                              Margin="{TemplateBinding Padding}"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Content="{TemplateBinding Tag}" />
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="BtnBorder" Property="Background" Value="{DynamicResource PrimaryBrush}"/>
+                            <Setter TargetName="BtnBorder" Property="Background" Value="{DynamicResource PrimaryBrush}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="BtnBorder" Property="Background" Value="{DynamicResource PrimaryBrush}"/>
+                            <Setter TargetName="BtnBorder" Property="Background" Value="{DynamicResource PrimaryBrush}" />
                             <Setter TargetName="BtnBorder" Property="Effect">
                                 <Setter.Value>
-                                    <DropShadowEffect ShadowDepth="3" Color="{DynamicResource DarkerContrastColor}" Opacity="0.3" />
+                                    <DropShadowEffect ShadowDepth="3" Color="{DynamicResource DarkerContrastColor}"
+                                                      Opacity="0.3" />
                                 </Setter.Value>
                             </Setter>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="BtnBorder" Property="Opacity" Value="0.6"/>
+                            <Setter TargetName="BtnBorder" Property="Opacity" Value="0.6" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -111,51 +115,53 @@
 
     <!-- #region Delete Button -->
     <Style x:Key="DeleteButton" TargetType="{x:Type Button}">
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="Height" Value="40"/>
-        <Setter Property="MinWidth" Value="100"/>
-        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}"/>
-        <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/>
-        <Setter Property="Padding" Value="10 5"/>
-        <Setter Property="Margin" Value="0 10 0 0"/>
-        <Setter Property="HorizontalAlignment" Value="Center"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Height" Value="40" />
+        <Setter Property="MinWidth" Value="100" />
+        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
+        <Setter Property="Padding" Value="10 5" />
+        <Setter Property="Margin" Value="0 10 0 0" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Cursor" Value="Hand" />
 
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border x:Name="BtnBorder"
-                Background="{TemplateBinding Background}"
-                BorderThickness="2"
-                CornerRadius="5"
-                SnapsToDevicePixels="True">
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="2"
+                            CornerRadius="5"
+                            SnapsToDevicePixels="True">
                         <Border.Effect>
-                            <DropShadowEffect ShadowDepth="5" Color="{DynamicResource DarkerContrastColor}" Opacity="0.5" />
+                            <DropShadowEffect ShadowDepth="5" Color="{DynamicResource DarkerContrastColor}"
+                                              Opacity="0.5" />
                         </Border.Effect>
                         <Grid>
                             <ContentPresenter x:Name="ContentHost"
-                                      Focusable="False"
-                                      Margin="{TemplateBinding Padding}"
-                                      HorizontalAlignment="Center"
-                                      VerticalAlignment="Center"
-                                      Content="{TemplateBinding Tag}"/>
+                                              Focusable="False"
+                                              Margin="{TemplateBinding Padding}"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Content="{TemplateBinding Tag}" />
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="BtnBorder" Property="Background" Value="{DynamicResource PriorityRed}"/>
+                            <Setter TargetName="BtnBorder" Property="Background" Value="{DynamicResource PriorityRed}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="BtnBorder" Property="Background" Value="{DynamicResource PriorityRed}"/>
+                            <Setter TargetName="BtnBorder" Property="Background" Value="{DynamicResource PriorityRed}" />
                             <Setter TargetName="BtnBorder" Property="Effect">
                                 <Setter.Value>
-                                    <DropShadowEffect ShadowDepth="3" Color="{DynamicResource DarkerContrastColor}" Opacity="0.3" />
+                                    <DropShadowEffect ShadowDepth="3" Color="{DynamicResource DarkerContrastColor}"
+                                                      Opacity="0.3" />
                                 </Setter.Value>
                             </Setter>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="BtnBorder" Property="Opacity" Value="0.6"/>
+                            <Setter TargetName="BtnBorder" Property="Opacity" Value="0.6" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -166,51 +172,53 @@
 
     <!-- #region AddTodo Button -->
     <Style x:Key="AddTodoButton" TargetType="{x:Type Button}">
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="Height" Value="40"/>
-        <Setter Property="MinWidth" Value="100"/>
-        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}"/>
-        <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/>
-        <Setter Property="Padding" Value="10 5"/>
-        <Setter Property="Margin" Value="0"/>
-        <Setter Property="HorizontalAlignment" Value="Center"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Height" Value="40" />
+        <Setter Property="MinWidth" Value="100" />
+        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
+        <Setter Property="Padding" Value="10 5" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Cursor" Value="Hand" />
 
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border x:Name="BtnBorder"
-                Background="{TemplateBinding Background}"
-                BorderThickness="2"
-                CornerRadius="10"
-                SnapsToDevicePixels="True">
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="2"
+                            CornerRadius="10"
+                            SnapsToDevicePixels="True">
                         <Border.Effect>
-                            <DropShadowEffect ShadowDepth="3" Color="{DynamicResource DarkerContrastColor}" Opacity="0.5" />
+                            <DropShadowEffect ShadowDepth="3" Color="{DynamicResource DarkerContrastColor}"
+                                              Opacity="0.5" />
                         </Border.Effect>
                         <Grid>
                             <ContentPresenter x:Name="ContentHost"
-                                      Focusable="False"
-                                      Margin="{TemplateBinding Padding}"
-                                      HorizontalAlignment="Center"
-                                      VerticalAlignment="Center"
-                                      Content="{TemplateBinding Tag}"/>
+                                              Focusable="False"
+                                              Margin="{TemplateBinding Padding}"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Content="{TemplateBinding Tag}" />
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="BtnBorder" Property="Background" Value="{DynamicResource PrimaryBrush}"/>
+                            <Setter TargetName="BtnBorder" Property="Background" Value="{DynamicResource PrimaryBrush}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="BtnBorder" Property="Background" Value="{DynamicResource PrimaryBrush}"/>
+                            <Setter TargetName="BtnBorder" Property="Background" Value="{DynamicResource PrimaryBrush}" />
                             <Setter TargetName="BtnBorder" Property="Effect">
                                 <Setter.Value>
-                                    <DropShadowEffect ShadowDepth="3" Color="{DynamicResource DarkerContrastColor}" Opacity="0.3" />
+                                    <DropShadowEffect ShadowDepth="3" Color="{DynamicResource DarkerContrastColor}"
+                                                      Opacity="0.3" />
                                 </Setter.Value>
                             </Setter>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="BtnBorder" Property="Opacity" Value="0.6"/>
+                            <Setter TargetName="BtnBorder" Property="Opacity" Value="0.6" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
