@@ -26,7 +26,11 @@
     <!-- #region Calendar Colors -->
     <Color x:Key="CalendarColor">#F5F3FF</Color>
     <!-- #endregion -->
-
+    
+    <!-- #region Label Colors -->
+    <Color x:Key="LabelBackgroundColor">#353340</Color>
+    <Color x:Key="LabelBorderBrushColor">#1e3a8a</Color>
+    <!-- #endregion -->
 
     <!-- #region Brushes -->
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource MainColor}"/>
@@ -50,6 +54,11 @@
 
     <!-- #region Calendar Brushes -->
     <SolidColorBrush x:Key="CalendarBrush" Color="{StaticResource CalendarColor}"/>
+    <!-- #endregion -->
+    
+    <!-- #region Label Brushes -->
+    <SolidColorBrush x:Key="LabelBackgroundBrush" Color="{StaticResource LabelBackgroundColor}"/>
+    <SolidColorBrush x:Key="LabelBackgroundBrushBrush" Color="{StaticResource LabelBorderBrushColor}"/>
     <!-- #endregion -->
 
 </ResourceDictionary>

@@ -1,7 +1,4 @@
-﻿using System.Windows;
-using System.Windows.Input;
-using TODO.Model;
-using TODO.Utils;
+﻿using TODO.Model;
 using TODO.ViewModel;
 
 namespace TODO.View
