@@ -1,8 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
-using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using DynamicData;
 using TODO.Client;
 using TODO.Domain;
 using TODO.Model;
@@ -10,24 +10,37 @@ using TODO.View;
 
 namespace TODO.ViewModel;
 
-public abstract partial class AbstractTodoTabViewModel(TodoClient todoClient, IMessenger messenger, QueryMode queryMode)
-    : AbstractViewModel
+public abstract partial class AbstractTodoTabViewModel : AbstractViewModel
 {
+    private readonly TodoClient _todoClient;
+    private readonly IMessenger _messenger;
+    private readonly QueryMode _queryMode;
     private string _searchQuery = string.Empty;
+    
+    private readonly SourceList<TodoItem> _todos = new();
 
-    [ObservableProperty] 
-    private ObservableCollection<TodoItem> _todos = [];
+    private readonly ReadOnlyObservableCollection<TodoCardViewModel> _todoCards;
 
+    public ReadOnlyObservableCollection<TodoCardViewModel> TodoCards => _todoCards;
+
+    public AbstractTodoTabViewModel(TodoClient todoClient, IMessenger messenger, QueryMode queryMode)
+    {
+        _todoClient = todoClient;
+        _messenger = messenger;
+        _queryMode = queryMode;
+        _todos.Connect().Transform(item => new TodoCardViewModel(item, () => OpenEditWindow(item))).Bind(out _todoCards).Subscribe();
+    }
+    
     public override async Task OnNavigatedTo()
     {
-        messenger.Register<SearchQuery>(this, HandleSearchQuery);
-        messenger.Send<SearchQueryRequest>();
+        _messenger.Register<SearchQuery>(this, HandleSearchQuery);
+        _messenger.Send<SearchQueryRequest>();
         await QueryTodos();
     }
 
     public override async Task OnNavigatedFrom()
     {
-        messenger.Unregister<SearchQuery>(this);
+        _messenger.Unregister<SearchQuery>(this);
     }
 
     [RelayCommand]
@@ -53,27 +66,29 @@ public abstract partial class AbstractTodoTabViewModel(TodoClient todoClient, IM
     {
         try
         {
-            Todos.Clear();
-            Todos.Add(new TodoItemBuilder()
+            _todos.Clear();
+            _todos.Add(new TodoItemBuilder()
                 .SetId(1)
                 .SetTitle("What is Lorem Ipsum?")
                 .SetDescription("Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
                 .SetPriority(new Priority { Level = 1 })
-                .SetDeadline("2026-10-02T14:45:30.123456789+05:30")
-                .SetShared(new Shared("Csaba@gmail.com", new Access { Level = 2 }))
+                .SetDeadline("2026-9-02T14:45:30.123456789+05:30")
+                .SetShared(new Shared("Csaba@gmail.com", new Access { Level = 3 }))
                 .SetShared(new Shared("Zoli@gmail.com", new Access { Level = 1 }))
+                .SetCategory(["Test Category", "2", "3", "Very Long Category Name"])
                 .Build());
 
-            Todos.Add(new TodoItemBuilder()
+            _todos.Add(new TodoItemBuilder()
                 .SetId(2)
                 .SetTitle("Why do we use it?")
                 .SetDescription(
                     "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.")
                 .SetIsCompleted(true)
                 .SetDeadline("2026-10-02T14:45:30.1234567Z")
+                .SetCategory(["Very Long Category Name"])
                 .Build());
 
-            Todos.Add(new TodoItemBuilder()
+            _todos.Add(new TodoItemBuilder()
                 .SetId(3)
                 .SetTitle("Where does it come from?")
                 .SetDescription(
@@ -81,7 +96,7 @@ public abstract partial class AbstractTodoTabViewModel(TodoClient todoClient, IM
                 .SetPriority(new Priority { Level = 2 })
                 .Build());
 
-            Todos.Add(new TodoItemBuilder()
+            _todos.Add(new TodoItemBuilder()
                 .SetId(4)
                 .SetTitle("Where can I get some?")
                 .SetDescription(
@@ -89,9 +104,10 @@ public abstract partial class AbstractTodoTabViewModel(TodoClient todoClient, IM
                 .SetPriority(new Priority { Level = 3 })
                 .SetIsCompleted(true)
                 .SetDeadline("2026-10-02T16:45:30.1234568+02:00")
+                .SetCategory(["General"])
                 .Build());
 
-            Todos.Add(new TodoItemBuilder()
+            _todos.Add(new TodoItemBuilder()
                 .SetId(5)
                 .SetTitle("What is Lorem Ipsum?")
                 .SetDescription("Lorem Ipsum is simply dummy text of the printing and typesetting industry.")

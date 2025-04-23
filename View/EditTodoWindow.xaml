@@ -8,8 +8,8 @@
         xmlns:converter="clr-namespace:TODO.Converter"
         xmlns:view="clr-namespace:TODO.View"
         mc:Ignorable="d"
-        Height="600" Width="500"
-        MinHeight="600" MinWidth="500"
+        Height="600" Width="530"
+        MinHeight="600" MinWidth="530"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         ResizeMode="NoResize"
@@ -19,9 +19,11 @@
     <Window.Resources>
         <converter:PriorityLevelConverter x:Key="PriorityLevelConverter"/>
         <converter:AccessLevelConverter x:Key="AccessLevelConverter"/>
-        <converter:NullToBoolConverter x:Key="NullToBoolConverter"/>
         <converter:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
         <converter:BooleanToTextConverter x:Key="BoolToText"/>
+        <converter:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+        <converter:AccessTagConverter x:Key="AccessTagConverter"/>
+        <converter:NullToBoolConverter x:Key="NullToBoolConverter"/>
     </Window.Resources>
     
     <WindowChrome.WindowChrome>
@@ -35,13 +37,10 @@
             BorderThickness="1"
             CornerRadius="10" >
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="100"/>
-            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="55"/>
-                <RowDefinition/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="70"/>
             </Grid.RowDefinitions>
 
             <!-- #region Window Title -->
@@ -54,13 +53,16 @@
             <!-- #endregion -->
 
             <!-- #region Window Controls -->
-            <view:WindowControlView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+            <view:WindowControlView Grid.Row="0" Grid.Column="0"
                                      IsMinimizeButtonVisible="True"
                                      IsCloseButtonVisible="True"/>
             <!-- #endregion -->
 
             <!-- #region Main Content -->
-            <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" Margin="20,0,20,20">
+            <ScrollViewer Grid.Row="1" Margin="0,0,20,0"
+                          VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Disabled">
+            <StackPanel Margin="20,0,20,20">
 
                 <!-- #region Title Section -->
                 <TextBox Style="{StaticResource TitleTbox}" 
@@ -118,18 +120,19 @@
                         <ColumnDefinition Width="50"/>
                     </Grid.ColumnDefinitions>
                     <!-- Share With -->
+                    <TextBlock Grid.Column="0" Text="{Binding ErrorMessage}" 
+                               FontSize="10"
+                               VerticalAlignment="Top"
+                               Foreground="Red"
+                               Margin="80 12 0 0"
+                               Visibility="{Binding ErrorMessage, 
+                                           Converter={StaticResource StringToVisibilityConverter}}"/>
                     <StackPanel Grid.Column="0">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Share with" 
                                        Foreground="{DynamicResource SecondaryTextBrush}"
                                        FontSize="14"
                                        Margin="8 8 4 0"/>
-                            <TextBlock Text="{Binding ErrorMessage}" 
-                                       FontSize="10"
-                                       VerticalAlignment="Bottom"
-                                       Foreground="Red"
-                                       Visibility="{Binding ErrorMessage, 
-                                           Converter={StaticResource StringToVisibilityConverter}}"/>
                         </StackPanel>
                         
                         <TextBox Style="{StaticResource ShareWithTbox}" 
@@ -184,9 +187,10 @@
                                    Margin="14 8 0 0"/>
                         <ComboBox Style="{DynamicResource AccessComboBox}"
                                   ItemsSource="{Binding AccessLevelList}"
-                                  Tag="Set Access Level"
+                                  Tag="{Binding IsOwnerSelected, Converter={StaticResource AccessTagConverter}}"
                                   SelectedValue="{Binding SelectedSharedAccess.Level, Mode=TwoWay, Converter={StaticResource AccessLevelConverter}}"
-                                  Margin="8 0 0 0"/>
+                                  Margin="8 0 0 0"
+                                  IsEnabled="{Binding IsOwnerSelected, Converter={StaticResource InverseBooleanConverter}}"/>
                     </StackPanel>
                     <!-- Remove -->
                     <Button Command="{Binding RemoveSharedItemCommand}"
@@ -194,7 +198,66 @@
                             VerticalAlignment="Bottom"
                             Tag="{StaticResource DeleteIcon}"
                             Grid.Column="2"
-                            IsEnabled="{Binding SelectedSharedItem, Converter={StaticResource NullToBoolConverter}}"/>
+                            IsEnabled="{Binding CanRemoveSharedItem}"/>
+                </Grid>
+                <!-- #endregion -->
+                
+                <!-- #region Categories -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="175"/>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="50"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <!-- Add Category -->
+                    <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding ErrorMessageCategories}" 
+                               FontSize="10"
+                               VerticalAlignment="Top"
+                               Margin="100 12 0 0"
+                               Foreground="Red"
+                               Visibility="{Binding ErrorMessageCategories, 
+                                           Converter={StaticResource StringToVisibilityConverter}}"/>
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Add Category" 
+                                   Foreground="{DynamicResource SecondaryTextBrush}"
+                                   FontSize="14"
+                                   Margin="8 8 4 0"/>
+                        
+                        <TextBox Style="{StaticResource CategoryTbox}" 
+                                 Tag="Category"
+                                 Text="{Binding NewCategory}"/>
+                    </StackPanel>
+                    
+                    <!-- Add Button -->
+                    <Button Command="{Binding AddCategoryCommand}"
+                            Style="{StaticResource AddDeleteButton}"
+                            VerticalAlignment="Bottom"
+                            Tag="{StaticResource AddIcon}"
+                            Grid.Column="1"/>
+                    
+                    <!-- Manage Categories -->
+                    <Grid Grid.Column="2">
+                        <StackPanel Grid.Column="0" Margin="8 0 0 0">
+                            <TextBlock Text="Manage Categories" 
+                                       Foreground="{DynamicResource SecondaryTextBrush}"
+                                       FontSize="14"
+                                       Margin="4 8 0 0"/>
+                            <ComboBox Style="{DynamicResource AccessComboBox}"
+                                      ItemsSource="{Binding Categories}"
+                                      Tag="Existing Categories"
+                                      SelectedValue="{Binding SelectedCategory}"/>
+                        </StackPanel>
+                    </Grid>
+                    
+                    <!-- Remove Button -->
+                    <Button Command="{Binding RemoveCategoryCommand}"
+                            Style="{StaticResource AddDeleteButton}"
+                            VerticalAlignment="Bottom"
+                            Tag="{StaticResource DeleteIcon}"
+                            Grid.Column="3"
+                            IsEnabled="{Binding SelectedCategory, Converter={StaticResource NullToBoolConverter}}"/>
                 </Grid>
                 <!-- #endregion -->
                 
@@ -209,7 +272,7 @@
                                    Foreground="{DynamicResource SecondaryTextBrush}"
                                    FontSize="14"
                                    Margin="8 8 0 0"/>
-                        <TextBox Text="{Binding CopyTodo.CreatedAt, StringFormat={}{0:dd/MM/yyyy HH:mm}}"
+                        <TextBox Text="{Binding CopyTodo.CreatedAt, StringFormat='D'}"
                                  Foreground="{DynamicResource SecondaryTextBrush}"
                                  Style="{StaticResource CeTBox}"
                                  Tag="{StaticResource CreatedIcon}"
@@ -220,23 +283,26 @@
                                    Foreground="{DynamicResource SecondaryTextBrush}"
                                    FontSize="14"
                                    Margin="8 8 0 0"/>
-                        <TextBox Text="{Binding CopyTodo.UpdatedAt, StringFormat={}{0:dd/MM/yyyy HH:mm}}"
+                        <TextBox Text="{Binding CopyTodo.UpdatedAt, StringFormat='D'}"
                                  Foreground="{DynamicResource SecondaryTextBrush}"
                                  Style="{StaticResource CeTBox}"
                                  Tag="{StaticResource EditedIcon}"
-                                 FontSize="14"
                                  Margin="4 0 0 0"/>
                     </StackPanel>
                 </Grid>
                 <!-- #endregion -->
-
-                <!-- #region Buttons Section -->
+            </StackPanel>
+            </ScrollViewer>
+            <!-- #endregion -->
+            
+            <!-- #region Buttons Section -->
+            <StackPanel Grid.Row="2" Margin="20,0,35,20">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="110"/>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="110"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <!-- IsCompleted -->
                     <Button Command="{Binding CompletedChangedCommand}"
@@ -264,10 +330,9 @@
                             Style="{StaticResource CancelSaveButton}"
                             Tag="Save"
                             Grid.Column="3"
-                            HorizontalAlignment="Right"
-                            Margin="0 10 5 0"/>
+                            HorizontalAlignment="Left"
+                            Margin="5 10 0 0"/>
                 </Grid>
-                <!-- #endregion -->
             </StackPanel>
             <!-- #endregion -->
         </Grid>

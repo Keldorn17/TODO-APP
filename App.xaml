@@ -18,18 +18,17 @@
 
                 <!-- Border Themes -->
                 <ResourceDictionary Source="/Themes/BorderThemes/DropdownSettingsBorder.xaml"/>
+                <ResourceDictionary Source="/Themes/BorderThemes/LabelStyle.xaml"/>
 
                 <!-- SVG Geometries -->
                 <ResourceDictionary Source="/Themes/SVG/SVGGeometries.xaml"/>
+                <ResourceDictionary Source="/Themes/SVG/LoadSvgTemplate.xaml"/>
 
                 <!-- CheckBox Themes -->
                 <ResourceDictionary Source="/Themes/CheckBoxThemes/ModernCheckBox.xaml"/>
 
                 <!-- ScrollBar Styles -->
                 <ResourceDictionary Source="/Themes/ScrollBarStyles/ScrollBarStyles.xaml"/>
-
-                <!-- Card Themes -->
-                <ResourceDictionary Source="/Themes/CardThemes/TodoCard.xaml"/>
 
                 <!-- Textbox Themes -->
                 <ResourceDictionary Source="/Themes/TextboxThemes/EditTextboxTheme.xaml"/>
@@ -44,7 +43,6 @@
                 <ResourceDictionary Source="/Themes/ColorThemes/PriorityColors.xaml"/>
                 <ResourceDictionary Source="/Themes/ColorThemes/DarkTheme.xaml"/>
                 
-                <ResourceDictionary Source="/Themes/SVG/LoadSvgTemplate.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             
             <DataTemplate DataType="{x:Type viewModel:DashboardViewModel}">
@@ -61,6 +59,10 @@
             
             <DataTemplate DataType="{x:Type viewModel:AllTodoTabViewModel}">
                 <view:TodoTabView/>
+            </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type viewModel:TodoCardViewModel}">
+                <view:TodoCardView/>
             </DataTemplate>
             
         </ResourceDictionary>

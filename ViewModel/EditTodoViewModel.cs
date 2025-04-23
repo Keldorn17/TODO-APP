@@ -11,7 +11,7 @@ namespace TODO.ViewModel
     public partial class EditTodoViewModel : AbstractViewModel
     {
         public List<PriorityLevel> PriorityList { get; } = PriorityLevel.GetPriorities();
-        public List<AccessLevel> AccessLevelList { get; } = AccessLevel.GetAccessLevels();
+        public List<AccessLevel> AccessLevelList { get; } = AccessLevel.GetAccessLevels(false);
 
         [ObservableProperty]
         private TodoItem _currentTodo;
@@ -22,6 +22,9 @@ namespace TODO.ViewModel
         [ObservableProperty]
         private string? _newSharedEmail;
 
+        [ObservableProperty] 
+        private string? _newCategory;
+
         [ObservableProperty]
         private Access _newAccess = new() { Level = 0 };
 
@@ -30,26 +33,31 @@ namespace TODO.ViewModel
 
         [ObservableProperty]
         private Access? _selectedSharedAccess;
+        
+        [ObservableProperty]
+        private string? _selectedCategory;
 
         [ObservableProperty]
         private string? _errorMessage;
+        
+        [ObservableProperty]
+        private string? _errorMessageCategories;
 
         [ObservableProperty]
         private bool? _dialogResult;
         
         [ObservableProperty]
         private string _title;
+        
+        public bool CanRemoveSharedItem => SelectedSharedItem != null &&
+                                           SelectedSharedItem?.SharedAccess.Level != AccessLevel.Owner.Index;
+        public bool IsOwnerSelected => SelectedSharedItem?.SharedAccess?.Level == AccessLevel.Owner.Index;
 
         private readonly bool _isEditing;
 
         private readonly Window? _editWindow;
-
-        private ObservableCollection<Shared> _sharedItems = null!;
-        public ObservableCollection<Shared> SharedItems
-        {
-            get => _sharedItems ??= CopyTodo.Shared;
-            set => SetProperty(ref _sharedItems, value);
-        }
+        public ObservableCollection<string> Categories => CopyTodo.Category;
+        public ObservableCollection<Shared> SharedItems => CopyTodo.Shared;
 
         public EditTodoViewModel(TodoItem todoItem, Window editWindow, bool isEditing)
         {
@@ -58,11 +66,16 @@ namespace TODO.ViewModel
             CurrentTodo = todoItem;
             CopyTodo = CurrentTodo.Clone();
             _editWindow = editWindow;
+
+            SelectedSharedItem = CopyTodo.Shared.Count > 0 ? CopyTodo.Shared[0] : null;
+            SelectedCategory = CopyTodo.Category.Count > 0 ? CopyTodo.Category[0] : null;
         }
 
         partial void OnSelectedSharedItemChanged(Shared? value)
         {
             SelectedSharedAccess = value?.SharedAccess;
+            OnPropertyChanged(nameof(CanRemoveSharedItem));
+            OnPropertyChanged(nameof(IsOwnerSelected));
         }
 
         [RelayCommand]
@@ -90,6 +103,7 @@ namespace TODO.ViewModel
             var newShared = new Shared(NewSharedEmail.Trim(), new Access { Level = NewAccess.Level });
             CopyTodo.Shared.Add(newShared);
 
+            SelectedSharedItem = newShared;
             NewSharedEmail = string.Empty;
             NewAccess = new Access { Level = 0 };
             ErrorMessage = string.Empty;
@@ -101,8 +115,40 @@ namespace TODO.ViewModel
         private void RemoveSharedItem()
         {
             if (SelectedSharedItem == null) return;
+            var index = CopyTodo.Shared.IndexOf(SelectedSharedItem);
             CopyTodo.Shared.Remove(SelectedSharedItem);
-            SelectedSharedItem = null;
+            
+            SelectedSharedItem = CopyTodo.Shared.Count > 0 ? CopyTodo.Shared[Math.Min(index, CopyTodo.Shared.Count - 1)] : null;
+        }
+        
+        [RelayCommand]
+        private void AddCategory()
+        {
+            if (string.IsNullOrWhiteSpace(NewCategory))
+            {
+                ErrorMessageCategories = "Category cannot be empty";
+                return;
+            }
+
+            if (CopyTodo.Category.Any(c => 
+                    c.Equals(NewCategory, StringComparison.OrdinalIgnoreCase)))
+            {
+                ErrorMessageCategories = "This category already exists";
+                return;
+            }
+
+            CopyTodo.Category.Add(NewCategory.Trim());
+            SelectedCategory = NewCategory;
+            NewCategory = string.Empty;
+            ErrorMessageCategories = string.Empty;
+        }
+
+        [RelayCommand]
+        private void RemoveCategory()
+        {
+            if (SelectedCategory == null) return;
+            CopyTodo.Category.Remove(SelectedCategory);
+            SelectedCategory = Categories.FirstOrDefault();
         }
 
         [RelayCommand]
@@ -118,6 +164,7 @@ namespace TODO.ViewModel
                 CurrentTodo.UpdatedAt = DateTime.Now;
                 CurrentTodo.Shared = CopyTodo.Shared;
                 CurrentTodo.IsCompleted = CopyTodo.IsCompleted;
+                ReplaceCollection(CurrentTodo.Category, CopyTodo.Category);
                 // Todo Edit logic
             }
             else
@@ -147,5 +194,13 @@ namespace TODO.ViewModel
             CopyTodo.IsCompleted = !CopyTodo.IsCompleted;
         }
 
+        private static void ReplaceCollection<T>(ObservableCollection<T> target, IEnumerable<T> source)
+        {
+            target.Clear();
+            foreach (var item in source)
+            {
+                target.Add(item);
+            }
+        }
     }
 }
