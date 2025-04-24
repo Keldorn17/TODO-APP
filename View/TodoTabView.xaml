@@ -9,7 +9,7 @@
     
     <Grid>
         <ScrollViewer CanContentScroll="True">
-            <ItemsControl ItemsSource="{Binding Todos}" ItemTemplate="{StaticResource TodoCardTemplate}">
+            <ItemsControl ItemsSource="{Binding TodoCards}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Orientation="Horizontal" />

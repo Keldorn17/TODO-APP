@@ -43,6 +43,7 @@ namespace TODO.Model
         private bool _isCompleted;
 
         public ObservableCollection<Shared> Shared { get; set; } = [];
+        
 
         /// <summary>
         /// Creates a deep copy of the TodoItem
@@ -60,7 +61,7 @@ namespace TODO.Model
                 UpdatedAt = this.UpdatedAt,
                 Parent = this.Parent,
                 IsCompleted = this.IsCompleted,
-                Category = this.Category
+                Category = new ObservableCollection<string>(this.Category)
             };
 
             if (this.Priority != null)

@@ -27,9 +27,9 @@ public sealed class AccessLevel
         return AccessLevels.FirstOrDefault(accessIndex => accessIndex.Name.Equals(name), Read);
     }
 
-    public static List<AccessLevel> GetAccessLevels()
+    public static List<AccessLevel> GetAccessLevels(bool includeOwner = true)
     {
-        return AccessLevels;
+        return includeOwner ? AccessLevels : AccessLevels.Where(a => a.Index != Owner.Index).ToList();
     }
 
     public override string ToString()
