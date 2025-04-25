@@ -64,7 +64,11 @@
             <DataTemplate DataType="{x:Type viewModel:TodoCardViewModel}">
                 <view:TodoCardView/>
             </DataTemplate>
-            
+
+            <DataTemplate DataType="{x:Type viewModel:LoginViewModel}">
+                <view:LoginView/>
+            </DataTemplate>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

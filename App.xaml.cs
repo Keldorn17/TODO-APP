@@ -137,6 +137,7 @@ public partial class App
         services.AddSingleton<PersonalTodoTabViewModel>();
         services.AddSingleton<SharedTodoTabViewModel>();
         services.AddSingleton<AllTodoTabViewModel>();
+        services.AddSingleton<LoginViewModel>();
     }
 
     private void RegisterProviders(IServiceCollection services)

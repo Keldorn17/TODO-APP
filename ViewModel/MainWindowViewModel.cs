@@ -19,7 +19,9 @@ public partial class MainWindowViewModel : AbstractViewModel
     [RelayCommand]
     private void OnWindowLoaded()
     {
-        Navigation.NavigateTo<DashboardViewModel>();
+        
+        //Navigation.NavigateTo<DashboardViewModel>();
+        Navigation.NavigateTo<LoginViewModel>();
     }
-    
+
 }
