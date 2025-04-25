@@ -4,58 +4,59 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TODO.View"
-             Height="600" Width="920"
-             MinHeight="600" MinWidth="920"
+             xmlns:view="clr-namespace:TODO.View"
+             Height="auto" Width="auto"
              Background="Transparent">
-            <Border Background="{DynamicResource MainWindowBrush}"
-            CornerRadius="10">
-            
-                
-                
-                
-            <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-                <TextBlock
-                   Text="Dodo App"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   Foreground="{DynamicResource SecondaryTextBrush}"
-                   FontSize="60"/>
 
-            <Grid Grid.Row="1">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <view:WindowControlView Grid.Row="0"
+                                IsMinimizeButtonVisible="True"
+                                IsMaximizeButtonVisible="True"
+                                IsExitButtonVisible="True"/>
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Row="1">
+            <ContentControl ContentTemplate="{StaticResource SvgIconTemplate}" 
+                            Width="150" 
+                            Content="{StaticResource TodoListIcon}"/>   
+            <TextBlock Text="Todo App"
+                       VerticalAlignment="Bottom"
+                       HorizontalAlignment="Center"
+                       Foreground="{DynamicResource SecondaryTextBrush}"
+                       FontSize="90"/>
+
+            <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
+                <StackPanel Grid.Column="1" HorizontalAlignment="Center" Orientation="Vertical" Margin="20">
                     <Button Tag="Login"
-                         Height="50"
-                         Foreground="{DynamicResource SecondaryTextBrush}"
-                         FontSize="14"
-                         HorizontalAlignment="Center"
-                         Command="{Binding NavigateMainViewCommand}"
-                         Style="{StaticResource AddTodoButton}"
-                         Margin="0,0,20,0"
-                         />
-                    
-                     <Button Tag="Sign In"
-                         Height="50"
-                         Foreground="{DynamicResource SecondaryTextBrush}"
-                         FontSize="14"
-                         HorizontalAlignment="Center"
-                         Command="{Binding NavigateMainViewCommand}"
-                         Style="{StaticResource AddTodoButton}"
-                         Margin="20,0,0,0"
-                         />
+                            Height="50"
+                            Width="120"
+                            Foreground="{DynamicResource SecondaryTextBrush}"
+                            FontSize="20"
+                            HorizontalAlignment="Center"
+                            Command="{Binding NavigateMainViewCommand}"
+                            Style="{StaticResource AddTodoButton}"
+                            Margin="10"/>
+
+                    <Button Tag="Sign In"
+                            Height="50"
+                            Width="120"
+                            Foreground="{DynamicResource SecondaryTextBrush}"
+                            FontSize="20"
+                            HorizontalAlignment="Center"
+                            Command="{Binding NavigateMainViewCommand}"
+                            Style="{StaticResource AddTodoButton}"
+                            Margin="10"/>
                 </StackPanel>
-                
+
             </Grid>
-            </Grid>
-                
-            </Border>
+        </StackPanel>
+    </Grid>
 </UserControl>

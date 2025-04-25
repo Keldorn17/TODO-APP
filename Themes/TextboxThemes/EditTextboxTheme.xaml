@@ -61,7 +61,9 @@
                                    Visibility="Collapsed"
                                    Padding="8 0 20 0"
                                    Content="{TemplateBinding Tag}"
-                                   Grid.Column="1" />
+                                   Cursor="IBeam"
+                                   Grid.Column="1" 
+                                   />
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -136,6 +138,7 @@
                                    Visibility="Collapsed"
                                    Padding="8 5 20 0"
                                    Content="{TemplateBinding Tag}"
+                                   Cursor="IBeam"
                                    Grid.Column="1" />
                         </Grid>
                     </Border>
@@ -187,6 +190,7 @@
                                    Foreground="{DynamicResource SecondaryTextBrush}"
                                    Visibility="Collapsed"
                                    Padding="3 0 20 0"
+                                   Cursor="IBeam"
                                    Content="{TemplateBinding Tag}" />
                         </Grid>
                     </Border>
@@ -261,6 +265,7 @@
                                    Visibility="Collapsed"
                                    Padding="8 0 20 0"
                                    Content="No Data"
+                                   Cursor="IBeam"
                                    Grid.Column="1" />
                         </Grid>
                     </Border>
@@ -334,6 +339,7 @@
                                    Visibility="Collapsed"
                                    Padding="8 0 20 0"
                                    Content="{TemplateBinding Tag}"
+                                   Cursor="IBeam"
                                    Grid.Column="1" />
                         </Grid>
                     </Border>
@@ -407,6 +413,7 @@
                                    Visibility="Collapsed"
                                    Padding="8 0 20 0"
                                    Content="{TemplateBinding Tag}"
+                                   Cursor="IBeam"
                                    Grid.Column="1" />
                         </Grid>
                     </Border>
@@ -425,7 +432,7 @@
     </Style>
     <!-- #endregion -->
 
-    <!-- #region Title Textbox Style -->
+    <!-- #region Search Textbox Style -->
     <Style x:Key="SearchTbox" TargetType="{x:Type TextBox}">
         <Setter Property="FontSize" Value="14" />
         <Setter Property="Height" Value="40" />
@@ -437,7 +444,6 @@
         <Setter Property="Grid.Column" Value="1" />
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="Cursor" Value="IBeam" />
 
         <Setter Property="Template">
             <Setter.Value>
@@ -481,6 +487,7 @@
                                    Visibility="Collapsed"
                                    Padding="8 0 20 0"
                                    Content="{TemplateBinding Tag}"
+                                   Cursor="IBeam"
                                    Grid.Column="1" />
                         </Grid>
                     </Border>

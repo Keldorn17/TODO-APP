@@ -29,13 +29,17 @@
                                 IsMaximizeButtonVisible="True"
                                 IsExitButtonVisible="True" />
 
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="Todo App"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Left"
-                   Foreground="{DynamicResource SecondaryTextBrush}"
-                   FontSize="22"
-                   Margin="20, 0, 0, 0" />
-
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
+            <ContentControl ContentTemplate="{StaticResource SvgIconTemplate}" 
+                            Width="20" 
+                            Content="{StaticResource TodoListIcon}" Margin="20,5,5,0"/> 
+            <TextBlock Text="Todo App"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       Foreground="{DynamicResource SecondaryTextBrush}"
+                       FontSize="22"
+                       />
+        </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="0">
 
             <RadioButton Content="Personal"

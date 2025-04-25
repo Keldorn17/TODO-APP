@@ -13,18 +13,6 @@ namespace TODO.ViewModel
 {
     partial class LoginViewModel : AbstractViewModel
     {
-        [ObservableProperty]
-        private ObservableCollection<TodoItem> _todoItems;
-
-        [ObservableProperty]
-        private INavigationService _navigation;
-
-        public RelayCommand NavigateMainViewCommand { get; set; }
-
-        public LoginViewModel(INavigationService navService)
-        {
-            Navigation = navService;
-            NavigateMainViewCommand = new RelayCommand(() => { Navigation.NavigateTo<MainViewModel>(); }, () => true);
-        }
+        
     }
 }
