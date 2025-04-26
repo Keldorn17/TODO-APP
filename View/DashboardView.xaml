@@ -6,7 +6,7 @@
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:view="clr-namespace:TODO.View"
              mc:Ignorable="d">
-    
+
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding WindowLoadedCommand}" />
@@ -98,8 +98,9 @@
                                            VerticalAlignment="Center" />
                             </StackPanel>
                         </Button>
-                        <Separator Width="120" />
-
+                        
+                        <Separator Width="75" />
+                        
                         <Button Style="{StaticResource DropdownButton}" Cursor="Hand">
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                 <ContentControl ContentTemplate="{StaticResource SvgIconTemplate}" 
@@ -109,13 +110,15 @@
                                            VerticalAlignment="Center" />
                             </StackPanel>
                         </Button>
-                        <Separator Width="120" />
-
-                        <Button Content="Switch to Light Theme"
-                                Click="Btn_ToggleTheme"
-                                Style="{StaticResource DropdownButton}"
-                                Width="150"
-                                Cursor="Hand" />
+                        
+                        <Separator Width="75" />
+                        
+                        <CheckBox HorizontalAlignment="Left" 
+                                  Style="{DynamicResource ThemeSwitcherCheckBox}" 
+                                  VerticalAlignment="Center" 
+                                  Cursor="Hand" 
+                                  Click="Btn_ToggleTheme" />
+                           
                     </StackPanel>
                 </Button>
             </Border>

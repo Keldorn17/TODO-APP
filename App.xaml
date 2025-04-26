@@ -6,16 +6,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <!-- Button Themes -->
-                <ResourceDictionary Source="/Themes/ButtonThemes/ActionButton.xaml"/>
-                <ResourceDictionary Source="/Themes/ButtonThemes/DropdownButton.xaml"/>
-                <ResourceDictionary Source="/Themes/ButtonThemes/MenuButtonTheme.xaml"/>
-                <ResourceDictionary Source="/Themes/ButtonThemes/SettingsDropdown.xaml"/>
-                <ResourceDictionary Source="/Themes/ButtonThemes/InvisibleButton.xaml"/>
-                <ResourceDictionary Source="/Themes/ButtonThemes/DatePickerButton.xaml"/>
-                <ResourceDictionary Source="/Themes/ButtonThemes/EditButtons.xaml"/>
                 
-
                 <!-- Border Themes -->
                 <ResourceDictionary Source="/Themes/BorderThemes/DropdownSettingsBorder.xaml"/>
                 <ResourceDictionary Source="/Themes/BorderThemes/LabelStyle.xaml"/>
@@ -43,6 +34,16 @@
                 <ResourceDictionary Source="/Themes/ColorThemes/PriorityColors.xaml"/>
                 <ResourceDictionary Source="/Themes/ColorThemes/DarkTheme.xaml"/>
                 
+                <!-- Button Themes -->
+                <ResourceDictionary Source="/Themes/ButtonThemes/ActionButton.xaml"/>
+                <ResourceDictionary Source="/Themes/ButtonThemes/DropdownButton.xaml"/>
+                <ResourceDictionary Source="/Themes/ButtonThemes/MenuButtonTheme.xaml"/>
+                <ResourceDictionary Source="/Themes/ButtonThemes/SettingsDropdown.xaml"/>
+                <ResourceDictionary Source="/Themes/ButtonThemes/InvisibleButton.xaml"/>
+                <ResourceDictionary Source="/Themes/ButtonThemes/DatePickerButton.xaml"/>
+                <ResourceDictionary Source="/Themes/ButtonThemes/EditButtons.xaml"/>
+                <ResourceDictionary Source="/Themes/ButtonThemes/ThemeSwitchingCheckBox.xaml"/>
+
             </ResourceDictionary.MergedDictionaries>
             
             <DataTemplate DataType="{x:Type viewModel:DashboardViewModel}">
