@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using System.Text;
 using System.Text.Json;
 using TODO.Domain;
 using TODO.DTO;
@@ -17,20 +18,21 @@ public class TodoClient(
     AccessTokenProvider tokenProvider,
     TodoConfig todoConfig)
 {
-    public bool IsRefreshTokenAvailable => tokenProvider.IsRefreshTokenAvailable;
-
-    public async Task Login(LoginRequest loginRequest)
+    public async Task<LoginResponse> Login(LoginRequest loginRequest)
     {
         var response = await httpClient.PostAsJsonAsync(todoConfig.LoginEndpoint, loginRequest, serializerOptions);
         ValidateResponse(response);
         var loginResponse = (await response.Content.ReadFromJsonAsync<LoginResponse>())!;
         tokenProvider.SaveTokens(loginResponse.AccessToken, loginResponse.ExpiresAt, loginResponse.RefreshToken);
+        return loginResponse;
     }
 
-    public async Task Logout(LogoutRequest request)
+    public async Task Logout()
     {
+        var request = new LogoutRequest(tokenProvider.RefreshToken);
         var response = await httpClient.PostAsJsonAsync(todoConfig.LogoutEndpoint, request, serializerOptions);
         ValidateResponse(response);
+        tokenProvider.ClearTokens();
     }
 
     public async Task LogoutAll()
@@ -38,13 +40,14 @@ public class TodoClient(
         httpClient.DefaultRequestHeaders.Authorization = await GetAuthenticationHeader();
         var response = await httpClient.PostAsync(todoConfig.LogoutAllEndpoint, null);
         ValidateResponse(response);
+        tokenProvider.ClearTokens();
     }
 
     public async Task<TodoListResponse> GetTodos(string? searchText = null, QueryMode? queryMode = null,
         Pageable? pageable = null)
     {
-        QueryMode mode = queryMode ?? QueryMode.All;
-        Pageable page = pageable ?? new Pageable(0, 20);
+        var mode = queryMode ?? QueryMode.All;
+        var page = pageable ?? new Pageable(0, 20);
         httpClient.DefaultRequestHeaders.Authorization = await GetAuthenticationHeader();
         var url = $"{todoConfig.TodoEndpoint}{QueryBuilderUtils.BuildQuery(searchText, mode, page)}";
         var response = await httpClient.GetAsync(url);
@@ -71,19 +74,21 @@ public class TodoClient(
         return todoResponse;
     }
 
-    public async Task<TodoResponse> UpdateTodo(UpdateTodoRequest request)
+    public async Task<TodoResponse> UpdateTodo(long todoId, UpdateTodoRequest request)
     {
         httpClient.DefaultRequestHeaders.Authorization = await GetAuthenticationHeader();
-        var response = await httpClient.PutAsJsonAsync(todoConfig.TodoEndpoint, request, serializerOptions);
+        var response =
+            await httpClient.PutAsJsonAsync($"{todoConfig.TodoEndpoint}/{todoId}", request, serializerOptions);
         ValidateResponse(response);
         var todoResponse = (await response.Content.ReadFromJsonAsync<TodoResponse>())!;
         return todoResponse;
     }
 
-    public async Task<TodoResponse> PatchTodo(UpdateTodoRequest request)
+    public async Task<TodoResponse> PatchTodo(long todoId, UpdateTodoRequest request)
     {
         httpClient.DefaultRequestHeaders.Authorization = await GetAuthenticationHeader();
-        var response = await httpClient.PatchAsJsonAsync(todoConfig.TodoEndpoint, request, serializerOptions);
+        var response =
+            await httpClient.PatchAsJsonAsync($"{todoConfig.TodoEndpoint}/{todoId}", request, serializerOptions);
         ValidateResponse(response);
         var todoResponse = (await response.Content.ReadFromJsonAsync<TodoResponse>())!;
         return todoResponse;
@@ -108,7 +113,7 @@ public class TodoClient(
     public async Task CreateShareForTodo(long todoId, TodoShareRequest request)
     {
         httpClient.DefaultRequestHeaders.Authorization = await GetAuthenticationHeader();
-        string url = $"{todoConfig.TodoEndpoint}/{todoId}/{todoConfig.ShareEndpoint}";
+        var url = $"{todoConfig.TodoEndpoint}/{todoId}/{todoConfig.ShareEndpoint}";
         var response = await httpClient.PostAsJsonAsync(url, request, serializerOptions);
         ValidateResponse(response);
     }
@@ -116,12 +121,13 @@ public class TodoClient(
     public async Task DeleteShareForTodo(long todoId, TodoShareDeleteRequest request)
     {
         httpClient.DefaultRequestHeaders.Authorization = await GetAuthenticationHeader();
-        string url = $"{todoConfig.TodoEndpoint}/{todoId}/{todoConfig.ShareEndpoint}";
-        HttpRequestMessage httpRequest = new HttpRequestMessage
+        var endpoint = $"{todoConfig.TodoEndpoint}/{todoId}/{todoConfig.ShareEndpoint}";
+        var httpRequest = new HttpRequestMessage
         {
             Method = HttpMethod.Delete,
-            RequestUri = new Uri(url),
-            Content = new StringContent(JsonSerializer.Serialize(request, serializerOptions))
+            RequestUri = new Uri($"{todoConfig.BaseUrl}{endpoint}"),
+            Content = new StringContent(JsonSerializer.Serialize(request, serializerOptions), Encoding.UTF8,
+                MediaTypeHeaderValue.Parse("application/json"))
         };
         var response = await httpClient.SendAsync(httpRequest);
         ValidateResponse(response);

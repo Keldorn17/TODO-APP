@@ -24,6 +24,7 @@ public partial class App
     private const string ConfigurationFileName = "appsettings.json";
     private const string OAuthConfigName = "OAuthClientConfig";
     private const string TodoConfigName = "TodoClientConfig";
+    private const string ProfileConfigName = "ProfileConfig";
 
     private readonly ServiceProvider _serviceProvider;
 
@@ -110,6 +111,7 @@ public partial class App
         Log.Information("Registering configurations");
         services.AddSingleton(configuration.GetSection(OAuthConfigName).Get<OAuthConfig>()!);
         services.AddSingleton(configuration.GetSection(TodoConfigName).Get<TodoConfig>()!);
+        services.AddSingleton(configuration.GetSection(ProfileConfigName).Get<ProfileConfig>()!);
         var serializerOptions = new JsonSerializerOptions
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
@@ -167,6 +169,7 @@ public partial class App
         services.AddSingleton<ICallbackService, CallbackService>();
         services.AddSingleton<IAuthenticationService, AuthenticationService>();
         services.AddSingleton<IMessenger>(WeakReferenceMessenger.Default);
+        services.AddSingleton<IProfileService, ProfileService>();
     }
 
     private void RegisterClients(IServiceCollection services)

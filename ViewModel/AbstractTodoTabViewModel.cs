@@ -3,10 +3,14 @@ using System.Windows;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using DynamicData;
+using Microsoft.Extensions.Logging;
 using TODO.Client;
 using TODO.Domain;
+using TODO.Mapper;
 using TODO.Model;
 using TODO.View;
+using TODO.DTO;
+using TODO.Exceptions;
 
 namespace TODO.ViewModel;
 
@@ -15,108 +19,103 @@ public abstract partial class AbstractTodoTabViewModel : AbstractViewModel
     private readonly TodoClient _todoClient;
     private readonly IMessenger _messenger;
     private readonly QueryMode _queryMode;
+    private readonly ILogger _log;
     private string _searchQuery = string.Empty;
-    
+
     private readonly SourceList<TodoItem> _todos = new();
 
     private readonly ReadOnlyObservableCollection<TodoCardViewModel> _todoCards;
 
     public ReadOnlyObservableCollection<TodoCardViewModel> TodoCards => _todoCards;
 
-    public AbstractTodoTabViewModel(TodoClient todoClient, IMessenger messenger, QueryMode queryMode)
+    protected AbstractTodoTabViewModel(TodoClient todoClient, IMessenger messenger, QueryMode queryMode,
+        ILogger<AbstractTodoTabViewModel> log)
     {
         _todoClient = todoClient;
         _messenger = messenger;
         _queryMode = queryMode;
-        _todos.Connect().Transform(item => new TodoCardViewModel(item, () => OpenEditWindow(item))).Bind(out _todoCards).Subscribe();
-    }
-    
-    public override async Task OnNavigatedTo()
-    {
-        _messenger.Register<SearchQuery>(this, HandleSearchQuery);
-        _messenger.Send<SearchQueryRequest>();
-        await QueryTodos();
+        _log = log;
+        _todos.Connect()
+            .Transform(item =>
+                new TodoCardViewModel(item, () => OpenEditWindow(item), () => HandleCheckboxChange(item)))
+            .Bind(out _todoCards)
+            .Subscribe();
     }
 
-    public override async Task OnNavigatedFrom()
+    public override Task OnNavigatedTo()
     {
-        _messenger.Unregister<SearchQuery>(this);
+        _messenger.Register<SearchQueryMessage>(this, HandleSearchQueryMessage);
+        _messenger.Register<TodoListChangedMessage>(this, HandleTodoListChangedMessage);
+        _messenger.Register<LoginMessage>(this, HandleLoginMessage);
+        _messenger.Send<SearchQueryRequestMessage>();
+        return Task.CompletedTask;
+    }
+
+    public override Task OnNavigatedFrom()
+    {
+        _messenger.Unregister<SearchQueryMessage>(this);
+        _messenger.Unregister<TodoListChangedMessage>(this);
+        _messenger.Unregister<LoginMessage>(this);
+        return Task.CompletedTask;
     }
 
     [RelayCommand]
     private void OpenEditWindow(TodoItem todoItem)
     {
-        EditTodoWindow editWindow = new EditTodoWindow(todoItem, true);
+        var editViewModel = new EditTodoViewModel(todoItem, _todoClient, _messenger, true);
+        var editWindow = new EditTodoWindow(editViewModel);
         editWindow.ShowDialog();
     }
 
-    private void HandleSearchQuery(object sender, SearchQuery query)
+    private void HandleCheckboxChange(TodoItem todoItem)
     {
-        _searchQuery = query.Query;
+        Application.Current.Dispatcher.Invoke(async () =>
+        {
+            try
+            {
+                _log.LogDebug("Setting completed for todo {id} to {completed}", todoItem.Id, todoItem.IsCompleted);
+                var request = new UpdateTodoRequest(Completed: todoItem.IsCompleted);
+                await _todoClient.PatchTodo(todoItem.Id, request);
+                _log.LogDebug("Set completed for todo {id} to {completed}", todoItem.Id, todoItem.IsCompleted);
+            }
+            catch (TodoClientException)
+            {
+                _messenger.Send<TodoListChangedMessage>();
+                _log.LogError("Failed to update todo with id {id} to completed: {completed}", todoItem.Id,
+                    todoItem.IsCompleted);
+            }
+        });
+    }
+
+    private void HandleTodoListChangedMessage(object sender, TodoListChangedMessage todoListChangedMessage)
+    {
+        _log.LogDebug("Refreshing todo list");
+        _ = QueryTodos();
+    }
+
+    private void HandleSearchQueryMessage(object sender, SearchQueryMessage queryMessage)
+    {
+        _searchQuery = queryMessage.Query;
+        _log.LogDebug("Handling search query: [{searchQuery}]", _searchQuery);
+        _ = QueryTodos();
+    }
+
+    private void HandleLoginMessage(object sender, LoginMessage todoLoginMessage)
+    {
+        _log.LogDebug("Refreshing todos after login");
         _ = QueryTodos();
     }
 
     private async Task QueryTodos()
     {
-        // Todo query logic
-        await Application.Current.Dispatcher.InvokeAsync(InitializeTodoItems);
-    }
-
-    private void InitializeTodoItems()
-    {
-        try
+        _log.LogDebug("Querying {queryMode} todos", _queryMode.Mode);
+        var todos = await _todoClient.GetTodos(_searchQuery, _queryMode, new Pageable(0, 100));
+        var todoItems = TodoMapper.Instance.MapTodos(todos.Content);
+        _log.LogDebug("Queried {count} {queryMode} todos", todoItems.Count, _queryMode.Mode);
+        await Application.Current.Dispatcher.InvokeAsync(() =>
         {
             _todos.Clear();
-            _todos.Add(new TodoItemBuilder()
-                .SetId(1)
-                .SetTitle("What is Lorem Ipsum?")
-                .SetDescription("Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
-                .SetPriority(new Priority { Level = 1 })
-                .SetDeadline("2026-9-02T14:45:30.123456789+05:30")
-                .SetShared(new Shared("Csaba@gmail.com", new Access { Level = 3 }))
-                .SetShared(new Shared("Zoli@gmail.com", new Access { Level = 1 }))
-                .SetCategory(["Test Category", "2", "3", "Very Long Category Name"])
-                .Build());
-
-            _todos.Add(new TodoItemBuilder()
-                .SetId(2)
-                .SetTitle("Why do we use it?")
-                .SetDescription(
-                    "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.")
-                .SetIsCompleted(true)
-                .SetDeadline("2026-10-02T14:45:30.1234567Z")
-                .SetCategory(["Very Long Category Name"])
-                .Build());
-
-            _todos.Add(new TodoItemBuilder()
-                .SetId(3)
-                .SetTitle("Where does it come from?")
-                .SetDescription(
-                    "The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.")
-                .SetPriority(new Priority { Level = 2 })
-                .Build());
-
-            _todos.Add(new TodoItemBuilder()
-                .SetId(4)
-                .SetTitle("Where can I get some?")
-                .SetDescription(
-                    "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.")
-                .SetPriority(new Priority { Level = 3 })
-                .SetIsCompleted(true)
-                .SetDeadline("2026-10-02T16:45:30.1234568+02:00")
-                .SetCategory(["General"])
-                .Build());
-
-            _todos.Add(new TodoItemBuilder()
-                .SetId(5)
-                .SetTitle("What is Lorem Ipsum?")
-                .SetDescription("Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
-                .SetPriority(new Priority { Level = 4 })
-                .Build());
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine($"An error occurred: {e.Message}");
-        }
+            _todos.AddRange(todoItems);
+        });
     }
 }

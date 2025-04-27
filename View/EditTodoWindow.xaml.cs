@@ -1,5 +1,4 @@
-﻿using TODO.Model;
-using TODO.ViewModel;
+﻿using TODO.ViewModel;
 
 namespace TODO.View
 {
@@ -9,10 +8,10 @@ namespace TODO.View
     public partial class EditTodoWindow
     {
         
-        public EditTodoWindow(TodoItem todoItem, bool isEditing)
+        public EditTodoWindow(EditTodoViewModel viewModel)
         {
             InitializeComponent();
-            DataContext = new EditTodoViewModel(todoItem, this, isEditing);
+            DataContext = viewModel;
         }
 
     }

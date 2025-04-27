@@ -1,4 +1,5 @@
 ﻿using System.Collections.Specialized;
+using System.ComponentModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using TODO.Model;
@@ -7,6 +8,8 @@ namespace TODO.ViewModel;
 
 public partial class TodoCardViewModel : AbstractViewModel
 {
+    private readonly Action _checkboxAction;
+
     [ObservableProperty]
     private TodoItem _todoItem;
 
@@ -18,10 +21,12 @@ public partial class TodoCardViewModel : AbstractViewModel
     public string CurrentCategory =>
         TodoItem.Category.Count > 0 ? TodoItem.Category[_currentCategoryIndex] : string.Empty;
 
-    public TodoCardViewModel(TodoItem todoItem, Action openEditWindowAction)
+    public TodoCardViewModel(TodoItem todoItem, Action openEditWindowAction, Action checkboxAction)
     {
         TodoItem = todoItem;
         OpenEditWindowCommand = new RelayCommand(openEditWindowAction);
+        _checkboxAction = checkboxAction;
+        TodoItem.PropertyChanged += HandleTodoItemChanged;
     }
 
     public void CycleCategory(bool forward)
@@ -53,5 +58,13 @@ public partial class TodoCardViewModel : AbstractViewModel
     {
         _currentCategoryIndex = 0;
         OnPropertyChanged(nameof(CurrentCategory));
+    }
+
+    private void HandleTodoItemChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(TodoItem.IsCompleted))
+        {
+            _checkboxAction.Invoke();
+        }
     }
 }

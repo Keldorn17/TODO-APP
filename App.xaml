@@ -8,27 +8,27 @@
             <ResourceDictionary.MergedDictionaries>
                 
                 <!-- Border Themes -->
-                <ResourceDictionary Source="/Themes/BorderThemes/DropdownSettingsBorder.xaml"/>
-                <ResourceDictionary Source="/Themes/BorderThemes/LabelStyle.xaml"/>
+                <ResourceDictionary Source="/Themes/BorderThemes/DropdownSettingsBorder.xaml" />
+                <ResourceDictionary Source="/Themes/BorderThemes/LabelStyle.xaml" />
 
                 <!-- SVG Geometries -->
-                <ResourceDictionary Source="/Themes/SVG/SVGGeometries.xaml"/>
-                <ResourceDictionary Source="/Themes/SVG/LoadSvgTemplate.xaml"/>
+                <ResourceDictionary Source="/Themes/SVG/SVGGeometries.xaml" />
+                <ResourceDictionary Source="/Themes/SVG/LoadSvgTemplate.xaml" />
 
                 <!-- CheckBox Themes -->
-                <ResourceDictionary Source="/Themes/CheckBoxThemes/ModernCheckBox.xaml"/>
+                <ResourceDictionary Source="/Themes/CheckBoxThemes/ModernCheckBox.xaml" />
 
                 <!-- ScrollBar Styles -->
-                <ResourceDictionary Source="/Themes/ScrollBarStyles/ScrollBarStyles.xaml"/>
+                <ResourceDictionary Source="/Themes/ScrollBarStyles/ScrollBarStyles.xaml" />
 
                 <!-- Textbox Themes -->
-                <ResourceDictionary Source="/Themes/TextboxThemes/EditTextboxTheme.xaml"/>
-                
+                <ResourceDictionary Source="/Themes/TextboxThemes/EditTextboxTheme.xaml" />
+
                 <!-- ComboBox Themes -->
-                <ResourceDictionary Source="/Themes/ComboBoxThemes/EditComboBoxTheme.xaml"/>
+                <ResourceDictionary Source="/Themes/ComboBoxThemes/EditComboBoxTheme.xaml" />
 
                 <!-- DatePicker Themes -->
-                <ResourceDictionary Source="/Themes/DatePickerThemes/EditDatePickerTheme.xaml"/>
+                <ResourceDictionary Source="/Themes/DatePickerThemes/EditDatePickerTheme.xaml" />
 
                 <!-- Color Themes -->
                 <ResourceDictionary Source="/Themes/ColorThemes/PriorityColors.xaml"/>

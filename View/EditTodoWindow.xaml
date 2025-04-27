@@ -3,10 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:viewmodel="clr-namespace:TODO.ViewModel" 
+        xmlns:viewmodel="clr-namespace:TODO.ViewModel"
         d:DataContext="{d:DesignInstance Type=viewmodel:EditTodoViewModel}"
         xmlns:converter="clr-namespace:TODO.Converter"
         xmlns:view="clr-namespace:TODO.View"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Height="600" Width="530"
         MinHeight="600" MinWidth="530"
@@ -16,31 +17,37 @@
         Background="Transparent"
         AllowsTransparency="True">
 
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding WindowLoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
     <Window.Resources>
-        <converter:PriorityLevelConverter x:Key="PriorityLevelConverter"/>
-        <converter:AccessLevelConverter x:Key="AccessLevelConverter"/>
-        <converter:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
-        <converter:BooleanToTextConverter x:Key="BoolToText"/>
-        <converter:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
-        <converter:AccessTagConverter x:Key="AccessTagConverter"/>
-        <converter:NullToBoolConverter x:Key="NullToBoolConverter"/>
+        <converter:PriorityLevelConverter x:Key="PriorityLevelConverter" />
+        <converter:AccessLevelConverter x:Key="AccessLevelConverter" />
+        <converter:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
+        <converter:BooleanToTextConverter x:Key="BoolToText" />
+        <converter:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+        <converter:AccessTagConverter x:Key="AccessTagConverter" />
+        <converter:NullToBoolConverter x:Key="NullToBoolConverter" />
     </Window.Resources>
-    
+
     <WindowChrome.WindowChrome>
         <WindowChrome GlassFrameThickness="0"
-                  CornerRadius="0"
-                  CaptionHeight="0"/>
+                      CornerRadius="0"
+                      CaptionHeight="0" />
     </WindowChrome.WindowChrome>
 
     <Border Background="{DynamicResource MainWindowBrush}"
             BorderBrush="{DynamicResource PrimaryTextBrush}"
             BorderThickness="1"
-            CornerRadius="10" >
+            CornerRadius="10">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="55"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="70"/>
+                <RowDefinition Height="55" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="70" />
             </Grid.RowDefinitions>
 
             <!-- #region Window Title -->
@@ -49,260 +56,272 @@
                        HorizontalAlignment="Left"
                        Foreground="{DynamicResource SecondaryTextBrush}"
                        FontSize="22"
-                       Margin="20, 0, 0, 0"/>
+                       Margin="20, 0, 0, 0" />
             <!-- #endregion -->
 
             <!-- #region Window Controls -->
             <view:WindowControlView Grid.Row="0" Grid.Column="0"
-                                     IsMinimizeButtonVisible="True"
-                                     IsCloseButtonVisible="True"/>
+                                    IsMinimizeButtonVisible="True"
+                                    IsCloseButtonVisible="True" />
             <!-- #endregion -->
 
             <!-- #region Main Content -->
             <ScrollViewer Grid.Row="1" Margin="0,0,20,0"
                           VerticalScrollBarVisibility="Auto"
                           HorizontalScrollBarVisibility="Disabled">
-            <StackPanel Margin="20,0,20,20">
+                <StackPanel Margin="20,0,20,20">
 
-                <!-- #region Title Section -->
-                <TextBox Style="{StaticResource TitleTbox}" 
-                         Tag="Title"
-                         Text="{Binding CopyTodo.Title}"/>
-                <!-- #endregion -->
-
-                <!-- #region Description Section -->
-                <TextBox Style="{StaticResource DescriptionTbox}" 
-                         Text="{Binding CopyTodo.Description}"
-                         Tag="Description"
-                         AcceptsReturn="True"
-                         TextWrapping="Wrap"/>
-                <!-- #endregion -->
-                
-                <!-- #region Priority & Deadline Section -->
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0">
-                        <!-- Priority Section -->
-                        <TextBlock Text="Priority" 
-                                   Foreground="{DynamicResource SecondaryTextBrush}"
-                                   FontSize="14"
-                                   Margin="8 8 0 0"/>
-
-                        <ComboBox Style="{DynamicResource PriorityComboBox}" 
-                                  ItemsSource="{Binding PriorityList}"
-                                  SelectedIndex="0"
-                                  SelectedValue="{Binding CopyTodo.Priority.Level, Mode=TwoWay, Converter={StaticResource PriorityLevelConverter}}"
-                                  Tag="Set Priority"/>
-                    </StackPanel>
-                    <StackPanel Grid.Column="1">
-                        <!-- Deadline Section -->
-                        <TextBlock Text="Deadline" 
-                                   Foreground="{DynamicResource SecondaryTextBrush}"
-                                   FontSize="14"
-                                   Margin="8 8 0 0"/>
-
-                        <DatePicker Style="{StaticResource DatePickerStyle}"
-                                    CalendarStyle="{StaticResource DatePickerCalendarStyle}"
-                                    SelectedDate="{Binding CopyTodo.Deadline}"
-                                    Tag="Set Deadline"/>
-                    </StackPanel>
-                </Grid>
-                <!-- #endregion -->
-                
-                <!-- #region Share Section -->
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="225"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="50"/>
-                    </Grid.ColumnDefinitions>
-                    <!-- Share With -->
-                    <TextBlock Grid.Column="0" Text="{Binding ErrorMessage}" 
+                    <!-- #region Title Section -->
+                    <TextBlock Text="{Binding ErrorMessageTitleAndDescription}"
                                FontSize="10"
-                               VerticalAlignment="Top"
+                               Margin="5  0 0 0"
                                Foreground="Red"
-                               Margin="80 12 0 0"
-                               Visibility="{Binding ErrorMessage, 
-                                           Converter={StaticResource StringToVisibilityConverter}}"/>
-                    <StackPanel Grid.Column="0">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Share with" 
+                               Visibility="{Binding ErrorMessageTitleAndDescription, 
+                                           Converter={StaticResource StringToVisibilityConverter}}" />
+                    <TextBox Style="{StaticResource TitleTbox}"
+                             Tag="Title"
+                             Text="{Binding CopyTodo.Title}" />
+                    <!-- #endregion -->
+
+                    <!-- #region Description Section -->
+                    <TextBlock Text="{Binding ErrorMessageTitleAndDescription}"
+                               FontSize="10"
+                               Margin="5  5 0 0"
+                               Foreground="Red"
+                               Visibility="{Binding ErrorMessageTitleAndDescription, 
+                                           Converter={StaticResource StringToVisibilityConverter}}" />
+                    <TextBox Style="{StaticResource DescriptionTbox}"
+                             Text="{Binding CopyTodo.Description}"
+                             Tag="Description"
+                             AcceptsReturn="True"
+                             TextWrapping="Wrap" />
+                    <!-- #endregion -->
+
+                    <!-- #region Priority & Deadline Section -->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <!-- Priority Section -->
+                            <TextBlock Text="Priority"
                                        Foreground="{DynamicResource SecondaryTextBrush}"
                                        FontSize="14"
-                                       Margin="8 8 4 0"/>
+                                       Margin="8 8 0 0" />
+
+                            <ComboBox Style="{DynamicResource PriorityComboBox}"
+                                      ItemsSource="{Binding PriorityList}"
+                                      SelectedIndex="0"
+                                      SelectedValue="{Binding CopyTodo.Priority.Level, Mode=TwoWay, Converter={StaticResource PriorityLevelConverter}}"
+                                      Tag="Set Priority" />
                         </StackPanel>
-                        
-                        <TextBox Style="{StaticResource ShareWithTbox}" 
-                                 Tag="Email"
-                                 Text="{Binding NewSharedEmail}"/>
-                    </StackPanel>
-                    <!-- Access Level -->
-                    <StackPanel Grid.Column="1">
-                        <TextBlock Text="Access Level" 
-                                   Foreground="{DynamicResource SecondaryTextBrush}"
-                                   FontSize="14"
-                                   Margin="14 8 0 0"/>
-                        <ComboBox Style="{DynamicResource AccessComboBox}"
-                                  ItemsSource="{Binding AccessLevelList}"
-                                  Tag="Set Access Level"
-                                  SelectedValue="{Binding NewAccess.Level, Mode=TwoWay, Converter={StaticResource AccessLevelConverter}}"
-                                  Margin="8 0 0 0"/>
-                    </StackPanel>
-                    <!-- Add -->
-                    <Button Command="{Binding AddSharedItemCommand}"
-                            Style="{StaticResource AddDeleteButton}"
-                            VerticalAlignment="Bottom"
-                            Tag="{StaticResource AddIcon}"
-                            Grid.Column="2"/>
-                </Grid>
-                <!-- #endregion -->
-                
-                <!-- #region Manage Shares Section -->
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="225"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="50"/>
-                    </Grid.ColumnDefinitions>
-                    <!-- Manage Existing Shares -->
-                    <StackPanel Grid.Column="0">
-                        <TextBlock Text="Manage Existing Shares" 
-                                   Foreground="{DynamicResource SecondaryTextBrush}"
-                                   FontSize="14"
-                                   Margin="8 8 0 0"/>
-                        <ComboBox Style="{DynamicResource EmailComboBox}"
-                                  ItemsSource="{Binding SharedItems}"
-                                  DisplayMemberPath="Email"
-                                  Tag="Existing Shares"
-                                  SelectedValue="{Binding SelectedSharedItem}"/>
-                    </StackPanel>
-                    <!-- Access Level -->
-                    <StackPanel Grid.Column="1">
-                        <TextBlock Text="Access Level" 
-                                   Foreground="{DynamicResource SecondaryTextBrush}"
-                                   FontSize="14"
-                                   Margin="14 8 0 0"/>
-                        <ComboBox Style="{DynamicResource AccessComboBox}"
-                                  ItemsSource="{Binding AccessLevelList}"
-                                  Tag="{Binding IsOwnerSelected, Converter={StaticResource AccessTagConverter}}"
-                                  SelectedValue="{Binding SelectedSharedAccess.Level, Mode=TwoWay, Converter={StaticResource AccessLevelConverter}}"
-                                  Margin="8 0 0 0"
-                                  IsEnabled="{Binding IsOwnerSelected, Converter={StaticResource InverseBooleanConverter}}"/>
-                    </StackPanel>
-                    <!-- Remove -->
-                    <Button Command="{Binding RemoveSharedItemCommand}"
-                            Style="{StaticResource AddDeleteButton}"
-                            VerticalAlignment="Bottom"
-                            Tag="{StaticResource DeleteIcon}"
-                            Grid.Column="2"
-                            IsEnabled="{Binding CanRemoveSharedItem}"/>
-                </Grid>
-                <!-- #endregion -->
-                
-                <!-- #region Categories -->
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="175"/>
-                        <ColumnDefinition Width="50"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="50"/>
-                    </Grid.ColumnDefinitions>
-                    
-                    <!-- Add Category -->
-                    <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding ErrorMessageCategories}" 
-                               FontSize="10"
-                               VerticalAlignment="Top"
-                               Margin="100 12 0 0"
-                               Foreground="Red"
-                               Visibility="{Binding ErrorMessageCategories, 
-                                           Converter={StaticResource StringToVisibilityConverter}}"/>
-                    <StackPanel Grid.Column="0">
-                        <TextBlock Text="Add Category" 
-                                   Foreground="{DynamicResource SecondaryTextBrush}"
-                                   FontSize="14"
-                                   Margin="8 8 4 0"/>
-                        
-                        <TextBox Style="{StaticResource CategoryTbox}" 
-                                 Tag="Category"
-                                 Text="{Binding NewCategory}"/>
-                    </StackPanel>
-                    
-                    <!-- Add Button -->
-                    <Button Command="{Binding AddCategoryCommand}"
-                            Style="{StaticResource AddDeleteButton}"
-                            VerticalAlignment="Bottom"
-                            Tag="{StaticResource AddIcon}"
-                            Grid.Column="1"/>
-                    
-                    <!-- Manage Categories -->
-                    <Grid Grid.Column="2">
-                        <StackPanel Grid.Column="0" Margin="8 0 0 0">
-                            <TextBlock Text="Manage Categories" 
+                        <StackPanel Grid.Column="1">
+                            <!-- Deadline Section -->
+                            <TextBlock Text="Deadline"
                                        Foreground="{DynamicResource SecondaryTextBrush}"
                                        FontSize="14"
-                                       Margin="4 8 0 0"/>
-                            <ComboBox Style="{DynamicResource AccessComboBox}"
-                                      ItemsSource="{Binding Categories}"
-                                      Tag="Existing Categories"
-                                      SelectedValue="{Binding SelectedCategory}"/>
+                                       Margin="8 8 0 0" />
+
+                            <DatePicker Style="{StaticResource DatePickerStyle}"
+                                        CalendarStyle="{StaticResource DatePickerCalendarStyle}"
+                                        SelectedDate="{Binding CopyTodo.Deadline}"
+                                        Tag="Set Deadline" />
                         </StackPanel>
                     </Grid>
-                    
-                    <!-- Remove Button -->
-                    <Button Command="{Binding RemoveCategoryCommand}"
-                            Style="{StaticResource AddDeleteButton}"
-                            VerticalAlignment="Bottom"
-                            Tag="{StaticResource DeleteIcon}"
-                            Grid.Column="3"
-                            IsEnabled="{Binding SelectedCategory, Converter={StaticResource NullToBoolConverter}}"/>
-                </Grid>
-                <!-- #endregion -->
-                
-                <!-- #region Created & Updated Section -->
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0">
-                        <TextBlock Text="Created At" 
-                                   Foreground="{DynamicResource SecondaryTextBrush}"
-                                   FontSize="14"
-                                   Margin="8 8 0 0"/>
-                        <TextBox Text="{Binding CopyTodo.CreatedAt, StringFormat='D'}"
-                                 Foreground="{DynamicResource SecondaryTextBrush}"
-                                 Style="{StaticResource CeTBox}"
-                                 Tag="{StaticResource CreatedIcon}"
-                                 Margin="4 0 0 0"/>
-                    </StackPanel>
-                    <StackPanel Grid.Column="1">
-                        <TextBlock Text="Updated At" 
-                                   Foreground="{DynamicResource SecondaryTextBrush}"
-                                   FontSize="14"
-                                   Margin="8 8 0 0"/>
-                        <TextBox Text="{Binding CopyTodo.UpdatedAt, StringFormat='D'}"
-                                 Foreground="{DynamicResource SecondaryTextBrush}"
-                                 Style="{StaticResource CeTBox}"
-                                 Tag="{StaticResource EditedIcon}"
-                                 Margin="4 0 0 0"/>
-                    </StackPanel>
-                </Grid>
-                <!-- #endregion -->
-            </StackPanel>
+                    <!-- #endregion -->
+
+                    <!-- #region Share Section -->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="225" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="50" />
+                        </Grid.ColumnDefinitions>
+                        <!-- Share With -->
+                        <TextBlock Grid.Column="0" Text="{Binding ErrorMessage}"
+                                   FontSize="10"
+                                   VerticalAlignment="Top"
+                                   Foreground="Red"
+                                   Margin="80 12 0 0"
+                                   Visibility="{Binding ErrorMessage, 
+                                           Converter={StaticResource StringToVisibilityConverter}}" />
+                        <StackPanel Grid.Column="0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Share with"
+                                           Foreground="{DynamicResource SecondaryTextBrush}"
+                                           FontSize="14"
+                                           Margin="8 8 4 0" />
+                            </StackPanel>
+
+                            <TextBox Style="{StaticResource ShareWithTbox}"
+                                     Tag="Email"
+                                     Text="{Binding NewSharedEmail}" />
+                        </StackPanel>
+                        <!-- Access Level -->
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Text="Access Level"
+                                       Foreground="{DynamicResource SecondaryTextBrush}"
+                                       FontSize="14"
+                                       Margin="14 8 0 0" />
+                            <ComboBox Style="{DynamicResource AccessComboBox}"
+                                      ItemsSource="{Binding AccessLevelList}"
+                                      Tag="Set Access Level"
+                                      SelectedValue="{Binding NewAccess.Level, Mode=TwoWay, Converter={StaticResource AccessLevelConverter}}"
+                                      Margin="8 0 0 0" />
+                        </StackPanel>
+                        <!-- Add -->
+                        <Button Command="{Binding AddSharedItemCommand}"
+                                Style="{StaticResource AddDeleteButton}"
+                                VerticalAlignment="Bottom"
+                                Tag="{StaticResource AddIcon}"
+                                Grid.Column="2" />
+                    </Grid>
+                    <!-- #endregion -->
+
+                    <!-- #region Manage Shares Section -->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="225" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="50" />
+                        </Grid.ColumnDefinitions>
+                        <!-- Manage Existing Shares -->
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="Manage Existing Shares"
+                                       Foreground="{DynamicResource SecondaryTextBrush}"
+                                       FontSize="14"
+                                       Margin="8 8 0 0" />
+                            <ComboBox Style="{DynamicResource EmailComboBox}"
+                                      ItemsSource="{Binding SharedItems}"
+                                      DisplayMemberPath="Email"
+                                      Tag="Existing Shares"
+                                      SelectedValue="{Binding SelectedSharedItem}" />
+                        </StackPanel>
+                        <!-- Access Level -->
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Text="Access Level"
+                                       Foreground="{DynamicResource SecondaryTextBrush}"
+                                       FontSize="14"
+                                       Margin="14 8 0 0" />
+                            <ComboBox Style="{DynamicResource AccessComboBox}"
+                                      ItemsSource="{Binding AccessLevelList}"
+                                      Tag="{Binding IsOwnerSelected, Converter={StaticResource AccessTagConverter}}"
+                                      SelectedValue="{Binding SelectedSharedAccess.Level, Mode=TwoWay, Converter={StaticResource AccessLevelConverter}}"
+                                      Margin="8 0 0 0"
+                                      IsEnabled="{Binding IsOwnerSelected, Converter={StaticResource InverseBooleanConverter}}" />
+                        </StackPanel>
+                        <!-- Remove -->
+                        <Button Command="{Binding RemoveSharedItemCommand}"
+                                Style="{StaticResource AddDeleteButton}"
+                                VerticalAlignment="Bottom"
+                                Tag="{StaticResource DeleteIcon}"
+                                Grid.Column="2"
+                                IsEnabled="{Binding CanRemoveSharedItem}" />
+                    </Grid>
+                    <!-- #endregion -->
+
+                    <!-- #region Categories -->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="175" />
+                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="50" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Add Category -->
+                        <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding ErrorMessageCategories}"
+                                   FontSize="10"
+                                   VerticalAlignment="Top"
+                                   Margin="100 12 0 0"
+                                   Foreground="Red"
+                                   Visibility="{Binding ErrorMessageCategories, 
+                                           Converter={StaticResource StringToVisibilityConverter}}" />
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="Add Category"
+                                       Foreground="{DynamicResource SecondaryTextBrush}"
+                                       FontSize="14"
+                                       Margin="8 8 4 0" />
+
+                            <TextBox Style="{StaticResource CategoryTbox}"
+                                     Tag="Category"
+                                     Text="{Binding NewCategory}" />
+                        </StackPanel>
+
+                        <!-- Add Button -->
+                        <Button Command="{Binding AddCategoryCommand}"
+                                Style="{StaticResource AddDeleteButton}"
+                                VerticalAlignment="Bottom"
+                                Tag="{StaticResource AddIcon}"
+                                Grid.Column="1" />
+
+                        <!-- Manage Categories -->
+                        <Grid Grid.Column="2">
+                            <StackPanel Grid.Column="0" Margin="8 0 0 0">
+                                <TextBlock Text="Manage Categories"
+                                           Foreground="{DynamicResource SecondaryTextBrush}"
+                                           FontSize="14"
+                                           Margin="4 8 0 0" />
+                                <ComboBox Style="{DynamicResource AccessComboBox}"
+                                          ItemsSource="{Binding Categories}"
+                                          Tag="Existing Categories"
+                                          SelectedValue="{Binding SelectedCategory}" />
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- Remove Button -->
+                        <Button Command="{Binding RemoveCategoryCommand}"
+                                Style="{StaticResource AddDeleteButton}"
+                                VerticalAlignment="Bottom"
+                                Tag="{StaticResource DeleteIcon}"
+                                Grid.Column="3"
+                                IsEnabled="{Binding SelectedCategory, Converter={StaticResource NullToBoolConverter}}" />
+                    </Grid>
+                    <!-- #endregion -->
+
+                    <!-- #region Created & Updated Section -->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="Created At"
+                                       Foreground="{DynamicResource SecondaryTextBrush}"
+                                       FontSize="14"
+                                       Margin="8 8 0 0" />
+                            <TextBox Text="{Binding CopyTodo.CreatedAt, StringFormat='D'}"
+                                     Foreground="{DynamicResource SecondaryTextBrush}"
+                                     Style="{StaticResource CeTBox}"
+                                     Tag="{StaticResource CreatedIcon}"
+                                     Margin="4 0 0 0" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Text="Updated At"
+                                       Foreground="{DynamicResource SecondaryTextBrush}"
+                                       FontSize="14"
+                                       Margin="8 8 0 0" />
+                            <TextBox Text="{Binding CopyTodo.UpdatedAt, StringFormat='D'}"
+                                     Foreground="{DynamicResource SecondaryTextBrush}"
+                                     Style="{StaticResource CeTBox}"
+                                     Tag="{StaticResource EditedIcon}"
+                                     Margin="4 0 0 0" />
+                        </StackPanel>
+                    </Grid>
+                    <!-- #endregion -->
+                </StackPanel>
             </ScrollViewer>
             <!-- #endregion -->
-            
+
             <!-- #region Buttons Section -->
             <StackPanel Grid.Row="2" Margin="20,0,35,20">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <!-- IsCompleted -->
                     <Button Command="{Binding CompletedChangedCommand}"
@@ -310,28 +329,28 @@
                             Tag="{Binding CopyTodo.IsCompleted, Converter={StaticResource BoolToText}}"
                             Grid.Column="0"
                             HorizontalAlignment="Left"
-                            Margin="5 10 0 0"/>
+                            Margin="5 10 0 0" />
                     <!-- Delete -->
                     <Button Command="{Binding DeleteCommand}"
                             Style="{StaticResource DeleteButton}"
                             Tag="Delete"
                             Grid.Column="1"
                             HorizontalAlignment="Left"
-                            Margin="5 10 0 0"/>
+                            Margin="5 10 0 0" />
                     <!-- Cancel -->
                     <Button Command="{Binding CancelCommand}"
                             Style="{StaticResource CancelSaveButton}"
                             Tag="Cancel"
                             Grid.Column="2"
                             HorizontalAlignment="Left"
-                            Margin="5 10 0 0"/>
+                            Margin="5 10 0 0" />
                     <!-- Save -->
                     <Button Command="{Binding SaveCommand}"
                             Style="{StaticResource CancelSaveButton}"
                             Tag="Save"
                             Grid.Column="3"
                             HorizontalAlignment="Left"
-                            Margin="5 10 0 0"/>
+                            Margin="5 10 0 0" />
                 </Grid>
             </StackPanel>
             <!-- #endregion -->

@@ -87,7 +87,7 @@ public class CallbackService : ICallbackService
             }
 
             // Send a response back to the browser regardless of success/failure
-            var page = File.ReadAllText("redirect.html");
+            var page = await File.ReadAllTextAsync("redirect.html");
             byte[] buffer = Encoding.UTF8.GetBytes(page);
             context.Response.ContentLength64 = buffer.Length;
             Stream st = context.Response.OutputStream;

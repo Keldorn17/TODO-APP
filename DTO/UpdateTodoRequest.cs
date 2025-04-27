@@ -1,11 +1,11 @@
 ﻿namespace TODO.DTO;
 
 public record UpdateTodoRequest(
-    string? Title,
-    string? Description,
-    string? Deadline,
-    bool Completed,
-    long? Parent,
-    int Priority,
-    List<string> Categories
+    string? Title = null,
+    string? Description = null,
+    string? Deadline = null,
+    bool? Completed = null,
+    long? Parent = null,
+    int? Priority = null,
+    List<string>? Categories = null
 );

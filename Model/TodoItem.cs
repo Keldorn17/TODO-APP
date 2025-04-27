@@ -22,7 +22,7 @@ namespace TODO.Model
         private string? _owner;
 
         [ObservableProperty]
-        private DateTime _deadline;
+        private DateTime? _deadline;
 
         [ObservableProperty]
         private ObservableCollection<string> _category = [];
@@ -37,7 +37,7 @@ namespace TODO.Model
         private long? _parent;
 
         [ObservableProperty]
-        private Priority? _priority;
+        private Priority _priority;
 
         [ObservableProperty]
         private bool _isCompleted;
@@ -64,14 +64,11 @@ namespace TODO.Model
                 Category = new ObservableCollection<string>(this.Category)
             };
 
-            if (this.Priority != null)
+            clone.Priority = new Priority
             {
-                clone.Priority = new Priority
-                {
-                    Level = this.Priority.Level,
-                    Name = this.Priority.Name
-                };
-            }
+                Level = this.Priority.Level,
+                Name = this.Priority.Name
+            };
 
             foreach (var sharedItem in this.Shared)
             {
