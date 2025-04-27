@@ -18,14 +18,15 @@ public class AccessTokenProvider(
     private string _accessToken = string.Empty;
     private DateTime _tokenExpiration;
 
-    public bool IsRefreshTokenAvailable => refreshTokenProvider.IsRefreshTokenAvailable();
-    
+    public string RefreshToken => refreshTokenProvider.GetRefreshToken();
+
     public async Task<string> GetAccessTokenAsync()
     {
         if (string.IsNullOrEmpty(_accessToken) || DateTime.Now > _tokenExpiration)
         {
             await RefreshTokenAsync();
         }
+
         return _accessToken;
     }
 
@@ -42,7 +43,7 @@ public class AccessTokenProvider(
         _tokenExpiration = DateTime.MinValue;
         refreshTokenProvider.ClearRefreshToken();
     }
-    
+
     private async Task RefreshTokenAsync()
     {
         CheckForRefreshToken();
@@ -84,5 +85,4 @@ public class AccessTokenProvider(
             _ => new TodoClientException(errorResponse)
         };
     }
-    
 }

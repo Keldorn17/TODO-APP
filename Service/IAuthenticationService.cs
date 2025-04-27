@@ -2,11 +2,9 @@
 
 public interface IAuthenticationService
 {
-    
-    bool IsAuthenticated { get; }
-    
-    Task Authenticate();
+    Task Login();
 
-    Task WaitForAuthentication();
+    Task SignUp();
 
+    Task<bool> TryToAuthenticate();
 }

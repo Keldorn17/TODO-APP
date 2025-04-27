@@ -30,15 +30,14 @@
                                 IsExitButtonVisible="True" />
 
         <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
-            <ContentControl ContentTemplate="{StaticResource SvgIconTemplate}" 
-                            Width="20" 
-                            Content="{StaticResource TodoListIcon}" Margin="20,5,5,0"/> 
+            <ContentControl ContentTemplate="{StaticResource SvgIconTemplate}"
+                            Width="20"
+                            Content="{StaticResource TodoListIcon}" Margin="20,5,5,0" />
             <TextBlock Text="Todo App"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
                        Foreground="{DynamicResource SecondaryTextBrush}"
-                       FontSize="22"
-                       />
+                       FontSize="22" />
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="0">
 
@@ -48,25 +47,28 @@
                          FontSize="14"
                          Style="{StaticResource MenuButtonTheme}"
                          IsChecked="True"
-                         Command="{Binding NavigateToPersonalCommand}" />
+                         Command="{Binding NavigateToPersonalCommand}"
+                         Tag="{Binding RefreshTodosCommand}" />
             <RadioButton Content="Shared"
                          Height="50"
                          Foreground="{DynamicResource SecondaryTextBrush}"
                          FontSize="14"
                          Style="{StaticResource MenuButtonTheme}"
-                         Command="{Binding NavigateToSharedCommand}" />
+                         Command="{Binding NavigateToSharedCommand}"
+                         Tag="{Binding RefreshTodosCommand}" />
             <RadioButton Content="All"
                          Height="50"
                          Foreground="{DynamicResource SecondaryTextBrush}"
                          FontSize="14"
                          Style="{StaticResource MenuButtonTheme}"
-                         Command="{Binding NavigateToAllCommand}" />
-
+                         Command="{Binding NavigateToAllCommand}"
+                         Tag="{Binding RefreshTodosCommand}" />
         </StackPanel>
 
         <Grid Grid.Row="0" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="100" />
                 <ColumnDefinition Width="130" />
             </Grid.ColumnDefinitions>
 
@@ -83,42 +85,48 @@
                         Tag="Add Todo" />
             </StackPanel>
 
-            <Border Grid.Column="1" Style="{StaticResource DropdownSettingsBorder}"
+            <TextBlock Grid.Column="1" Text="{Binding Username}"
+                       Margin="0 10 0 0"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Right"
+                       Foreground="{DynamicResource SecondaryTextBrush}"
+                       FontSize="14" />
+
+            <Border Grid.Column="2" Style="{StaticResource DropdownSettingsBorder}"
                     HorizontalAlignment="Left"
                     Margin="5,5,0,5"
                     VerticalAlignment="Top">
                 <Button Style="{StaticResource DropdownButtonStyle}" Cursor="Hand">
                     <StackPanel>
-                        <Button Style="{StaticResource DropdownButton}" Cursor="Hand">
+                        <Button Style="{StaticResource DropdownButton}" Cursor="Hand"
+                                Command="{Binding OpenProfileCommand}">
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                <ContentControl ContentTemplate="{StaticResource SvgIconTemplate}" 
-                                                Width="14" 
-                                                Content="{StaticResource ProfileIcon}"/>
+                                <ContentControl ContentTemplate="{StaticResource SvgIconTemplate}"
+                                                Width="14"
+                                                Content="{StaticResource ProfileIcon}" />
                                 <TextBlock Text=" Profile"
                                            VerticalAlignment="Center" />
                             </StackPanel>
                         </Button>
-                        
                         <Separator Width="75" />
-                        
-                        <Button Style="{StaticResource DropdownButton}" Cursor="Hand">
+
+                        <CheckBox HorizontalAlignment="Left"
+                                  Style="{DynamicResource ThemeSwitcherCheckBox}"
+                                  VerticalAlignment="Center"
+                                  Cursor="Hand"
+                                  Click="Btn_ToggleTheme" />
+                        <Separator Width="75" />
+
+                        <Button Style="{StaticResource DropdownButton}" Cursor="Hand" Command="{Binding LogoutCommand}">
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                <ContentControl ContentTemplate="{StaticResource SvgIconTemplate}" 
-                                                Width="14" 
-                                                Content="{StaticResource SettingsIcon}"/>
-                                <TextBlock Text=" Settings"
+                                <ContentControl ContentTemplate="{StaticResource SvgIconTemplate}"
+                                                Width="14"
+                                                Content="{StaticResource LogoutIcon}" />
+                                <TextBlock Text=" Logout"
                                            VerticalAlignment="Center" />
                             </StackPanel>
                         </Button>
-                        
-                        <Separator Width="75" />
-                        
-                        <CheckBox HorizontalAlignment="Left" 
-                                  Style="{DynamicResource ThemeSwitcherCheckBox}" 
-                                  VerticalAlignment="Center" 
-                                  Cursor="Hand" 
-                                  Click="Btn_ToggleTheme" />
-                           
+
                     </StackPanel>
                 </Button>
             </Border>
