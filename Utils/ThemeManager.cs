@@ -1,10 +1,17 @@
 ﻿using System.Windows;
-
+using System.Configuration;
+using TODO.Model;
+using DynamicData.Diagnostics;
+using System.Diagnostics;
 namespace TODO.Utils
+
 {
     public static class ThemeManager
     {
         private static string _currentTheme = "DarkTheme";
+
+        private static Configuration UserConfig = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+
 
         public static void ToggleTheme()
         {
@@ -37,6 +44,38 @@ namespace TODO.Utils
         public static string GetCurrentTheme()
         {
             return _currentTheme;
+        }
+
+        public static void SaveTheme()
+        {
+            UserSettings UserSettingsSection = UserConfig.GetSection("UserSettings") as UserSettings;
+
+            UserSettingsSection.Theme = _currentTheme;
+
+            UserConfig.Save();
+        }
+
+        public static void LoadTheme()
+        {
+            if (UserConfig.Sections["UserSettings"] is null)
+            {
+                UserConfig.Sections.Add("UserSettings", new UserSettings());
+            }
+
+            UserSettings UserSettingsSection = UserConfig.GetSection("UserSettings") as UserSettings;
+
+            if(_currentTheme != UserSettingsSection?.Theme)
+            {
+                ToggleTheme();
+                
+            }
+        }
+        public static bool CurrentThemeIsDark()
+        {
+            if (_currentTheme == "DarkTheme")
+                return true;
+
+            return false;
         }
     }
 }
