@@ -114,7 +114,9 @@
                                   Style="{DynamicResource ThemeSwitcherCheckBox}"
                                   VerticalAlignment="Center"
                                   Cursor="Hand"
-                                  Click="Btn_ToggleTheme" />
+                                  Click="Btn_ToggleTheme" 
+                                  Loaded="CheckBox_Loaded"
+                                  />
                         <Separator Width="75" />
 
                         <Button Style="{StaticResource DropdownButton}" Cursor="Hand" Command="{Binding LogoutCommand}">

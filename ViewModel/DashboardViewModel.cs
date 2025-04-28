@@ -7,6 +7,7 @@ using TODO.Domain;
 using TODO.Model;
 using TODO.Service;
 using TODO.View;
+using TODO.Utils;
 
 namespace TODO.ViewModel;
 
@@ -34,6 +35,7 @@ public partial class DashboardViewModel : AbstractViewModel
     public DashboardViewModel(DashboardNavigationService navigation, TodoClient todoClient, IMessenger messenger,
         IProfileService profileService, ILogger<DashboardViewModel> log)
     {
+        ThemeManager.LoadTheme();
         Navigation = navigation;
         _todoClient = todoClient;
         _messenger = messenger;

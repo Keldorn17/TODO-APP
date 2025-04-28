@@ -10,6 +10,7 @@ using TODO.Client;
 using TODO.Domain;
 using TODO.Provider;
 using TODO.Service;
+using TODO.Utils;
 using TODO.View;
 using TODO.ViewModel;
 using JsonSerializerOptions = System.Text.Json.JsonSerializerOptions;
@@ -69,6 +70,7 @@ public partial class App
 
     protected override void OnExit(ExitEventArgs e)
     {
+        ThemeManager.SaveTheme();
         _serviceProvider.Dispose();
         Log.CloseAndFlush();
         base.OnExit(e);

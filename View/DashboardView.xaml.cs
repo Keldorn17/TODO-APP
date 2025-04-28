@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using TODO.Utils;
 
 namespace TODO.View;
@@ -16,5 +15,10 @@ public partial class DashboardView
     {
         ThemeManager.ToggleTheme();
     }
-    
+
+    private void CheckBox_Loaded(object sender, RoutedEventArgs e)
+    {
+        if(ThemeManager.GetCurrentTheme() != "DarkTheme") 
+            (sender as CheckBox).IsChecked = true;
+    }
 }
