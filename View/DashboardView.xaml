@@ -110,11 +110,22 @@
                         </Button>
                         <Separator Width="75" />
 
-                        <CheckBox HorizontalAlignment="Left"
+                        <CheckBox x:Name="ThemeSwitch"
+                                  HorizontalAlignment="Left"
                                   Style="{DynamicResource ThemeSwitcherCheckBox}"
                                   VerticalAlignment="Center"
                                   Cursor="Hand"
-                                  Click="Btn_ToggleTheme" />
+                                  Command="{Binding ToggleThemeCommand}">
+                                  
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Loaded">
+                                        <i:InvokeCommandAction Command="{Binding ThemeButtonSwitchCommand}" CommandParameter="{x:Reference Name='ThemeSwitch'}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                        </CheckBox>
+
+                        
+
                         <Separator Width="75" />
 
                         <Button Style="{StaticResource DropdownButton}" Cursor="Hand" Command="{Binding LogoutCommand}">

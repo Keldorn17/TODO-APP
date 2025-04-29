@@ -7,6 +7,8 @@ using TODO.Domain;
 using TODO.Model;
 using TODO.Service;
 using TODO.View;
+using TODO.Utils;
+using System.Windows.Controls;
 
 namespace TODO.ViewModel;
 
@@ -108,5 +110,19 @@ public partial class DashboardViewModel : AbstractViewModel
             {
             }
         }, token);
+    }
+    [RelayCommand]
+    private void ToggleTheme()
+    {
+        ThemeManager.ToggleTheme();
+    }
+
+    [RelayCommand]
+    private void ThemeButtonSwitch(object sender)
+    {
+        if (ThemeManager.GetCurrentTheme() != Themes.DarkTheme)
+        {
+            (sender as CheckBox)!.IsChecked = true;
+        }
     }
 }
