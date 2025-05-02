@@ -11,6 +11,7 @@
     <PublishSingleFile>false</PublishSingleFile>
     <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
     <Version>1.0.13</Version>
+	<ApplicationIcon>Themes\icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -40,6 +41,12 @@
     <Content Include="redirect.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Themes\icon.ico" />
+    <Resource Include="Themes\icon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

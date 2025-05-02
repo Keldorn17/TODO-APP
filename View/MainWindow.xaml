@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewmodel="clr-namespace:TODO.ViewModel"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        Icon="/Themes/icon.ico"
+        Title="Todo App"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=viewmodel:MainWindowViewModel}"
         Height="600" Width="920"
