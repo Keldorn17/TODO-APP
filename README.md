@@ -119,7 +119,4 @@ We welcome suggestions, issues, and contributions! Here's how you can help:
 
 ## 🙌 Credits
 
-Developed by [Keldorn17](https://github.com/Keldorn17) and [robotTX](https://github.com/robotTX1) collaborators as part of a university coursework project.
-
-
-
+Developed by [Keldorn17](https://github.com/Keldorn17), [robotTX](https://github.com/robotTX1) and [Turboblider55](https://github.com/Turboblider55) as part of a university coursework project.
