@@ -10,7 +10,7 @@
     <SelfContained>true</SelfContained>
     <PublishSingleFile>false</PublishSingleFile>
     <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
-    <Version>1.0.17</Version>
+    <Version>1.0.18</Version>
 	<ApplicationIcon>Themes\icon.ico</ApplicationIcon>
   </PropertyGroup>
 
